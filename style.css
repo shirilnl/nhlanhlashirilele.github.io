@@ -2395,83 +2395,139 @@ right:auto;
     QR CARD
 ==================================================*/
 
-.qr-card{
+/*==========================================
+      PREMIUM QR CARD
+==========================================*/
+
+.qr-section{
+
+    padding:120px 0;
+
+}
+
+.qr-premium-card{
+
+    max-width:520px;
+
+    margin:auto;
 
     background:var(--surface);
 
-    border-radius:25px;
+    border-radius:30px;
 
-    border:1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    padding:45px;
+    padding:55px;
 
     text-align:center;
 
-}
+    box-shadow:0 25px 70px rgba(0,0,0,.12);
 
-.qr-card h2{
-
-    margin-bottom:15px;
+    border:1px solid var(--border);
 
 }
 
-.qr-card p{
+.qr-profile{
 
-    color:var(--text-light);
+    width:140px;
+
+    height:140px;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    margin:35px auto 20px;
+
+    border:5px solid var(--primary);
+
+}
+
+.job-title{
+
+    display:block;
+
+    color:var(--primary);
+
+    font-weight:600;
 
     margin-bottom:30px;
 
 }
 
-.qr{
+.qr-wrapper{
 
-    width:220px;
+    width:270px;
 
-    height:220px;
+    height:270px;
 
-    margin:25px auto;
+    margin:35px auto;
 
-    padding:15px;
+    background:white;
 
-    background:#fff;
+    border-radius:24px;
 
-    border-radius:20px;
+    padding:18px;
 
-    box-shadow:var(--shadow);
-
-}
-
-.download-contact{
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    margin-top:20px;
-
-    background:var(--primary);
-
-    color:#fff;
-
-    padding:15px 28px;
-
-    border-radius:50px;
-
-    font-weight:600;
-
-    transition:.35s;
+    box-shadow:0 20px 45px rgba(0,0,0,.10);
 
 }
 
-.download-contact:hover{
+.qr-code{
 
-    background:var(--primary-dark);
+    width:100%;
 
-    transform:translateY(-4px);
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+.scan-text{
+
+    color:var(--text-light);
+
+    margin-bottom:35px;
+
+}
+
+.qr-buttons{
+
+    display:flex;
+
+    gap:18px;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+@media(max-width:600px){
+
+.qr-premium-card{
+
+padding:35px 25px;
+
+}
+
+.qr-wrapper{
+
+width:220px;
+
+height:220px;
+
+}
+
+.qr-buttons{
+
+flex-direction:column;
+
+}
+
+.qr-buttons .btn{
+
+width:100%;
+
+}
 
 }
 
