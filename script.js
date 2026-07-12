@@ -1576,3 +1576,232 @@ toast.remove();
 
 console.log("Contact Module Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 9
+==================================================*/
+
+/*==================================
+    LAZY LOADING IMAGES
+==================================*/
+
+const lazyImages = document.querySelectorAll("img[data-src]");
+
+if ("IntersectionObserver" in window) {
+
+    const lazyObserver = new IntersectionObserver((entries, observer) => {
+
+        entries.forEach(entry => {
+
+            if (!entry.isIntersecting) return;
+
+            const image = entry.target;
+
+            image.src = image.dataset.src;
+
+            image.onload = () => {
+
+                image.classList.add("loaded");
+
+            };
+
+            observer.unobserve(image);
+
+        });
+
+    }, {
+
+        rootMargin: "150px"
+
+    });
+
+    lazyImages.forEach(img => lazyObserver.observe(img));
+
+}
+
+/*==================================
+    LAZY LOAD IFRAMES
+==================================*/
+
+const lazyFrames = document.querySelectorAll("iframe[data-src]");
+
+if ("IntersectionObserver" in window) {
+
+    const frameObserver = new IntersectionObserver((entries, observer) => {
+
+        entries.forEach(entry => {
+
+            if (!entry.isIntersecting) return;
+
+            const frame = entry.target;
+
+            frame.src = frame.dataset.src;
+
+            observer.unobserve(frame);
+
+        });
+
+    });
+
+    lazyFrames.forEach(frame => frameObserver.observe(frame));
+
+}
+
+/*==================================
+    THROTTLE
+==================================*/
+
+function throttle(callback, delay) {
+
+    let waiting = false;
+
+    return function (...args) {
+
+        if (waiting) return;
+
+        callback.apply(this, args);
+
+        waiting = true;
+
+        setTimeout(() => {
+
+            waiting = false;
+
+        }, delay);
+
+    };
+
+}
+
+/*==================================
+    DEBOUNCE
+==================================*/
+
+function debounce(callback, delay) {
+
+    let timer;
+
+    return function (...args) {
+
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+
+            callback.apply(this, args);
+
+        }, delay);
+
+    };
+
+}
+
+/*==================================
+    OPTIMIZED WINDOW RESIZE
+==================================*/
+
+window.addEventListener(
+
+    "resize",
+
+    throttle(() => {
+
+        console.log("Window resized.");
+
+    }, 250)
+
+);
+
+/*==================================
+    PAGE VISIBILITY
+==================================*/
+
+document.addEventListener("visibilitychange", () => {
+
+    if (document.hidden) {
+
+        console.log("Page hidden");
+
+    } else {
+
+        console.log("Page visible");
+
+    }
+
+});
+
+/*==================================
+    PREFETCH INTERNAL LINKS
+==================================*/
+
+document.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("mouseenter", () => {
+
+        const href = link.getAttribute("href");
+
+        if (
+            href &&
+            !href.startsWith("http") &&
+            !href.startsWith("#")
+        ) {
+
+            const prefetch = document.createElement("link");
+
+            prefetch.rel = "prefetch";
+
+            prefetch.href = href;
+
+            document.head.appendChild(prefetch);
+
+        }
+
+    });
+
+});
+
+/*==================================
+    NETWORK STATUS
+==================================*/
+
+window.addEventListener("online", () => {
+
+    showToast("Internet connection restored.", "success");
+
+});
+
+window.addEventListener("offline", () => {
+
+    showToast("You are currently offline.", "error");
+
+});
+
+/*==================================
+    IMAGE FADE-IN
+==================================*/
+
+document.querySelectorAll("img").forEach(img => {
+
+    if (img.complete) {
+
+        img.classList.add("loaded");
+
+    } else {
+
+        img.addEventListener("load", () => {
+
+            img.classList.add("loaded");
+
+        });
+
+    }
+
+});
+
+/*==================================
+    SMOOTH SCROLLING SUPPORT
+==================================*/
+
+document.documentElement.style.scrollBehavior = "smooth";
+
+console.log("Performance Module Loaded");
+
