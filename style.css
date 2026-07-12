@@ -5144,3 +5144,66 @@ html{
 /*==============================
     END OF FILE
 ==============================*/
+/*==================================
+    MOBILE NAVIGATION
+==================================*/
+
+body.menu-open{
+
+    overflow:hidden;
+
+}
+
+.nav-menu.active{
+
+    display:flex;
+
+}
+
+.nav-menu a.active{
+
+    color:var(--primary);
+
+}
+
+.nav-menu a.active::after{
+
+    width:100%;
+
+}
+
+@media (max-width:991px){
+
+.nav-menu{
+
+position:fixed;
+
+top:90px;
+
+left:0;
+
+width:100%;
+
+background:var(--surface);
+
+flex-direction:column;
+
+padding:35px;
+
+gap:25px;
+
+display:none;
+
+box-shadow:0 15px 40px rgba(0,0,0,.15);
+
+z-index:999;
+
+}
+
+body.dark .nav-menu{
+
+background:#132238;
+
+}
+
+}
