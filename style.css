@@ -5852,3 +5852,78 @@ background:#16a34a;
 
 }
 
+/*==================================
+    LAZY LOADING
+==================================*/
+
+img{
+
+opacity:0;
+
+transition:
+
+opacity .6s ease,
+
+transform .6s ease;
+
+}
+
+img.loaded{
+
+opacity:1;
+
+}
+
+/*==================================
+    IMAGE PLACEHOLDER
+==================================*/
+
+img[data-src]{
+
+filter:blur(6px);
+
+}
+
+img.loaded{
+
+filter:none;
+
+}
+
+/*==================================
+    PERFORMANCE
+==================================*/
+
+html{
+
+scroll-behavior:smooth;
+
+}
+
+/*==================================
+    REDUCE REPAINTS
+==================================*/
+
+.project-card,
+.service-card,
+.contact-card,
+.hero-image img{
+
+transform:translateZ(0);
+
+backface-visibility:hidden;
+
+}
+
+/*==================================
+    RESPONSIVE IMAGES
+==================================*/
+
+img{
+
+height:auto;
+
+display:block;
+
+}
+
