@@ -5927,3 +5927,53 @@ display:block;
 
 }
 
+/*==================================================
+    FINAL PRODUCTION POLISH
+==================================================*/
+
+body.app-ready{
+
+opacity:1;
+
+transition:opacity .4s ease;
+
+}
+
+::selection{
+
+background:#22c55e;
+
+color:#fff;
+
+}
+
+html{
+
+scrollbar-gutter:stable;
+
+}
+
+img{
+
+user-select:none;
+
+-webkit-user-drag:none;
+
+}
+
+button,
+a{
+
+-webkit-tap-highlight-color:transparent;
+
+}
+
+*:focus-visible{
+
+outline:3px solid #22c55e;
+
+outline-offset:3px;
+
+border-radius:8px;
+
+}
