@@ -1353,3 +1353,226 @@ updateLightbox();
 
 console.log("Projects Module Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 8
+==================================================*/
+
+/*==================================
+    CONTACT FORM
+==================================*/
+
+const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+
+        const name = document.getElementById("name");
+        const email = document.getElementById("email");
+        const message = document.getElementById("message");
+
+        if (
+            !name.value.trim() ||
+            !email.value.trim() ||
+            !message.value.trim()
+        ) {
+
+            showToast(
+                "Please complete all required fields.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        if (!email.value.includes("@")) {
+
+            showToast(
+                "Please enter a valid email address.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        showToast(
+            "Thank you! Your message is ready to send.",
+            "success"
+        );
+
+        contactForm.reset();
+
+    });
+
+}
+
+/*==================================
+    COPY EMAIL
+==================================*/
+
+const copyEmail = document.getElementById("copyEmail");
+
+if (copyEmail) {
+
+    copyEmail.addEventListener("click", () => {
+
+        navigator.clipboard.writeText(
+            "shirilelenl94@gmail.com"
+        );
+
+        showToast(
+            "Email copied to clipboard.",
+            "success"
+        );
+
+    });
+
+}
+
+/*==================================
+    COPY PHONE
+==================================*/
+
+const copyPhone = document.getElementById("copyPhone");
+
+if (copyPhone) {
+
+    copyPhone.addEventListener("click", () => {
+
+        navigator.clipboard.writeText(
+            "+27710059058"
+        );
+
+        showToast(
+            "Phone number copied.",
+            "success"
+        );
+
+    });
+
+}
+
+/*==================================
+    WHATSAPP
+==================================*/
+
+const whatsappButton =
+document.getElementById("whatsappBtn");
+
+if(whatsappButton){
+
+whatsappButton.addEventListener("click",()=>{
+
+const message=
+encodeURIComponent(
+"Hello Nhlanhla, I found your portfolio and would like to discuss an opportunity."
+);
+
+window.open(
+
+`https://wa.me/27710059058?text=${message}`,
+
+"_blank"
+
+);
+
+});
+
+}
+
+/*==================================
+    PHONE CALL
+==================================*/
+
+const callButton =
+document.getElementById("callBtn");
+
+if(callButton){
+
+callButton.addEventListener("click",()=>{
+
+window.location.href="tel:+27710059058";
+
+});
+
+}
+
+/*==================================
+    GOOGLE MAPS
+==================================*/
+
+const mapButton=document.getElementById("mapBtn");
+
+if(mapButton){
+
+mapButton.addEventListener("click",()=>{
+
+window.open(
+
+"https://maps.google.com",
+
+"_blank"
+
+);
+
+});
+
+}
+
+/*==================================
+    DOWNLOAD CV
+==================================*/
+
+const downloadCV=document.getElementById("downloadCV");
+
+if(downloadCV){
+
+downloadCV.addEventListener("click",()=>{
+
+showToast("Downloading CV...","success");
+
+});
+
+}
+
+/*==================================
+    TOAST NOTIFICATION
+==================================*/
+
+function showToast(message,type="success"){
+
+const toast=document.createElement("div");
+
+toast.className=`toast ${type}`;
+
+toast.innerHTML=message;
+
+document.body.appendChild(toast);
+
+setTimeout(()=>{
+
+toast.classList.add("show");
+
+},100);
+
+setTimeout(()=>{
+
+toast.classList.remove("show");
+
+setTimeout(()=>{
+
+toast.remove();
+
+},400);
+
+},3000);
+
+}
+
+console.log("Contact Module Loaded");
+
