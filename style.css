@@ -4115,23 +4115,64 @@ body{
     CONTACT
 ==========================================================*/
 
-.contact{
+.contact-buttons{
 
-    position:relative;
-
-    overflow:hidden;
+display:flex;
+gap:20px;
+justify-content:center;
+flex-wrap:wrap;
 
 }
 
-.contact-grid{
 
-    display:grid;
+.contact-btn{
 
-    grid-template-columns:1.2fr .8fr;
+padding:14px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
 
-    gap:45px;
+}
 
-    align-items:start;
+
+.contact-btn:hover{
+
+transform:translateY(-5px);
+
+}
+
+
+.qr-section{
+
+text-align:center;
+padding:60px 20px;
+
+}
+
+
+#qrText{
+
+padding:12px;
+width:300px;
+border-radius:10px;
+
+}
+
+
+#qrcode{
+
+margin-top:30px;
+display:flex;
+justify-content:center;
+
+}
+
+
+.cv-counter{
+
+margin-top:20px;
+font-size:18px;
 
 }
 
