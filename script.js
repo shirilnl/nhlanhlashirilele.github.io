@@ -310,4 +310,179 @@ window.addEventListener("scroll", () => {
 });
 
 console.log("Navigation Module Loaded");
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 3
+==================================================*/
+
+/*==================================
+    DARK / LIGHT MODE
+==================================*/
+
+const themeToggle = document.getElementById("themeToggle");
+const bodyElement = document.body;
+
+const THEME_KEY = "portfolio-theme";
+
+/*==================================
+    APPLY THEME
+==================================*/
+
+function applyTheme(theme) {
+
+    if (theme === "dark") {
+
+        bodyElement.classList.add("dark");
+
+        if (themeToggle) {
+
+            themeToggle.innerHTML =
+                '<i class="fas fa-sun"></i>';
+
+            themeToggle.setAttribute(
+                "aria-label",
+                "Switch to Light Mode"
+            );
+
+        }
+
+    } else {
+
+        bodyElement.classList.remove("dark");
+
+        if (themeToggle) {
+
+            themeToggle.innerHTML =
+                '<i class="fas fa-moon"></i>';
+
+            themeToggle.setAttribute(
+                "aria-label",
+                "Switch to Dark Mode"
+            );
+
+        }
+
+    }
+
+}
+
+/*==================================
+    SAVE THEME
+==================================*/
+
+function saveTheme(theme) {
+
+    localStorage.setItem(THEME_KEY, theme);
+
+}
+
+/*==================================
+    GET SAVED THEME
+==================================*/
+
+function getSavedTheme() {
+
+    return localStorage.getItem(THEME_KEY);
+
+}
+
+/*==================================
+    DETECT SYSTEM THEME
+==================================*/
+
+function getSystemTheme() {
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+
+}
+
+/*==================================
+    INITIALIZE THEME
+==================================*/
+
+function initializeTheme() {
+
+    const savedTheme = getSavedTheme();
+
+    if (savedTheme) {
+
+        applyTheme(savedTheme);
+
+    } else {
+
+        applyTheme(getSystemTheme());
+
+    }
+
+}
+
+initializeTheme();
+
+/*==================================
+    TOGGLE THEME
+==================================*/
+
+if (themeToggle) {
+
+    themeToggle.addEventListener("click", () => {
+
+        const newTheme =
+            bodyElement.classList.contains("dark")
+                ? "light"
+                : "dark";
+
+        applyTheme(newTheme);
+
+        saveTheme(newTheme);
+
+    });
+
+}
+
+/*==================================
+    SYSTEM THEME CHANGES
+==================================*/
+
+const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+mediaQuery.addEventListener("change", e => {
+
+    const savedTheme = getSavedTheme();
+
+    /* Only follow system theme
+       if the user hasn't chosen one */
+
+    if (!savedTheme) {
+
+        applyTheme(e.matches ? "dark" : "light");
+
+    }
+
+});
+
+/*==================================
+    THEME TRANSITION
+==================================*/
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    bodyElement.classList.add("theme-ready");
+
+});
+
+/*==================================
+    CLEAR THEME (Developer Helper)
+==================================*/
+
+function resetThemePreference() {
+
+    localStorage.removeItem(THEME_KEY);
+
+    applyTheme(getSystemTheme());
+
+}
+
+console.log("Theme Module Loaded");
 
