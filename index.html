@@ -3,149 +3,83 @@
 
 <head>
 
-    <!-- =========================================
-        META
-    ========================================== -->
+<meta charset="UTF-8">
 
-    <meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+<meta name="description"
+content="Official portfolio of Nhlanhla Lucky Shirilele, Electrical & Electronic Engineer specialising in Telecommunications, Fibre Networks, Physical Security Systems and Network Infrastructure.">
 
-    <meta http-equiv="X-UA-Compatible"
-          content="IE=edge">
+<meta name="keywords"
+content="Electrical Engineer, Electronic Engineer, Telecommunications, Fibre, Microwave, Eskom, South Africa">
 
-    <title>
-        Nhlanhla Lucky Shirilele | Electrical & Electronic Engineer
-    </title>
+<meta name="author"
+content="Nhlanhla Lucky Shirilele">
 
-    <meta name="description"
-          content="Professional Executive Engineer specializing in Telecommunications, Fibre Networks, Microwave, Access Networks and Physical Security Systems.">
+<meta name="theme-color"
+content="#22C55E">
 
-    <meta name="keywords"
-          content="Engineer, Telecommunications, Fibre, Microwave, Eskom, South Africa, Networking">
+<title>
+Nhlanhla Lucky Shirilele | Electrical & Electronic Engineer
+</title>
 
-    <meta name="author"
-          content="Nhlanhla Lucky Shirilele">
+<link rel="icon"
+type="image/png"
+href="./images/favicon.png">
 
-    <meta name="theme-color"
-          content="#22C55E">
+<link rel="manifest"
+href="./manifest.json">
 
-    <!-- =========================================
-        OPEN GRAPH
-    ========================================== -->
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-    <meta property="og:title"
-          content="Nhlanhla Lucky Shirilele">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
 
-    <meta property="og:description"
-          content="Executive Engineer Portfolio">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
 
-    <meta property="og:type"
-          content="website">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <meta property="og:image"
-          content="assets/images/profile.jpg">
-
-    <!-- =========================================
-        FAVICON
-    ========================================== -->
-
-    <link rel="icon" type="image/png" href="./images/favicon.png">
-
-    <!-- =========================================
-        PWA
-    ========================================== -->
-
-    <link rel="manifest"
-          href="manifest.json">
-
-    <!-- =========================================
-        GOOGLE FONT
-    ========================================== -->
-
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- =========================================
-        FONT AWESOME
-    ========================================== -->
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- =========================================
-        STYLESHEET
-    ========================================== -->
-
-    <link rel="stylesheet"
-          href="style.css">
+<link rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
 
-<!-- =========================================
-        BACKGROUND BLOBS
-========================================== -->
+<div id="loader">
 
-<div class="background">
-
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+<div class="spinner"></div>
 
 </div>
-
-<!-- =========================================
-        BACK TO TOP
-========================================== -->
-
-<a href="#home"
-   class="back-to-top">
-
-    <i class="fa-solid fa-arrow-up"></i>
-
-</a>
-
-<!-- =========================================
-        THEME BUTTON
-========================================== -->
-
-<button class="theme-toggle"
-        id="themeToggle">
-
-    <i class="fa-solid fa-moon"></i>
-
-</button>
-
-<!-- =========================================
-        NAVIGATION
-========================================== -->
 
 <header>
 
 <nav class="navbar">
 
-<div class="container flex-between">
+<div class="container">
 
-<a href="#home"
-   class="logo">
+<a href="#" class="logo">
 
-    <span>NLS</span>
+<img
+src="./images/logo.png"
+alt="Logo">
+
+<div>
+
+<h2>Nhlanhla</h2>
+
+<span>Electrical & Electronic Engineer</span>
+
+</div>
 
 </a>
 
-<ul class="nav-links"
-    id="navLinks">
+<ul class="nav-menu">
 
 <li><a href="#home">Home</a></li>
 
@@ -153,20 +87,27 @@
 
 <li><a href="#skills">Skills</a></li>
 
-<li><a href="#services">Services</a></li>
+<li><a href="#experience">Experience</a></li>
 
 <li><a href="#projects">Projects</a></li>
-
-<li><a href="#experience">Experience</a></li>
 
 <li><a href="#contact">Contact</a></li>
 
 </ul>
 
-<div class="menu-toggle"
-     id="menuToggle">
+<div class="nav-buttons">
 
-<i class="fa-solid fa-bars"></i>
+<button id="themeToggle">
+
+<i class="fas fa-moon"></i>
+
+</button>
+
+<button class="menu-btn">
+
+<i class="fas fa-bars"></i>
+
+</button>
 
 </div>
 
@@ -176,31 +117,31 @@
 
 </header>
 
-<!-- =========================================
-        HERO
-========================================== -->
+<!-- HERO -->
 
 <section
-id="home"
-class="hero">
+class="hero"
+id="home">
 
-<div class="container">
+<div class="container hero-grid">
 
-<div class="hero-content fade-up">
+<div class="hero-text">
 
-<div class="profile-wrapper">
+<span class="hero-badge">
 
-<img src="./images/hero-bg.jpg" alt="Hero">
+Electrical Engineering • Telecommunications
 
-</div>
+</span>
 
 <h1>
 
-Nhlanhla Lucky
+Hi,
+
+I'm
 
 <span>
 
-Shirilele
+Nhlanhla Lucky Shirilele
 
 </span>
 
@@ -208,61 +149,82 @@ Shirilele
 
 <h2>
 
-Executive Engineer
+Electrical & Electronic Engineer
 
 </h2>
 
-<p class="tagline">
+<p>
 
-Telecommunications • Fibre Networks • Microwave Systems •
-Physical Security Systems • Access Networks
+Passionate about modern electrical engineering,
+telecommunications, fibre-optic infrastructure,
+network transport systems and physical security
+solutions. I enjoy solving complex engineering
+problems while building reliable, scalable and
+future-ready systems.
 
 </p>
 
-<div class="location">
+<div class="hero-buttons">
 
-<i class="fa-solid fa-location-dot"></i>
+<a
+href="./files/CV.pdf"
+class="btn btn-primary"
+download>
 
-Gauteng, South Africa
+<i class="fas fa-download"></i>
 
-</div>
-
-<div class="buttons">
-
-<a href="tel:+27000000000"
-class="btn phone">
-
-<i class="fa-solid fa-phone"></i>
-
-Call Me
+Download CV
 
 </a>
 
-<a href="https://wa.me/27000000000"
-class="btn whatsapp"
+<a
+href="#contact"
+class="btn btn-secondary">
+
+<i class="fas fa-envelope"></i>
+
+Contact Me
+
+</a>
+
+</div>
+
+<div class="hero-social">
+
+<a href="tel:+27710059058">
+
+<i class="fas fa-phone"></i>
+
+</a>
+
+<a
+href="https://wa.me/27710059058"
 target="_blank">
 
-<i class="fa-brands fa-whatsapp"></i>
-
-WhatsApp
+<i class="fab fa-whatsapp"></i>
 
 </a>
 
-<a href="mailto:your@email.com"
-class="btn email">
+<a
+href="mailto:shirilelenl94@gmail.com">
 
-<i class="fa-solid fa-envelope"></i>
-
-Email
+<i class="fas fa-envelope"></i>
 
 </a>
 
-<a href="#contact"
-class="btn save">
+<a
+href="https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba"
+target="_blank">
 
-<i class="fa-solid fa-address-card"></i>
+<i class="fab fa-linkedin"></i>
 
-Contact
+</a>
+
+<a
+href="https://facebook.com/nhlanhlalucky.shirilele"
+target="_blank">
+
+<i class="fab fa-facebook"></i>
 
 </a>
 
@@ -270,9 +232,16 @@ Contact
 
 </div>
 
-<div class="scroll-down">
+<div class="hero-image">
 
-<i class="fa-solid fa-chevron-down"></i>
+<div class="image-frame">
+
+<img
+src="./images/profile.jpg"
+alt="Nhlanhla Lucky Shirilele"
+class="profile-image">
+
+</div>
 
 </div>
 
@@ -280,75 +249,133 @@ Contact
 
 </section>
 
-<!-- =========================================
-        PART 2 STARTS HERE
-========================================== -->
-<!-- =========================================
-        ABOUT SECTION
-========================================== -->
+<!-- ==========================================
+     ABOUT SECTION
+=========================================== -->
 
 <section id="about" class="about section">
 
     <div class="container">
 
-        <h2 class="section-title">
-            About Me
-        </h2>
+        <div class="section-header">
 
-        <p class="section-subtitle">
-            Passionate Executive Engineer with experience in
-            Telecommunications, Fibre Networks, Microwave Systems,
-            Access Networks and Physical Security Systems. I enjoy
-            designing reliable, secure and scalable network
-            infrastructure that keeps businesses connected.
-        </p>
+            <span class="section-tag">
+                ABOUT ME
+            </span>
 
-        <div class="about-wrapper">
+            <h2 class="section-title">
+                Building Reliable Engineering Solutions
+            </h2>
 
-            <!-- IMAGE -->
+            <p class="section-subtitle">
 
-            <div class="about-image fade-left">
+                I am an Electrical & Electronic Engineer with experience in
+                telecommunications infrastructure, transport networks,
+                fibre-optic systems and physical security technologies.
+
+            </p>
+
+        </div>
+
+        <div class="about-grid">
+
+            <!-- LEFT -->
+
+            <div class="about-image-card">
 
                 <img
-                    src="assets/images/profile.jpg"
-                    alt="Nhlanhla Lucky Shirilele">
+                    src="./images/about.jpg"
+                    alt="About Nhlanhla"
+                    class="about-image">
 
             </div>
 
-            <!-- TEXT -->
+            <!-- RIGHT -->
 
-            <div class="about-text fade-right">
+            <div class="about-content">
 
-                <h2>
-                    Executive Engineer
-                </h2>
+                <h3>
+
+                    Professional Profile
+
+                </h3>
 
                 <p>
 
-                    I am an engineering professional with experience in
-                    telecommunications infrastructure, fibre deployment,
-                    microwave transmission, access technologies,
-                    surveillance systems and physical security
-                    integration.
+                    I currently work within the telecommunications
+                    engineering environment where I contribute to
+                    transport network operations, surveillance,
+                    fibre infrastructure, microwave systems and
+                    access technologies.
 
                 </p>
 
                 <p>
 
-                    My goal is to deliver innovative engineering
-                    solutions while maintaining high standards of
-                    reliability, cybersecurity, operational excellence
-                    and customer satisfaction.
+                    My goal is to design, maintain and improve
+                    critical infrastructure that supports reliable
+                    communication and secure electrical systems
+                    throughout South Africa.
 
                 </p>
 
-                <p>
+                <div class="about-highlights">
 
-                    I continuously improve my technical skills and stay
-                    up to date with modern networking technologies,
-                    cloud platforms and enterprise infrastructure.
+                    <div class="highlight-card">
 
-                </p>
+                        <i class="fas fa-network-wired"></i>
+
+                        <div>
+
+                            <h4>
+                                Telecommunications
+                            </h4>
+
+                            <p>
+                                Fibre • Microwave • IP Networks
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="highlight-card">
+
+                        <i class="fas fa-bolt"></i>
+
+                        <div>
+
+                            <h4>
+                                Electrical Engineering
+                            </h4>
+
+                            <p>
+                                Design • Infrastructure • Maintenance
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="highlight-card">
+
+                        <i class="fas fa-shield-alt"></i>
+
+                        <div>
+
+                            <h4>
+                                Physical Security
+                            </h4>
+
+                            <p>
+                                CCTV • Access Control • Surveillance
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -358,91 +385,53 @@ Contact
 
 </section>
 
-<!-- =========================================
-        STATISTICS
-========================================== -->
+<!-- ==========================================
+     PROFESSIONAL STATISTICS
+=========================================== -->
 
 <section class="stats section">
 
     <div class="container">
 
-        <h2 class="section-title">
-
-            Professional Highlights
-
-        </h2>
-
         <div class="stats-grid">
 
-            <div class="stat-card fade-up">
+            <div class="stat-card">
 
-                <div
-                    class="stat-number"
-                    data-count="5">
+                <i class="fas fa-briefcase"></i>
 
-                    0
+                <h3 class="counter">2+</h3>
 
-                </div>
-
-                <div class="stat-title">
-
-                    Network Technologies
-
-                </div>
+                <span>Years Experience</span>
 
             </div>
 
-            <div class="stat-card fade-up delay-1">
+            <div class="stat-card">
 
-                <div
-                    class="stat-number"
-                    data-count="100">
+                <i class="fas fa-project-diagram"></i>
 
-                    0
+                <h3 class="counter">20+</h3>
 
-                </div>
-
-                <div class="stat-title">
-
-                    Project Commitment %
-
-                </div>
+                <span>Engineering Projects</span>
 
             </div>
 
-            <div class="stat-card fade-up delay-2">
+            <div class="stat-card">
 
-                <div
-                    class="stat-number"
-                    data-count="24">
+                <i class="fas fa-server"></i>
 
-                    0
+                <h3 class="counter">10+</h3>
 
-                </div>
-
-                <div class="stat-title">
-
-                    Support Availability
-
-                </div>
+                <span>Network Technologies</span>
 
             </div>
 
-            <div class="stat-card fade-up delay-3">
+            <div class="stat-card">
 
-                <div
-                    class="stat-number"
-                    data-count="50">
+                <i class="fas fa-award"></i>
 
-                    0
+                <h3 class="counter">100%</h3>
 
-                </div>
-
-                <div class="stat-title">
-
-                    Infrastructure Projects
-
-                </div>
+                <span>Commitment</span>
 
             </div>
 
@@ -452,180 +441,133 @@ Contact
 
 </section>
 
-<!-- =========================================
-        PROFESSIONAL PROFILE
-========================================== -->
+<!-- ==========================================
+     ABOUT SECTION
+=========================================== -->
 
-<section class="section">
+<section id="about" class="about section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Professional Profile
+            <span class="section-tag">
+                ABOUT ME
+            </span>
 
-        </h2>
+            <h2 class="section-title">
+                Building Reliable Engineering Solutions
+            </h2>
 
-        <p class="section-subtitle">
+            <p class="section-subtitle">
 
-            Dedicated engineering professional with practical experience
-            in enterprise telecommunications, network infrastructure,
-            surveillance technologies, fibre optics, microwave links,
-            routing, switching and physical security systems.
+                I am an Electrical & Electronic Engineer with experience in
+                telecommunications infrastructure, transport networks,
+                fibre-optic systems and physical security technologies.
 
-        </p>
-
-        <div class="grid grid-2 mt-5">
-
-            <div class="glass fade-left">
-
-                <div style="padding:40px;">
-
-                    <h3 class="text-primary">
-
-                        Core Strengths
-
-                    </h3>
-
-                    <ul class="mt-3">
-
-                        <li>✔ Telecommunications Engineering</li>
-
-                        <li>✔ Fibre Network Infrastructure</li>
-
-                        <li>✔ Microwave Systems</li>
-
-                        <li>✔ Physical Security Systems</li>
-
-                        <li>✔ Access Network Technologies</li>
-
-                        <li>✔ Infrastructure Monitoring</li>
-
-                        <li>✔ Incident Management</li>
-
-                        <li>✔ Technical Documentation</li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-            <div class="glass fade-right">
-
-                <div style="padding:40px;">
-
-                    <h3 class="text-primary">
-
-                        Personal Attributes
-
-                    </h3>
-
-                    <ul class="mt-3">
-
-                        <li>✔ Analytical Thinking</li>
-
-                        <li>✔ Leadership</li>
-
-                        <li>✔ Team Collaboration</li>
-
-                        <li>✔ Problem Solving</li>
-
-                        <li>✔ Attention to Detail</li>
-
-                        <li>✔ Customer Focus</li>
-
-                        <li>✔ Adaptability</li>
-
-                        <li>✔ Continuous Learning</li>
-
-                    </ul>
-
-                </div>
-
-            </div>
+            </p>
 
         </div>
 
-    </div>
+        <div class="about-grid">
 
-</section>
+            <!-- LEFT -->
 
-<!-- =========================================
-        EXPERIENCE HIGHLIGHTS
-========================================== -->
+            <div class="about-image-card">
 
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Experience Highlights
-
-        </h2>
-
-        <div class="services-grid mt-5">
-
-            <div class="service-card glow fade-up">
-
-                <i class="fa-solid fa-tower-broadcast"></i>
-
-                <h3>
-
-                    Telecommunications
-
-                </h3>
-
-                <p>
-
-                    Experience supporting enterprise
-                    telecommunications infrastructure,
-                    transmission technologies and network
-                    operations.
-
-                </p>
+                <img
+                    src="./images/about.jpg"
+                    alt="About Nhlanhla"
+                    class="about-image">
 
             </div>
 
-            <div class="service-card glow fade-up delay-1">
+            <!-- RIGHT -->
 
-                <i class="fa-solid fa-network-wired"></i>
+            <div class="about-content">
 
                 <h3>
 
-                    Fibre Networks
+                    Professional Profile
 
                 </h3>
 
                 <p>
 
-                    Knowledge of fibre deployment,
-                    maintenance, monitoring and
+                    I currently work within the telecommunications
+                    engineering environment where I contribute to
+                    transport network operations, surveillance,
+                    fibre infrastructure, microwave systems and
                     access technologies.
 
                 </p>
 
-            </div>
-
-            <div class="service-card glow fade-up delay-2">
-
-                <i class="fa-solid fa-shield-halved"></i>
-
-                <h3>
-
-                    Physical Security
-
-                </h3>
-
                 <p>
 
-                    Experience with surveillance,
-                    monitoring systems,
-                    alarms and integrated
-                    physical security solutions.
+                    My goal is to design, maintain and improve
+                    critical infrastructure that supports reliable
+                    communication and secure electrical systems
+                    throughout South Africa.
 
                 </p>
+
+                <div class="about-highlights">
+
+                    <div class="highlight-card">
+
+                        <i class="fas fa-network-wired"></i>
+
+                        <div>
+
+                            <h4>
+                                Telecommunications
+                            </h4>
+
+                            <p>
+                                Fibre • Microwave • IP Networks
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="highlight-card">
+
+                        <i class="fas fa-bolt"></i>
+
+                        <div>
+
+                            <h4>
+                                Electrical Engineering
+                            </h4>
+
+                            <p>
+                                Design • Infrastructure • Maintenance
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="highlight-card">
+
+                        <i class="fas fa-shield-alt"></i>
+
+                        <div>
+
+                            <h4>
+                                Physical Security
+                            </h4>
+
+                            <p>
+                                CCTV • Access Control • Surveillance
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 
@@ -635,104 +577,216 @@ Contact
 
 </section>
 
-<!-- =========================================
-        PART 3 STARTS HERE
-========================================== -->
-<!-- =========================================
-        SKILLS SECTION
+<!-- ==========================================
+     PROFESSIONAL STATISTICS
+=========================================== -->
+
+<section class="stats section">
+
+    <div class="container">
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <i class="fas fa-briefcase"></i>
+
+                <h3 class="counter">2+</h3>
+
+                <span>Years Experience</span>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fas fa-project-diagram"></i>
+
+                <h3 class="counter">20+</h3>
+
+                <span>Engineering Projects</span>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fas fa-server"></i>
+
+                <h3 class="counter">10+</h3>
+
+                <span>Network Technologies</span>
+
+            </div>
+
+            <div class="stat-card">
+
+                <i class="fas fa-award"></i>
+
+                <h3 class="counter">100%</h3>
+
+                <span>Commitment</span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     SKILLS & TECHNOLOGIES
 ========================================== -->
 
 <section id="skills" class="skills section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Technical Skills
+            <span class="section-tag">
 
-        </h2>
+                PROFESSIONAL SKILLS
 
-        <p class="section-subtitle">
+            </span>
 
-            Core competencies developed through practical
-            engineering experience in telecommunications,
-            networking, surveillance and enterprise infrastructure.
+            <h2 class="section-title">
 
-        </p>
+                Engineering Expertise & Technical Competencies
 
-        <div class="grid grid-2 mt-5">
+            </h2>
+
+            <p class="section-subtitle">
+
+                My experience spans electrical engineering,
+                telecommunications infrastructure, transport
+                networks, fibre optics, microwave systems and
+                physical security technologies.
+
+            </p>
+
+        </div>
+
+        <div class="skills-grid">
 
             <!-- LEFT COLUMN -->
 
-            <div>
+            <div class="skills-content">
+
+                <!-- Skill -->
 
                 <div class="skill">
 
-                    <div class="skill-title">
+                    <div class="skill-info">
 
-                        <strong>Fibre Networks</strong>
+                        <span>Electrical Engineering</span>
 
                         <span>95%</span>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="progress-bar">
 
-                        <div class="skill-fill fiber"></div>
-
-                    </div>
-
-                </div>
-
-                <div class="skill">
-
-                    <div class="skill-title">
-
-                        <strong>Microwave Systems</strong>
-
-                        <span>90%</span>
-
-                    </div>
-
-                    <div class="skill-bar">
-
-                        <div class="skill-fill microwave"></div>
+                        <div class="progress electrical"></div>
 
                     </div>
 
                 </div>
 
+                <!-- Skill -->
+
                 <div class="skill">
 
-                    <div class="skill-title">
+                    <div class="skill-info">
 
-                        <strong>Access Networks</strong>
+                        <span>Telecommunications</span>
+
+                        <span>94%</span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress telecoms"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Skill -->
+
+                <div class="skill">
+
+                    <div class="skill-info">
+
+                        <span>Fibre Optic Networks</span>
 
                         <span>92%</span>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="progress-bar">
 
-                        <div class="skill-fill network"></div>
+                        <div class="progress fibre"></div>
 
                     </div>
 
                 </div>
 
+                <!-- Skill -->
+
                 <div class="skill">
 
-                    <div class="skill-title">
+                    <div class="skill-info">
 
-                        <strong>Physical Security</strong>
+                        <span>Microwave Systems</span>
 
-                        <span>88%</span>
+                        <span>90%</span>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="progress-bar">
 
-                        <div class="skill-fill security"></div>
+                        <div class="progress microwave"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Skill -->
+
+                <div class="skill">
+
+                    <div class="skill-info">
+
+                        <span>Physical Security Systems</span>
+
+                        <span>90%</span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress security"></div>
+
+                    </div>
+
+                </div>
+
+                <!-- Skill -->
+
+                <div class="skill">
+
+                    <div class="skill-info">
+
+                        <span>Network Infrastructure</span>
+
+                        <span>91%</span>
+
+                    </div>
+
+                    <div class="progress-bar">
+
+                        <div class="progress network"></div>
 
                     </div>
 
@@ -742,75 +796,77 @@ Contact
 
             <!-- RIGHT COLUMN -->
 
-            <div>
+            <div class="competency-panel">
 
-                <div class="skill">
+                <h3>
 
-                    <div class="skill-title">
+                    Core Competencies
 
-                        <strong>Cisco Networking</strong>
+                </h3>
 
-                        <span>85%</span>
+                <div class="competency-grid">
 
-                    </div>
+                    <div class="competency-card">
 
-                    <div class="skill-bar">
+                        <i class="fas fa-bolt"></i>
 
-                        <div class="skill-fill cisco"></div>
-
-                    </div>
-
-                </div>
-
-                <div class="skill">
-
-                    <div class="skill-title">
-
-                        <strong>Huawei Technologies</strong>
-
-                        <span>93%</span>
+                        <h4>Power Systems</h4>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="competency-card">
 
-                        <div class="skill-fill huawei"></div>
+                        <i class="fas fa-network-wired"></i>
 
-                    </div>
-
-                </div>
-
-                <div class="skill">
-
-                    <div class="skill-title">
-
-                        <strong>Nokia Networks</strong>
-
-                        <span>90%</span>
+                        <h4>Telecommunications</h4>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="competency-card">
 
-                        <div class="skill-fill nokia"></div>
+                        <i class="fas fa-wifi"></i>
 
-                    </div>
-
-                </div>
-
-                <div class="skill">
-
-                    <div class="skill-title">
-
-                        <strong>Infrastructure Monitoring</strong>
-
-                        <span>94%</span>
+                        <h4>Microwave</h4>
 
                     </div>
 
-                    <div class="skill-bar">
+                    <div class="competency-card">
 
-                        <div class="skill-fill fiber"></div>
+                        <i class="fas fa-ethernet"></i>
+
+                        <h4>Fibre Networks</h4>
+
+                    </div>
+
+                    <div class="competency-card">
+
+                        <i class="fas fa-video"></i>
+
+                        <h4>CCTV Systems</h4>
+
+                    </div>
+
+                    <div class="competency-card">
+
+                        <i class="fas fa-door-open"></i>
+
+                        <h4>Access Control</h4>
+
+                    </div>
+
+                    <div class="competency-card">
+
+                        <i class="fas fa-server"></i>
+
+                        <h4>Transport Networks</h4>
+
+                    </div>
+
+                    <div class="competency-card">
+
+                        <i class="fas fa-shield-alt"></i>
+
+                        <h4>Cyber Security</h4>
 
                     </div>
 
@@ -824,251 +880,610 @@ Contact
 
 </section>
 
-<!-- =========================================
-        TECHNOLOGY STACK
+<!-- ==========================================
+     TECHNOLOGY STACK
 ========================================== -->
 
-<section class="section">
+<section class="technology section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Technology Stack
+            <span class="section-tag">
 
-        </h2>
+                TECHNOLOGY STACK
 
-        <p class="section-subtitle">
+            </span>
 
-            Technologies, platforms and tools used in
-            telecommunications and enterprise environments.
+            <h2 class="section-title">
 
-        </p>
+                Platforms & Technologies
 
-        <div class="tech-stack">
+            </h2>
 
-            <span>Fibre Optics</span>
-            <span>Microwave</span>
-            <span>Cisco</span>
-            <span>Huawei</span>
-            <span>Nokia</span>
-            <span>ISAM</span>
-            <span>MSAN</span>
-            <span>GPON</span>
-            <span>DWDM</span>
-            <span>Ethernet</span>
-            <span>TCP/IP</span>
-            <span>Routing</span>
-            <span>Switching</span>
-            <span>Wi-Fi</span>
-            <span>LTE</span>
-            <span>5G</span>
-            <span>VPN</span>
-            <span>CCTV</span>
-            <span>Access Control</span>
-            <span>Alarm Systems</span>
-            <span>Python</span>
-            <span>HTML5</span>
-            <span>CSS3</span>
-            <span>JavaScript</span>
+        </div>
+
+        <div class="tech-grid">
+
+            <div class="tech-card">Cisco</div>
+
+            <div class="tech-card">Huawei</div>
+
+            <div class="tech-card">Juniper</div>
+
+            <div class="tech-card">Nokia</div>
+
+            <div class="tech-card">VMware</div>
+
+            <div class="tech-card">Microsoft Azure</div>
+
+            <div class="tech-card">AWS</div>
+
+            <div class="tech-card">Oracle Cloud</div>
+
+            <div class="tech-card">Python</div>
+
+            <div class="tech-card">HTML5</div>
+
+            <div class="tech-card">CSS3</div>
+
+            <div class="tech-card">JavaScript</div>
+
+            <div class="tech-card">Git</div>
+
+            <div class="tech-card">GitHub</div>
+
+            <div class="tech-card">SQL</div>
+
+            <div class="tech-card">Linux</div>
 
         </div>
 
     </div>
 
 </section>
-
-<!-- =========================================
-        ENGINEERING COMPETENCIES
+<!-- ==========================================
+     EXPERIENCE
 ========================================== -->
 
-<section class="section">
+<section id="experience" class="experience section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Engineering Competencies
+            <span class="section-tag">
+                EXPERIENCE
+            </span>
 
-        </h2>
+            <h2 class="section-title">
+                Professional Journey
+            </h2>
 
-        <div class="services-grid mt-5">
+            <p class="section-subtitle">
 
-            <div class="service-card glow">
+                My engineering career has focused on telecommunications,
+                transport infrastructure, surveillance systems and modern
+                network technologies.
 
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-network-wired"></i>
-
-                </div>
-
-                <h3>
-
-                    Network Infrastructure
-
-                </h3>
-
-                <p>
-
-                    Design, deployment and maintenance of
-                    enterprise communication networks.
-
-                </p>
-
-            </div>
-
-            <div class="service-card glow">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-satellite-dish"></i>
-
-                </div>
-
-                <h3>
-
-                    Microwave Links
-
-                </h3>
-
-                <p>
-
-                    Planning, monitoring and optimization
-                    of microwave transmission systems.
-
-                </p>
-
-            </div>
-
-            <div class="service-card glow">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-shield-halved"></i>
-
-                </div>
-
-                <h3>
-
-                    Security Integration
-
-                </h3>
-
-                <p>
-
-                    CCTV, access control,
-                    surveillance and physical
-                    security integration.
-
-                </p>
-
-            </div>
-
-            <div class="service-card glow">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-server"></i>
-
-                </div>
-
-                <h3>
-
-                    Infrastructure Operations
-
-                </h3>
-
-                <p>
-
-                    Monitoring enterprise
-                    infrastructure, fault management
-                    and incident response.
-
-                </p>
-
-            </div>
+            </p>
 
         </div>
 
-    </div>
+        <div class="timeline">
 
-</section>
+            <!-- Timeline Item -->
 
-<!-- =========================================
-        CERTIFICATIONS
-========================================== -->
+            <div class="timeline-item">
 
-<section class="section">
+                <div class="timeline-icon">
 
-    <div class="container">
+                    <i class="fas fa-building"></i>
 
-        <h2 class="section-title">
+                </div>
 
-            Certifications & Professional Development
+                <div class="timeline-content">
 
-        </h2>
+                    <span class="timeline-date">
 
-        <div class="grid grid-2 mt-5">
+                        December 2023 – Present
 
-            <div class="glass">
+                    </span>
 
-                <div style="padding:40px;">
+                    <h3>
 
-                    <h3 class="text-primary">
-
-                        Current Focus
+                        Electrical & Electronic Engineer
 
                     </h3>
 
-                    <ul class="mt-3">
+                    <h4>
 
-                        <li>✔ Telecommunications Engineering</li>
+                        Eskom Holdings SOC Ltd
 
-                        <li>✔ Fibre Infrastructure</li>
+                    </h4>
 
-                        <li>✔ Enterprise Networking</li>
+                    <p>
 
-                        <li>✔ Physical Security Systems</li>
+                        Working within the Telecommunications Engineering
+                        environment supporting national communication
+                        infrastructure and critical operational systems.
 
-                        <li>✔ Cloud Technologies</li>
+                    </p>
 
-                        <li>✔ Cybersecurity Principles</li>
+                </div>
+
+            </div>
+
+            <!-- Timeline Item -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-icon">
+
+                    <i class="fas fa-network-wired"></i>
+
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="timeline-date">
+
+                        Access Integration
+
+                    </span>
+
+                    <h3>
+
+                        Network Integration
+
+                    </h3>
+
+                    <p>
+
+                        Assisted with engineering activities involving
+                        telecommunications access integration and
+                        network connectivity.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Timeline Item -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-icon">
+
+                    <i class="fas fa-server"></i>
+
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="timeline-date">
+
+                        Access Data
+
+                    </span>
+
+                    <h3>
+
+                        Telecommunications Operations
+
+                    </h3>
+
+                    <p>
+
+                        Worked with transport systems,
+                        network monitoring and operational
+                        infrastructure supporting communication
+                        services.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Timeline Item -->
+
+            <div class="timeline-item">
+
+                <div class="timeline-icon">
+
+                    <i class="fas fa-satellite-dish"></i>
+
+                </div>
+
+                <div class="timeline-content">
+
+                    <span class="timeline-date">
+
+                        Current Role
+
+                    </span>
+
+                    <h3>
+
+                        Transport Surveillance & Analysis
+
+                    </h3>
+
+                    <p>
+
+                        Responsible for monitoring transport
+                        networks, analysing alarms,
+                        supporting fibre infrastructure,
+                        microwave systems,
+                        ISAM/MSAN technologies,
+                        T-Agent,
+                        B-Agent,
+                        and surveillance solutions.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     EDUCATION
+========================================== -->
+
+<section class="education section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <span class="section-tag">
+
+                EDUCATION
+
+            </span>
+
+            <h2 class="section-title">
+
+                Academic Background
+
+            </h2>
+
+        </div>
+
+        <div class="education-grid">
+
+            <div class="education-card">
+
+                <i class="fas fa-graduation-cap"></i>
+
+                <h3>
+
+                    Bachelor of Engineering Technology
+
+                </h3>
+
+                <p>
+
+                    Electrical Engineering
+
+                </p>
+
+            </div>
+
+            <div class="education-card">
+
+                <i class="fas fa-school"></i>
+
+                <h3>
+
+                    National Senior Certificate
+
+                </h3>
+
+                <p>
+
+                    Freedom Park Secondary School
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================
+     PROFESSIONAL CERTIFICATIONS
+========================================== -->
+
+<section class="certifications section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <span class="section-tag">
+
+                CERTIFICATIONS
+
+            </span>
+
+            <h2 class="section-title">
+
+                Professional Development
+
+            </h2>
+
+        </div>
+
+        <div class="certificate-grid">
+
+            <div class="certificate-card">
+
+                <i class="fas fa-certificate"></i>
+
+                <h4>
+
+                    Electrical Engineering
+
+                </h4>
+
+            </div>
+
+            <div class="certificate-card">
+
+                <i class="fas fa-broadcast-tower"></i>
+
+                <h4>
+
+                    Telecommunications Networks
+
+                </h4>
+
+            </div>
+
+            <div class="certificate-card">
+
+                <i class="fas fa-cloud"></i>
+
+                <h4>
+
+                    Cloud Technologies
+
+                </h4>
+
+            </div>
+
+            <div class="certificate-card">
+
+                <i class="fas fa-shield-alt"></i>
+
+                <h4>
+
+                    Cyber Security Fundamentals
+
+                </h4>
+
+            </div>
+
+            <div class="certificate-card">
+
+                <i class="fas fa-laptop-code"></i>
+
+                <h4>
+
+                    Python Programming
+
+                </h4>
+
+            </div>
+
+            <div class="certificate-card">
+
+                <i class="fas fa-user-check"></i>
+
+                <h4>
+
+                    ECSA Registration (In Progress)
+
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==========================================
+     PROJECTS
+========================================== -->
+
+<section id="projects" class="projects section">
+
+    <div class="container">
+
+        <div class="section-header">
+
+            <span class="section-tag">
+
+                FEATURED PROJECTS
+
+            </span>
+
+            <h2 class="section-title">
+
+                Engineering Portfolio
+
+            </h2>
+
+            <p class="section-subtitle">
+
+                Selected engineering disciplines and technologies
+                that represent my experience and professional interests.
+
+            </p>
+
+        </div>
+
+        <div class="projects-grid">
+
+            <!-- Project 1 -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img
+                    src="./images/project1.jpg"
+                    alt="Fibre Network">
+
+                </div>
+
+                <div class="project-content">
+
+                    <span class="project-category">
+
+                        Telecommunications
+
+                    </span>
+
+                    <h3>
+
+                        Fibre Optic Infrastructure
+
+                    </h3>
+
+                    <p>
+
+                        Supporting high-speed fibre transport
+                        infrastructure used for reliable data
+                        communication across enterprise and
+                        utility environments.
+
+                    </p>
+
+                    <ul>
+
+                        <li>✔ Fibre Networks</li>
+
+                        <li>✔ Backbone Infrastructure</li>
+
+                        <li>✔ Network Monitoring</li>
 
                     </ul>
 
                 </div>
 
-            </div>
+            </article>
 
-            <div class="glass">
+            <!-- Project 2 -->
 
-                <div style="padding:40px;">
+            <article class="project-card">
 
-                    <h3 class="text-primary">
+                <div class="project-image">
 
-                        Continuous Learning
+                    <img
+                    src="./images/project2.jpg"
+                    alt="Microwave Systems">
+
+                </div>
+
+                <div class="project-content">
+
+                    <span class="project-category">
+
+                        Radio Communications
+
+                    </span>
+
+                    <h3>
+
+                        Microwave Communication Systems
 
                     </h3>
 
-                    <ul class="mt-3">
+                    <p>
 
-                        <li>✔ Cisco Technologies</li>
+                        Supporting microwave communication
+                        technologies used to provide dependable
+                        long-distance transport connectivity.
 
-                        <li>✔ Huawei Enterprise</li>
+                    </p>
 
-                        <li>✔ Nokia Infrastructure</li>
+                    <ul>
 
-                        <li>✔ Network Automation</li>
+                        <li>✔ Microwave Links</li>
 
-                        <li>✔ AI for Engineering</li>
+                        <li>✔ Radio Networks</li>
 
-                        <li>✔ Cloud Networking</li>
+                        <li>✔ Transmission Systems</li>
 
                     </ul>
 
                 </div>
 
-            </div>
+            </article>
+
+            <!-- Project 3 -->
+
+            <article class="project-card">
+
+                <div class="project-image">
+
+                    <img
+                    src="./images/project3.jpg"
+                    alt="Transport Network">
+
+                </div>
+
+                <div class="project-content">
+
+                    <span class="project-category">
+
+                        Network Operations
+
+                    </span>
+
+                    <h3>
+
+                        Transport Surveillance & Analysis
+
+                    </h3>
+
+                    <p>
+
+                        Monitoring transport infrastructure,
+                        alarms, ISAM/MSAN equipment,
+                        T-Agent, B-Agent and communication
+                        network performance.
+
+                    </p>
+
+                    <ul>
+
+                        <li>✔ Alarm Analysis</li>
+
+                        <li>✔ ISAM/MSAN</li>
+
+                        <li>✔ Network Operations</li>
+
+                    </ul>
+
+                </div>
+
+            </article>
 
         </div>
 
@@ -1076,274 +1491,77 @@ Contact
 
 </section>
 
-<!-- =========================================
-        PART 4 STARTS HERE
-========================================== -->
-<!-- =========================================
-        SERVICES SECTION
+<!-- ==========================================
+     ENGINEERING SERVICES
 ========================================== -->
 
-<section id="services" class="services section">
+<section class="services section">
 
     <div class="container">
 
-        <h2 class="section-title">
-            Professional Services
-        </h2>
+        <div class="section-header">
 
-        <p class="section-subtitle">
-            Delivering reliable engineering solutions for modern
-            telecommunications, enterprise infrastructure and
-            physical security environments.
-        </p>
+            <span class="section-tag">
+
+                ENGINEERING SERVICES
+
+            </span>
+
+            <h2 class="section-title">
+
+                Areas of Expertise
+
+            </h2>
+
+        </div>
 
         <div class="services-grid">
 
-            <!-- SERVICE -->
+            <div class="service-card">
 
-            <div class="service-card glow fade-up">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-network-wired"></i>
-
-                </div>
+                <i class="fas fa-network-wired"></i>
 
                 <h3>
 
-                    Fibre Network Engineering
+                    Telecommunications
 
                 </h3>
 
                 <p>
 
-                    Design, deployment, maintenance and optimisation
-                    of fibre infrastructure for enterprise and utility
-                    networks.
+                    Fibre networks,
+                    microwave systems,
+                    transmission infrastructure
+                    and communication technologies.
 
                 </p>
 
             </div>
 
-            <!-- SERVICE -->
+            <div class="service-card">
 
-            <div class="service-card glow fade-up delay-1">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-tower-broadcast"></i>
-
-                </div>
+                <i class="fas fa-broadcast-tower"></i>
 
                 <h3>
 
-                    Microwave Transmission
+                    Network Operations
 
                 </h3>
 
                 <p>
 
-                    Installation, commissioning and monitoring of
-                    microwave transmission systems to ensure reliable
-                    communication.
+                    Network monitoring,
+                    transport surveillance,
+                    alarm management,
+                    performance analysis.
 
                 </p>
 
             </div>
 
-            <!-- SERVICE -->
+            <div class="service-card">
 
-            <div class="service-card glow fade-up delay-2">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-server"></i>
-
-                </div>
-
-                <h3>
-
-                    Enterprise Infrastructure
-
-                </h3>
-
-                <p>
-
-                    Infrastructure monitoring, incident management,
-                    network operations and systems integration.
-
-                </p>
-
-            </div>
-
-            <!-- SERVICE -->
-
-            <div class="service-card glow fade-up">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-shield-halved"></i>
-
-                </div>
-
-                <h3>
-
-                    Physical Security
-
-                </h3>
-
-                <p>
-
-                    CCTV, surveillance, access control,
-                    alarm monitoring and integrated
-                    security solutions.
-
-                </p>
-
-            </div>
-
-            <!-- SERVICE -->
-
-            <div class="service-card glow fade-up delay-1">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-cloud"></i>
-
-                </div>
-
-                <h3>
-
-                    Cloud Integration
-
-                </h3>
-
-                <p>
-
-                    Supporting hybrid enterprise
-                    infrastructure and cloud-enabled
-                    networking environments.
-
-                </p>
-
-            </div>
-
-            <!-- SERVICE -->
-
-            <div class="service-card glow fade-up delay-2">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-headset"></i>
-
-                </div>
-
-                <h3>
-
-                    Technical Support
-
-                </h3>
-
-                <p>
-
-                    Network troubleshooting,
-                    fault diagnostics,
-                    preventative maintenance
-                    and customer support.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        FEATURED PROJECTS
-========================================== -->
-
-<section id="projects" class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Featured Projects
-
-        </h2>
-
-        <p class="section-subtitle">
-
-            A selection of engineering disciplines and technologies
-            I have worked with throughout my professional career.
-
-        </p>
-
-        <div class="services-grid mt-5">
-
-            <!-- PROJECT -->
-
-            <div class="service-card glow fade-up">
-
-                <img
-                    src="assets/images/project1.jpg"
-                    alt="Fibre Network Project"
-                    style="border-radius:20px; margin-bottom:25px;">
-
-                <h3>
-
-                    Fibre Infrastructure
-
-                </h3>
-
-                <p>
-
-                    Fibre deployment,
-                    maintenance,
-                    monitoring and
-                    enterprise connectivity.
-
-                </p>
-
-            </div>
-
-            <!-- PROJECT -->
-
-            <div class="service-card glow fade-up delay-1">
-
-                <img
-                    src="assets/images/project2.jpg"
-                    alt="Microwave Project"
-                    style="border-radius:20px; margin-bottom:25px;">
-
-                <h3>
-
-                    Microwave Systems
-
-                </h3>
-
-                <p>
-
-                    Monitoring,
-                    optimisation and
-                    maintenance of
-                    microwave communication links.
-
-                </p>
-
-            </div>
-
-            <!-- PROJECT -->
-
-            <div class="service-card glow fade-up delay-2">
-
-                <img
-                    src="assets/images/project3.jpg"
-                    alt="Security Project"
-                    style="border-radius:20px; margin-bottom:25px;">
+                <i class="fas fa-shield-alt"></i>
 
                 <h3>
 
@@ -1354,9 +1572,30 @@ Contact
                 <p>
 
                     CCTV,
-                    surveillance,
-                    alarms and
-                    access control integration.
+                    access control,
+                    surveillance technologies,
+                    integrated security systems.
+
+                </p>
+
+            </div>
+
+            <div class="service-card">
+
+                <i class="fas fa-bolt"></i>
+
+                <h3>
+
+                    Electrical Engineering
+
+                </h3>
+
+                <p>
+
+                    Infrastructure,
+                    electrical systems,
+                    maintenance,
+                    engineering support.
 
                 </p>
 
@@ -1368,155 +1607,63 @@ Contact
 
 </section>
 
-<!-- =========================================
-        WHY WORK WITH ME
+<!-- ==========================================
+     TECHNOLOGY SHOWCASE
 ========================================== -->
 
-<section class="section">
+<section class="technology-showcase section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Why Work With Me
+            <span class="section-tag">
 
-        </h2>
+                TECHNOLOGIES
 
-        <div class="stats-grid mt-5">
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-lightbulb fa-3x text-primary"></i>
-
-                <h3 class="mt-3">
-
-                    Innovative Solutions
-
-                </h3>
-
-                <p class="mt-2">
-
-                    Practical engineering solutions
-                    designed around business needs.
-
-                </p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-users fa-3x text-primary"></i>
-
-                <h3 class="mt-3">
-
-                    Team Collaboration
-
-                </h3>
-
-                <p class="mt-2">
-
-                    Strong communication,
-                    leadership and
-                    collaborative problem solving.
-
-                </p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-chart-line fa-3x text-primary"></i>
-
-                <h3 class="mt-3">
-
-                    Continuous Improvement
-
-                </h3>
-
-                <p class="mt-2">
-
-                    Constantly improving
-                    skills and embracing
-                    modern technologies.
-
-                </p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <i class="fa-solid fa-award fa-3x text-primary"></i>
-
-                <h3 class="mt-3">
-
-                    Quality Engineering
-
-                </h3>
-
-                <p class="mt-2">
-
-                    Committed to delivering
-                    reliable, secure and
-                    scalable solutions.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        CALL TO ACTION
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="glass fade-scale"
-             style="padding:70px; text-align:center;">
+            </span>
 
             <h2 class="section-title">
 
-                Let's Build Something Great
+                Tools & Platforms
 
             </h2>
 
-            <p class="section-subtitle">
+        </div>
 
-                Whether you need telecommunications expertise,
-                enterprise networking, fibre infrastructure,
-                microwave systems or physical security solutions,
-                I'm ready to help deliver reliable engineering
-                results.
+        <div class="tech-showcase">
 
-            </p>
+            <span>Cisco</span>
 
-            <div class="buttons mt-5">
+            <span>Huawei</span>
 
-                <a href="#contact"
-                   class="btn save">
+            <span>ISAM</span>
 
-                    <i class="fa-solid fa-paper-plane"></i>
+            <span>MSAN</span>
 
-                    Contact Me
+            <span>Microwave</span>
 
-                </a>
+            <span>Fibre Optics</span>
 
-                <a href="#experience"
-                   class="btn phone">
+            <span>T-Agent</span>
 
-                    <i class="fa-solid fa-briefcase"></i>
+            <span>B-Agent</span>
 
-                    View Experience
+            <span>Transport Network</span>
 
-                </a>
+            <span>Python</span>
 
-            </div>
+            <span>HTML5</span>
+
+            <span>CSS3</span>
+
+            <span>JavaScript</span>
+
+            <span>Git</span>
+
+            <span>GitHub</span>
+
+            <span>Microsoft 365</span>
 
         </div>
 
@@ -1524,872 +1671,200 @@ Contact
 
 </section>
 
-<!-- =========================================
-        PART 5 STARTS HERE
-========================================== -->
-<!-- =========================================
-        EXPERIENCE SECTION
-========================================== -->
-
-<section id="experience" class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Professional Experience
-
-        </h2>
-
-        <p class="section-subtitle">
-
-            My professional journey in telecommunications,
-            network infrastructure and engineering.
-
-        </p>
-
-        <div class="timeline mt-5">
-
-            <!-- EXPERIENCE 1 -->
-
-            <div class="timeline-item fade-left">
-
-                <div class="timeline-content glass">
-
-                    <span class="badge">
-
-                        Dec 2023 – Present
-
-                    </span>
-
-                    <h3 class="mt-3">
-
-                        Executive Engineer
-
-                    </h3>
-
-                    <h4 class="text-primary">
-
-                        Access Data, Transport Surveillance & Analysis
-
-                    </h4>
-
-                    <p class="mt-3">
-
-                        Supporting enterprise telecommunications
-                        infrastructure including access networks,
-                        transport systems, fibre connectivity,
-                        surveillance platforms and engineering
-                        operations.
-
-                    </p>
-
-                    <ul class="mt-3">
-
-                        <li>✔ Fibre Network Operations</li>
-
-                        <li>✔ Microwave Infrastructure</li>
-
-                        <li>✔ ISAM & MSAN Technologies</li>
-
-                        <li>✔ Access Networks</li>
-
-                        <li>✔ Network Monitoring</li>
-
-                        <li>✔ Alarm Management</li>
-
-                        <li>✔ Infrastructure Analysis</li>
-
-                    </ul>
-
-                </div>
-
-            </div>
-
-            <!-- EXPERIENCE 2 -->
-
-            <div class="timeline-item fade-right">
-
-                <div class="timeline-content glass">
-
-                    <span class="badge">
-
-                        Previous Assignment
-
-                    </span>
-
-                    <h3 class="mt-3">
-
-                        Access Integration
-
-                    </h3>
-
-                    <h4 class="text-primary">
-
-                        Telecommunications Engineering
-
-                    </h4>
-
-                    <p class="mt-3">
-
-                        Worked on access integration,
-                        telecommunications systems,
-                        infrastructure support and
-                        enterprise network solutions.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        EDUCATION
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Education
-
-        </h2>
-
-        <div class="grid grid-2 mt-5">
-
-            <div class="glass">
-
-                <div style="padding:40px;">
-
-                    <i class="fa-solid fa-graduation-cap fa-3x text-primary"></i>
-
-                    <h3 class="mt-3">
-
-                        Engineering Qualification
-
-                    </h3>
-
-                    <p class="mt-2">
-
-                        Electrical Engineering
-
-                    </p>
-
-                    <p class="text-muted">
-
-                        Telecommunications &
-                        Physical Security Systems
-
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="glass">
-
-                <div style="padding:40px;">
-
-                    <i class="fa-solid fa-book-open fa-3x text-primary"></i>
-
-                    <h3 class="mt-3">
-
-                        Professional Development
-
-                    </h3>
-
-                    <p class="mt-2">
-
-                        Continuous learning in networking,
-                        cybersecurity, cloud technologies
-                        and infrastructure operations.
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        CERTIFICATIONS
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Professional Certifications
-
-        </h2>
-
-        <div class="services-grid mt-5">
-
-            <div class="service-card">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-certificate"></i>
-
-                </div>
-
-                <h3>
-
-                    Fibre Networks
-
-                </h3>
-
-                <p>
-
-                    Enterprise fibre technologies,
-                    infrastructure and maintenance.
-
-                </p>
-
-            </div>
-
-            <div class="service-card">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-satellite"></i>
-
-                </div>
-
-                <h3>
-
-                    Microwave Systems
-
-                </h3>
-
-                <p>
-
-                    Transmission technologies,
-                    optimisation and monitoring.
-
-                </p>
-
-            </div>
-
-            <div class="service-card">
-
-                <div class="icon-circle">
-
-                    <i class="fa-solid fa-network-wired"></i>
-
-                </div>
-
-                <h3>
-
-                    Networking
-
-                </h3>
-
-                <p>
-
-                    Routing, switching,
-                    enterprise infrastructure
-                    and IP networking.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        ACHIEVEMENTS
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Professional Achievements
-
-        </h2>
-
-        <div class="stats-grid mt-5">
-
-            <div class="stat-card">
-
-                <div class="stat-number">
-
-                    100%
-
-                </div>
-
-                <div class="stat-title">
-
-                    Commitment to Quality
-
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="stat-number">
-
-                    24/7
-
-                </div>
-
-                <div class="stat-title">
-
-                    Infrastructure Support
-
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="stat-number">
-
-                    50+
-
-                </div>
-
-                <div class="stat-title">
-
-                    Engineering Tasks
-
-                </div>
-
-            </div>
-
-            <div class="stat-card">
-
-                <div class="stat-number">
-
-                    ∞
-
-                </div>
-
-                <div class="stat-title">
-
-                    Continuous Learning
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        PROFESSIONAL MEMBERSHIPS
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Professional Memberships
-
-        </h2>
-
-        <div class="glass">
-
-            <div style="padding:50px; text-align:center;">
-
-                <i class="fa-solid fa-users fa-4x text-primary"></i>
-
-                <h3 class="mt-4">
-
-                    Engineering Community
-
-                </h3>
-
-                <p class="mt-3">
-
-                    Actively pursuing continuous professional
-                    development while expanding expertise in
-                    telecommunications engineering, enterprise
-                    networking, physical security systems and
-                    emerging technologies.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        PART 6 STARTS HERE
-========================================== -->
-<!-- =========================================
-        CONTACT SECTION
+<!-- ==========================================
+     CONTACT
 ========================================== -->
 
 <section id="contact" class="contact section">
 
     <div class="container">
 
-        <h2 class="section-title">
+        <div class="section-header">
 
-            Let's Work Together
+            <span class="section-tag">
 
-        </h2>
-
-        <p class="section-subtitle">
-
-            Whether you need telecommunications engineering,
-            fibre infrastructure, enterprise networking or
-            physical security solutions, I'd love to hear from you.
-
-        </p>
-
-        <div class="contact-wrapper mt-5">
-
-            <!-- =========================================
-                    CONTACT INFORMATION
-            ========================================== -->
-
-            <div class="contact-info fade-left">
-
-                <h2>
-
-                    Contact Information
-
-                </h2>
-
-                <div class="contact-item">
-
-                    <i class="fa-solid fa-user"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Full Name
-
-                        </h4>
-
-                        <p>
-
-                            Nhlanhla Lucky Shirilele
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <i class="fa-solid fa-location-dot"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Location
-
-                        </h4>
-
-                        <p>
-
-                            Midrand, South Africa
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Phone
-
-                        </h4>
-
-                        <p>
-
-                            +27 71 005 9058
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <i class="fa-solid fa-envelope"></i>
-
-                    <div>
-
-                        <h4>
-
-                            Email
-
-                        </h4>
-
-                        <p>
-
-                            Shirilelenl94@email.com
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="contact-item">
-
-                    <i class="fa-brands fa-linkedin"></i>
-
-                    <div>
-
-                        <h4>
-
-                            LinkedIn
-
-                        </h4>
-
-                        <p>
-
-                            www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- =========================================
-                    QR CODE
-            ========================================== -->
-
-           <section class="qr-section" id="contact-card">
-
-    <div class="container">
-
-        <div class="qr-premium-card">
-
-            <span class="badge">
-                Digital Business Card
-            </span>
-
-            <h2>Save My Contact</h2>
-
-            <p class="qr-description">
-                Scan the QR code below to instantly add my
-                contact details to your phone.
-            </p>
-
-            <img
-                src="images/profile.jpg"
-                alt="Nhlanhla Lucky Shirilele"
-                class="qr-profile">
-
-            <h3>Nhlanhla Lucky Shirilele</h3>
-
-            <span class="job-title">
-                Electrical & Electronic Engineer
-            </span>
-
-            <div class="qr-wrapper">
-
-                <img
-                    src="images/qr-code.png"
-                    alt="Digital Contact Card"
-                    class="qr-code">
-
-            </div>
-
-            <p class="scan-text">
-
-                <i class="fas fa-mobile-alt"></i>
-
-                Scan using your phone camera
-
-            </p>
-
-            <div class="qr-buttons">
-
-                <a href="files/Nhlanhla-Lucky-Shirilele.vcf"
-                   class="btn save"
-                   download>
-
-                    <i class="fas fa-address-card"></i>
-
-                    Download Contact
-
-                </a>
-
-                <a href="files/CV.pdf"
-                   class="btn phone"
-                   download>
-
-                    <i class="fas fa-file-pdf"></i>
-
-                    Download CV
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-<!-- =========================================
-        SOCIAL LINKS
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <h2 class="section-title">
-
-            Connect With Me
-
-        </h2>
-
-        <div class="social-grid mt-5">
-
-            <a
-                href="tel:+27710059058"
-                class="social-btn social-phone">
-
-                <i class="fa-solid fa-phone"></i>
-
-                Call
-
-            </a>
-
-            <a
-href="https://wa.me/27710059058?text=Hi%20Nhlanhla,%20I%20visited%20your%20portfolio%20website."
-target="_blank"
-class="social-btn social-whatsapp">
-
-<i class="fab fa-whatsapp"></i>
-
-WhatsApp
-
-</a>
-
-            <a
-                href="mailto:shirilelenl94@email.com"
-                class="social-btn social-email">
-
-                <i class="fa-solid fa-envelope"></i>
-
-                Email
-
-            </a>
-
-<a
-href="https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba"
-target="_blank"
-class="social-btn social-linkedin">
-
-<i class="fab fa-linkedin"></i>
-
-LinkedIn
-
-</a>
-
-<a
-href="https://facebook.com/nhlanhlalucky.shirilele"
-target="_blank"
-class="social-btn social-facebook">
-
-<i class="fab fa-facebook"></i>
-
-Facebook
-
-</a>
-
-            <a
-                href="assets/files/Nhlanhla_Shirilele.vcf"
-                download
-                class="social-btn social-save">
-
-                <i class="fa-solid fa-download"></i>
-
-                Save Contact
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        CONTACT FORM
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="glass">
-
-            <div style="padding:50px;">
-
-                <h2 class="section-title">
-
-                    Send Me a Message
-
-                </h2>
-
-                <form>
-
-                    <div class="grid grid-2 mt-4">
-
-                        <input
-                            type="text"
-                            placeholder="Full Name"
-                            required>
-
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            required>
-
-                    </div>
-
-                    <div class="mt-3">
-
-                        <input
-                            type="text"
-                            placeholder="Subject">
-
-                    </div>
-
-                    <div class="mt-3">
-
-                        <textarea
-                            rows="7"
-                            placeholder="Write your message..."></textarea>
-
-                    </div>
-
-                    <div class="mt-4">
-
-                        <button
-                            type="submit"
-                            class="btn save">
-
-                            <i class="fa-solid fa-paper-plane"></i>
-
-                            Send Message
-
-                        </button>
-
-                    </div>
-
-                </form>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =========================================
-        PART 7 STARTS HERE
-========================================== -->
-<!-- =========================================
-        CALL TO ACTION
-========================================== -->
-
-<section class="section">
-
-    <div class="container">
-
-        <div class="glass"
-             style="padding:70px; text-align:center;">
-
-            <span class="badge">
-
-                AVAILABLE FOR OPPORTUNITIES
+                CONTACT
 
             </span>
 
-            <h2 class="section-title mt-4">
+            <h2 class="section-title">
 
-                Let's Build the Future Together
+                Let's Build Something Great Together
 
             </h2>
 
             <p class="section-subtitle">
 
-                Passionate about telecommunications,
-                fibre infrastructure, enterprise networking,
-                physical security systems and innovative
-                engineering solutions.
+                Whether you're recruiting, collaborating on an engineering
+                project, or looking for technical expertise, I'd be glad to
+                connect with you.
 
             </p>
 
-            <div class="buttons mt-5">
+        </div>
 
-                <a href="#contact"
-                   class="btn save">
+        <div class="contact-grid">
 
-                    <i class="fa-solid fa-paper-plane"></i>
+            <!-- CONTACT DETAILS -->
 
-                    Hire Me
+            <div class="contact-details">
 
-                </a>
+                <div class="contact-card">
 
-                <a href="assets/files/Nhlanhla_Shirilele_CV.pdf"
-                   class="btn phone"
-                   download>
+                    <i class="fas fa-phone-alt"></i>
 
-                    <i class="fa-solid fa-file-arrow-down"></i>
+                    <div>
 
-                    Download CV
+                        <h3>Phone</h3>
 
-                </a>
+                        <a href="tel:+27710059058">
+
+                            +27 71 005 9058
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="contact-card">
+
+                    <i class="fab fa-whatsapp"></i>
+
+                    <div>
+
+                        <h3>WhatsApp</h3>
+
+                        <a href="https://wa.me/27710059058"
+                           target="_blank">
+
+                            Chat on WhatsApp
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="contact-card">
+
+                    <i class="fas fa-envelope"></i>
+
+                    <div>
+
+                        <h3>Email</h3>
+
+                        <a href="mailto:shirilelenl94@gmail.com">
+
+                            shirilelenl94@gmail.com
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="contact-card">
+
+                    <i class="fab fa-linkedin"></i>
+
+                    <div>
+
+                        <h3>LinkedIn</h3>
+
+                        <a href="https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba"
+                           target="_blank">
+
+                            View Profile
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="contact-card">
+
+                    <i class="fab fa-facebook"></i>
+
+                    <div>
+
+                        <h3>Facebook</h3>
+
+                        <a href="https://facebook.com/nhlanhlalucky.shirilele"
+                           target="_blank">
+
+                            Follow Me
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- DIGITAL BUSINESS CARD -->
+
+            <div class="business-card">
+
+                <img
+                    src="./images/profile.jpg"
+                    alt="Profile"
+                    class="business-profile">
+
+                <h3>
+
+                    Nhlanhla Lucky Shirilele
+
+                </h3>
+
+                <p>
+
+                    Electrical & Electronic Engineer
+
+                </p>
+
+                <div class="qr-box">
+
+                    <img
+                        src="./images/qr-code.png"
+                        alt="QR Code"
+                        class="qr-image">
+
+                </div>
+
+                <p class="scan-text">
+
+                    Scan to save my contact details.
+
+                </p>
+
+                <div class="business-buttons">
+
+                    <a
+                        href="./files/CV.pdf"
+                        download
+                        class="btn btn-primary">
+
+                        <i class="fas fa-download"></i>
+
+                        Download CV
+
+                    </a>
+
+                    <a
+                        href="./files/Nhlanhla-Lucky-Shirilele.vcf"
+                        download
+                        class="btn btn-secondary">
+
+                        <i class="fas fa-address-card"></i>
+
+                        Save Contact
+
+                    </a>
+
+                </div>
 
             </div>
 
@@ -2399,494 +1874,155 @@ Facebook
 
 </section>
 
-<!-- =========================================
-        FOOTER
+<!-- ==========================================
+     FOOTER
 ========================================== -->
 
 <footer>
 
-<div class="footer-container container">
+    <div class="container">
 
-    <!-- =========================================
-            ABOUT
-    ========================================== -->
+        <div class="footer-grid">
 
-    <div class="footer-logo">
+            <div>
 
-        <h2>
+                <img
+                    src="./images/logo.png"
+                    alt="Logo"
+                    class="footer-logo">
 
-            Nhlanhla Lucky Shirilele
+                <h3>
 
-        </h2>
+                    Nhlanhla Lucky Shirilele
 
-        <p>
+                </h3>
 
-            Executive Engineer specialising in
-            Telecommunications,
-            Fibre Networks,
-            Microwave Systems,
-            Enterprise Infrastructure and
-            Physical Security Systems.
+                <p>
 
-        </p>
+                    Electrical & Electronic Engineer
 
-        <div class="footer-icons">
+                </p>
 
-            <a href="https://linkedin.com"
-               target="_blank">
+            </div>
 
-                <i class="fa-brands fa-linkedin-in"></i>
+            <div>
 
-            </a>
+                <h4>
 
-            <a href="https://facebook.com"
-               target="_blank">
+                    Quick Links
 
-                <i class="fa-brands fa-facebook-f"></i>
+                </h4>
 
-            </a>
+                <ul>
 
-            <a href="https://github.com"
-               target="_blank">
+                    <li><a href="#home">Home</a></li>
 
-                <i class="fa-brands fa-github"></i>
+                    <li><a href="#about">About</a></li>
 
-            </a>
+                    <li><a href="#skills">Skills</a></li>
 
-            <a href="mailto:your@email.com">
+                    <li><a href="#experience">Experience</a></li>
 
-                <i class="fa-solid fa-envelope"></i>
+                    <li><a href="#projects">Projects</a></li>
 
-            </a>
+                    <li><a href="#contact">Contact</a></li>
 
-            <a href="https://wa.me/27000000000"
-               target="_blank">
+                </ul>
 
-                <i class="fa-brands fa-whatsapp"></i>
+            </div>
 
-            </a>
+            <div>
+
+                <h4>
+
+                    Contact
+
+                </h4>
+
+                <p>
+
+                    Midrand, Gauteng
+
+                </p>
+
+                <p>
+
+                    South Africa
+
+                </p>
+
+                <p>
+
+                    +27 71 005 9058
+
+                </p>
+
+                <p>
+
+                    shirilelenl94@gmail.com
+
+                </p>
+
+            </div>
+
+            <div>
+
+                <h4>
+
+                    Connect
+
+                </h4>
+
+                <div class="footer-social">
+
+                    <a href="https://facebook.com/nhlanhlalucky.shirilele"
+                       target="_blank">
+
+                        <i class="fab fa-facebook"></i>
+
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba"
+                       target="_blank">
+
+                        <i class="fab fa-linkedin"></i>
+
+                    </a>
+
+                    <a href="https://wa.me/27710059058"
+                       target="_blank">
+
+                        <i class="fab fa-whatsapp"></i>
+
+                    </a>
+
+                    <a href="mailto:shirilelenl94@gmail.com">
+
+                        <i class="fas fa-envelope"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 Nhlanhla Lucky Shirilele. All Rights Reserved.
+
+            </p>
 
         </div>
 
     </div>
 
-    <!-- =========================================
-            QUICK LINKS
-    ========================================== -->
-
-    <div class="footer-links">
-
-        <h3>
-
-            Quick Links
-
-        </h3>
-
-        <ul>
-
-            <li><a href="#home">Home</a></li>
-
-            <li><a href="#about">About</a></li>
-
-            <li><a href="#skills">Skills</a></li>
-
-            <li><a href="#services">Services</a></li>
-
-            <li><a href="#projects">Projects</a></li>
-
-            <li><a href="#experience">Experience</a></li>
-
-            <li><a href="#contact">Contact</a></li>
-
-        </ul>
-
-    </div>
-
-    <!-- =========================================
-            TECHNOLOGIES
-    ========================================== -->
-
-    <div class="footer-links">
-
-        <h3>
-
-            Technologies
-
-        </h3>
-
-        <ul>
-
-            <li>Fibre Optics</li>
-
-            <li>Microwave</li>
-
-            <li>Cisco</li>
-
-            <li>Huawei</li>
-
-            <li>Nokia</li>
-
-            <li>Routing & Switching</li>
-
-            <li>TCP/IP</li>
-
-            <li>Cloud Infrastructure</li>
-
-            <li>CCTV</li>
-
-            <li>Access Control</li>
-
-        </ul>
-
-    </div>
-
-    <!-- =========================================
-            CONTACT
-    ========================================== -->
-
-    <div class="footer-links">
-
-        <h3>
-
-            Contact
-
-        </h3>
-
-        <ul>
-
-            <li>
-
-                <i class="fa-solid fa-phone"></i>
-
-                +27 71 005 9058
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-envelope"></i>
-
-                shirilelenl94@email.com
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                Midrand, South Africa
-
-            </li>
-
-            <li>
-
-                <i class="fa-solid fa-globe"></i>
-
-                www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba
-
-            </li>
-
-        </ul>
-
-    </div>
-
-</div>
-
-<!-- =========================================
-        COPYRIGHT
-========================================== -->
-
-<div class="copyright">
-
-    <p>
-
-        © <span id="year"></span>
-
-        Nhlanhla Lucky Shirilele.
-
-        All Rights Reserved.
-
-    </p>
-
-    <p class="credit">
-
-        Designed & Developed with ❤️ using HTML5,
-        CSS3 and JavaScript.
-
-    </p>
-
-</div>
-
 </footer>
 
-<!-- =========================================
-        LOADER
-========================================== -->
-
-<div class="loader"
-     id="loader">
-
-    <div class="loader-circle"></div>
-
-</div>
-
-<!-- =========================================
-        PART 8 STARTS HERE
-========================================== -->
-<!-- =========================================
-        JAVASCRIPT
-========================================== -->
-
 <script src="script.js"></script>
-
-<!-- =========================================
-        PWA SERVICE WORKER
-========================================== -->
-
-<script>
-
-if ('serviceWorker' in navigator) {
-
-    window.addEventListener('load', () => {
-
-        navigator.serviceWorker
-            .register('service-worker.js')
-
-            .then(registration => {
-
-                console.log(
-                    'Service Worker Registered',
-                    registration
-                );
-
-            })
-
-            .catch(error => {
-
-                console.log(
-                    'Service Worker Registration Failed',
-                    error
-                );
-
-            });
-
-    });
-
-}
-
-</script>
-
-<!-- =========================================
-        DYNAMIC COPYRIGHT YEAR
-========================================== -->
-
-<script>
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const year = document.getElementById("year");
-
-    if (year) {
-
-        year.textContent = new Date().getFullYear();
-
-    }
-
-});
-
-</script>
-
-<!-- =========================================
-        BACK TO TOP BUTTON
-========================================== -->
-
-<script>
-
-const backToTop = document.querySelector(".back-to-top");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 500) {
-
-        backToTop.classList.add("show");
-
-    } else {
-
-        backToTop.classList.remove("show");
-
-    }
-
-});
-
-</script>
-
-<!-- =========================================
-        LOADER
-========================================== -->
-
-<script>
-
-window.addEventListener("load", () => {
-
-    const loader = document.getElementById("loader");
-
-    if (loader) {
-
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loader.style.display = "none";
-
-        }, 500);
-
-    }
-
-});
-
-</script>
-
-<!-- =========================================
-        THEME TOGGLE
-========================================== -->
-
-<script>
-
-const themeToggle = document.getElementById("themeToggle");
-
-const body = document.body;
-
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-
-    body.classList.add("dark-mode");
-
-}
-
-themeToggle.addEventListener("click", () => {
-
-    body.classList.toggle("dark-mode");
-
-    if (body.classList.contains("dark-mode")) {
-
-        localStorage.setItem("theme", "dark");
-
-    } else {
-
-        localStorage.setItem("theme", "light");
-
-    }
-
-});
-
-</script>
-
-<!-- =========================================
-        MOBILE NAVIGATION
-========================================== -->
-
-<script>
-
-const menuToggle = document.getElementById("menuToggle");
-
-const navLinks = document.getElementById("navLinks");
-
-menuToggle.addEventListener("click", () => {
-
-    navLinks.classList.toggle("active");
-
-});
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        navLinks.classList.remove("active");
-
-    });
-
-});
-
-</script>
-
-<!-- =========================================
-        SCROLL ANIMATIONS
-========================================== -->
-
-<script>
-
-const observer = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("animate");
-
-        }
-
-    });
-
-}, {
-
-    threshold: 0.2
-
-});
-
-document.querySelectorAll(
-
-    ".fade-up, .fade-left, .fade-right, .fade-scale"
-
-).forEach(el => observer.observe(el));
-
-</script>
-
-<!-- =========================================
-        SMOOTH SCROLL
-========================================== -->
-
-<script>
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
-    anchor.addEventListener("click", function(e) {
-
-        e.preventDefault();
-
-        const target = document.querySelector(this.getAttribute("href"));
-
-        if (target) {
-
-            target.scrollIntoView({
-
-                behavior: "smooth"
-
-            });
-
-        }
-
-    });
-
-});
-
-</script>
-
-<!-- =========================================
-        CONSOLE MESSAGE
-========================================== -->
-
-<script>
-
-console.log(
-
-"%cPortfolio Website Developed by Nhlanhla Lucky Shirilele",
-
-"color:#22c55e;font-size:18px;font-weight:bold;"
-
-);
-
-</script>
 
 </body>
 
