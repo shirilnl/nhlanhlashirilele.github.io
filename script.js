@@ -1805,3 +1805,267 @@ document.documentElement.style.scrollBehavior = "smooth";
 
 console.log("Performance Module Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 10 (FINAL)
+==================================================*/
+
+"use strict";
+
+/*==================================
+    APP CONFIG
+==================================*/
+
+const Portfolio = {
+
+    version: "2.0.0",
+
+    author: "Nhlanhla Lucky Shirilele",
+
+    initialized: false
+
+};
+
+/*==================================
+    FEATURE DETECTION
+==================================*/
+
+const Features = {
+
+    intersectionObserver:
+        "IntersectionObserver" in window,
+
+    localStorage:
+        typeof(Storage) !== "undefined",
+
+    clipboard:
+        !!navigator.clipboard,
+
+    serviceWorker:
+        "serviceWorker" in navigator
+
+};
+
+console.table(Features);
+
+/*==================================
+    REGISTER SERVICE WORKER
+==================================*/
+
+if (Features.serviceWorker) {
+
+    window.addEventListener("load", async () => {
+
+        try {
+
+            const registration =
+                await navigator.serviceWorker.register("service-worker.js");
+
+            console.log(
+                "Service Worker Registered",
+                registration.scope
+            );
+
+        } catch (error) {
+
+            console.warn(
+                "Service Worker Registration Failed",
+                error
+            );
+
+        }
+
+    });
+
+}
+
+/*==================================
+    GLOBAL ERROR HANDLER
+==================================*/
+
+window.addEventListener("error", event => {
+
+    console.error(
+
+        "Application Error:",
+
+        event.message,
+
+        event.filename,
+
+        event.lineno
+
+    );
+
+});
+
+/*==================================
+    UNHANDLED PROMISES
+==================================*/
+
+window.addEventListener(
+
+    "unhandledrejection",
+
+    event => {
+
+        console.error(
+
+            "Unhandled Promise:",
+
+            event.reason
+
+        );
+
+    }
+
+);
+
+/*==================================
+    ACCESSIBILITY
+==================================*/
+
+document.querySelectorAll("button").forEach(button => {
+
+    if (!button.getAttribute("aria-label")) {
+
+        const text = button.innerText.trim();
+
+        if (text.length > 0) {
+
+            button.setAttribute("aria-label", text);
+
+        }
+
+    }
+
+});
+
+/*==================================
+    EXTERNAL LINKS
+==================================*/
+
+document.querySelectorAll("a").forEach(link => {
+
+    if (
+
+        link.hostname &&
+        link.hostname !== location.hostname
+
+    ) {
+
+        link.target = "_blank";
+
+        link.rel = "noopener noreferrer";
+
+    }
+
+});
+
+/*==================================
+    PAGE LOAD TIMER
+==================================*/
+
+window.addEventListener("load", () => {
+
+    const loadTime =
+        performance.now().toFixed(0);
+
+    console.log(
+
+        `Portfolio loaded in ${loadTime} ms`
+
+    );
+
+});
+
+/*==================================
+    PERFORMANCE OBSERVER
+==================================*/
+
+if ("PerformanceObserver" in window) {
+
+    try {
+
+        const observer = new PerformanceObserver(list => {
+
+            list.getEntries().forEach(entry => {
+
+                console.log(
+
+                    "Performance:",
+
+                    entry.name,
+
+                    entry.duration.toFixed(2),
+
+                    "ms"
+
+                );
+
+            });
+
+        });
+
+        observer.observe({
+
+            entryTypes: ["measure"]
+
+        });
+
+    } catch (e) {
+
+        console.warn("PerformanceObserver unavailable.");
+
+    }
+
+}
+
+/*==================================
+    INITIALIZATION
+==================================*/
+
+function initializePortfolio() {
+
+    if (Portfolio.initialized) return;
+
+    Portfolio.initialized = true;
+
+    document.body.classList.add("app-ready");
+
+    console.log(
+
+        `Portfolio Version ${Portfolio.version} Ready`
+
+    );
+
+}
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    initializePortfolio
+
+);
+
+/*==================================
+    WELCOME MESSAGE
+==================================*/
+
+setTimeout(() => {
+
+    console.log(
+        "%cWelcome to the Engineering Portfolio",
+        "color:#22c55e;font-size:16px;font-weight:bold;"
+    );
+
+}, 1500);
+
+/*==================================
+    END OF APPLICATION
+==================================*/
+
+console.log(
+    "Portfolio JavaScript Successfully Loaded."
+);
