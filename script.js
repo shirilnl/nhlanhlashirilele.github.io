@@ -700,3 +700,180 @@ revealObserver.observe(item);
 
 console.log("Animation Engine Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 5
+==================================================*/
+
+/*==================================
+    ANIMATED COUNTERS
+==================================*/
+
+const counters = document.querySelectorAll(".counter");
+
+function animateCounter(counter){
+
+    const target = Number(counter.dataset.target) || 0;
+    const duration = Number(counter.dataset.duration) || 2000;
+
+    let start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime){
+
+        const elapsed = currentTime - startTime;
+
+        const progress = Math.min(elapsed / duration,1);
+
+        const ease = 1 - Math.pow(1-progress,3);
+
+        const value = Math.floor(ease * target);
+
+        counter.textContent = value.toLocaleString();
+
+        if(progress < 1){
+
+            requestAnimationFrame(update);
+
+        }else{
+
+            counter.textContent = target.toLocaleString();
+
+        }
+
+    }
+
+    requestAnimationFrame(update);
+
+}
+
+const counterObserver = new IntersectionObserver(
+
+(entries,observer)=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting) return;
+
+animateCounter(entry.target);
+
+observer.unobserve(entry.target);
+
+});
+
+},
+
+{
+
+threshold:0.5
+
+}
+
+);
+
+counters.forEach(counter=>{
+
+counterObserver.observe(counter);
+
+});
+
+/*==================================
+    CIRCULAR PROGRESS
+==================================*/
+
+const circles = document.querySelectorAll(".circle-progress");
+
+circles.forEach(circle=>{
+
+    const value = Number(circle.dataset.percent) || 0;
+
+    const radius = 90;
+
+    const circumference = 2 * Math.PI * radius;
+
+    const progress = circle.querySelector(".progress-ring");
+
+    if(!progress) return;
+
+    progress.style.strokeDasharray = circumference;
+
+    progress.style.strokeDashoffset = circumference;
+
+    const observer = new IntersectionObserver(
+
+    entries=>{
+
+        entries.forEach(entry=>{
+
+            if(!entry.isIntersecting) return;
+
+            const offset = circumference - (value / 100) * circumference;
+
+            progress.style.strokeDashoffset = offset;
+
+            observer.unobserve(circle);
+
+        });
+
+    },
+
+    {
+
+        threshold:0.5
+
+    });
+
+    observer.observe(circle);
+
+});
+
+/*==================================
+    KPI CARDS
+==================================*/
+
+document.querySelectorAll(".kpi-card").forEach(card=>{
+
+card.addEventListener("mouseenter",()=>{
+
+card.classList.add("active");
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.classList.remove("active");
+
+});
+
+});
+
+/*==================================
+    ACHIEVEMENT BADGES
+==================================*/
+
+const badges=document.querySelectorAll(".achievement");
+
+badges.forEach((badge,index)=>{
+
+badge.style.animationDelay=`${index*0.2}s`;
+
+});
+
+/*==================================
+    EXPERIENCE TIMER
+==================================*/
+
+const experience=document.querySelector(".experience-years");
+
+if(experience){
+
+const startYear=2023;
+
+const currentYear=new Date().getFullYear();
+
+experience.textContent=currentYear-startYear;
+
+}
+
+console.log("Statistics Module Loaded");
+
