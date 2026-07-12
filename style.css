@@ -5207,3 +5207,297 @@ background:#132238;
 }
 
 }
+/*==================================
+    THEME TRANSITIONS
+==================================*/
+
+body.theme-ready,
+body.theme-ready *,
+body.theme-ready *::before,
+body.theme-ready *::after{
+
+    transition:
+
+        background-color .35s ease,
+
+        color .35s ease,
+
+        border-color .35s ease,
+
+        box-shadow .35s ease,
+
+        fill .35s ease,
+
+        stroke .35s ease;
+
+}
+
+/*==================================
+    THEME BUTTON
+==================================*/
+
+#themeToggle{
+
+    cursor:pointer;
+
+    user-select:none;
+
+}
+
+#themeToggle i{
+
+    font-size:1.15rem;
+
+    transition:
+
+        transform .35s ease,
+
+        color .35s ease;
+
+}
+
+#themeToggle:hover i{
+
+    transform:rotate(180deg);
+
+}
+
+/*==================================
+    DARK MODE IMAGE IMPROVEMENT
+==================================*/
+
+body.dark .business-profile,
+body.dark .profile-image{
+
+    filter:brightness(.96) contrast(1.05);
+
+}
+
+/*==================================
+    DARK MODE SHADOWS
+==================================*/
+
+body.dark .project-card,
+body.dark .service-card,
+body.dark .business-card,
+body.dark .timeline-content{
+
+    box-shadow:
+
+        0 20px 45px rgba(0,0,0,.35);
+
+}
+
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 4
+==================================================*/
+
+/*==================================
+    SCROLL REVEAL ANIMATIONS
+==================================*/
+
+const revealElements = document.querySelectorAll(`
+    .section,
+    .project-card,
+    .service-card,
+    .timeline-item,
+    .education-card,
+    .certificate-card,
+    .contact-card,
+    .stat-card,
+    .highlight-card,
+    .about-image,
+    .business-card
+`);
+
+const revealObserver = new IntersectionObserver(
+
+(entries, observer) => {
+
+    entries.forEach(entry => {
+
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("revealed");
+
+        observer.unobserve(entry.target);
+
+    });
+
+},
+
+{
+    threshold:0.15,
+    rootMargin:"0px 0px -80px 0px"
+}
+
+);
+
+revealElements.forEach(element => {
+
+    revealObserver.observe(element);
+
+});
+
+/*==================================
+    STAGGERED CARD ANIMATION
+==================================*/
+
+const staggerGroups = [
+
+".projects-grid .project-card",
+".services-grid .service-card",
+".education-grid .education-card",
+".certificate-grid .certificate-card",
+".contact-details .contact-card"
+
+];
+
+staggerGroups.forEach(selector => {
+
+    const cards = document.querySelectorAll(selector);
+
+    cards.forEach((card,index)=>{
+
+        card.style.transitionDelay = `${index * 120}ms`;
+
+    });
+
+});
+
+/*==================================
+    IMAGE REVEAL
+==================================*/
+
+const revealImages = document.querySelectorAll(
+
+".project-image img, .profile-image, .business-profile"
+
+);
+
+const imageObserver = new IntersectionObserver(
+
+(entries, observer)=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting) return;
+
+entry.target.classList.add("image-visible");
+
+observer.unobserve(entry.target);
+
+});
+
+},
+
+{
+
+threshold:0.2
+
+}
+
+);
+
+revealImages.forEach(image=>{
+
+imageObserver.observe(image);
+
+});
+
+/*==================================
+    SKILL BAR ANIMATION
+==================================*/
+
+const skillBars = document.querySelectorAll(".progress-fill");
+
+const skillObserver = new IntersectionObserver(
+
+(entries, observer)=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting) return;
+
+const bar = entry.target;
+
+const value = bar.dataset.width || "100";
+
+bar.style.width = value + "%";
+
+observer.unobserve(bar);
+
+});
+
+},
+
+{
+
+threshold:0.5
+
+}
+
+);
+
+skillBars.forEach(bar=>{
+
+bar.style.width="0";
+
+skillObserver.observe(bar);
+
+});
+
+/*==================================
+    NUMBER FADE-IN
+==================================*/
+
+const fadeNumbers = document.querySelectorAll(".counter");
+
+const numberObserver = new IntersectionObserver(
+
+(entries,observer)=>{
+
+entries.forEach(entry=>{
+
+if(!entry.isIntersecting) return;
+
+entry.target.classList.add("revealed");
+
+observer.unobserve(entry.target);
+
+});
+
+},
+
+{
+
+threshold:.5
+
+}
+
+);
+
+fadeNumbers.forEach(item=>{
+
+numberObserver.observe(item);
+
+});
+
+/*==================================
+    OPTIONAL RE-ANIMATION
+==================================*/
+
+function replayAnimations(){
+
+document.querySelectorAll(".revealed").forEach(item=>{
+
+item.classList.remove("revealed");
+
+revealObserver.observe(item);
+
+});
+
+}
+
+console.log("Animation Engine Loaded");
