@@ -1110,3 +1110,246 @@ document.querySelectorAll(".hero .btn").forEach((button,index)=>{
 
 console.log("Hero Animation Module Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 7
+==================================================*/
+
+/*==================================
+    PROJECT FILTER
+==================================*/
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+const projectCards = document.querySelectorAll(".project-card");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn =>
+            btn.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        const filter = button.dataset.filter;
+
+        projectCards.forEach(card => {
+
+            if (
+                filter === "all" ||
+                card.dataset.category === filter
+            ) {
+
+                card.style.display = "block";
+
+                setTimeout(() => {
+
+                    card.style.opacity = "1";
+                    card.style.transform = "scale(1)";
+
+                },100);
+
+            } else {
+
+                card.style.opacity = "0";
+
+                card.style.transform = "scale(.9)";
+
+                setTimeout(() => {
+
+                    card.style.display = "none";
+
+                },300);
+
+            }
+
+        });
+
+    });
+
+});
+
+/*==================================
+    PROJECT SEARCH
+==================================*/
+
+const projectSearch =
+document.getElementById("projectSearch");
+
+if(projectSearch){
+
+projectSearch.addEventListener("keyup",()=>{
+
+const value =
+projectSearch.value.toLowerCase();
+
+projectCards.forEach(card=>{
+
+const text =
+card.innerText.toLowerCase();
+
+card.style.display =
+text.includes(value)
+?
+"block"
+:
+"none";
+
+});
+
+});
+
+}
+
+/*==================================
+    PROJECT LIGHTBOX
+==================================*/
+
+const projectImages =
+document.querySelectorAll(".project-image img");
+
+const lightbox =
+document.getElementById("lightbox");
+
+const lightboxImage =
+document.getElementById("lightboxImage");
+
+let currentImage = 0;
+
+projectImages.forEach((img,index)=>{
+
+img.addEventListener("click",()=>{
+
+currentImage=index;
+
+if(lightboxImage){
+
+lightboxImage.src=img.src;
+
+}
+
+if(lightbox){
+
+lightbox.classList.add("show");
+
+}
+
+});
+
+});
+
+function updateLightbox(){
+
+if(lightboxImage){
+
+lightboxImage.src=
+projectImages[currentImage].src;
+
+}
+
+}
+
+const closeLightbox =
+document.getElementById("closeLightbox");
+
+if(closeLightbox){
+
+closeLightbox.addEventListener("click",()=>{
+
+lightbox.classList.remove("show");
+
+});
+
+}
+
+const nextButton =
+document.getElementById("nextImage");
+
+if(nextButton){
+
+nextButton.addEventListener("click",()=>{
+
+currentImage++;
+
+if(currentImage>=projectImages.length){
+
+currentImage=0;
+
+}
+
+updateLightbox();
+
+});
+
+}
+
+const previousButton =
+document.getElementById("prevImage");
+
+if(previousButton){
+
+previousButton.addEventListener("click",()=>{
+
+currentImage--;
+
+if(currentImage<0){
+
+currentImage=projectImages.length-1;
+
+}
+
+updateLightbox();
+
+});
+
+}
+
+/*==================================
+    KEYBOARD SUPPORT
+==================================*/
+
+document.addEventListener("keydown",(e)=>{
+
+if(!lightbox ||
+!lightbox.classList.contains("show"))
+return;
+
+if(e.key==="Escape"){
+
+lightbox.classList.remove("show");
+
+}
+
+if(e.key==="ArrowRight"){
+
+currentImage++;
+
+if(currentImage>=projectImages.length){
+
+currentImage=0;
+
+}
+
+updateLightbox();
+
+}
+
+if(e.key==="ArrowLeft"){
+
+currentImage--;
+
+if(currentImage<0){
+
+currentImage=projectImages.length-1;
+
+}
+
+updateLightbox();
+
+}
+
+});
+
+console.log("Projects Module Loaded");
+
