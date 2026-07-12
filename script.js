@@ -1,79 +1,126 @@
-/* ============================================
-   NHLANHLA LUCKY SHIRILELE
-   Digital Contact Card
-============================================ */
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 1
+==================================================*/
 
-document.addEventListener("DOMContentLoaded", () => {
+"use strict";
 
-    // Fade in page
-    document.body.classList.add("loaded");
+/*==================================
+    PAGE LOADER
+==================================*/
 
-    // Button animation
-    const buttons = document.querySelectorAll(".btn");
+window.addEventListener("load", () => {
 
-    buttons.forEach(button => {
+    const loader = document.getElementById("loader");
 
-        button.addEventListener("mouseenter", () => {
+    if (loader) {
 
-            button.style.transform = "translateY(-4px) scale(1.02)";
+        loader.style.opacity = "0";
+
+        setTimeout(() => {
+
+            loader.style.display = "none";
+
+        }, 500);
+
+    }
+
+});
+
+/*==================================
+    STICKY NAVIGATION
+==================================*/
+
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+    if (!navbar) return;
+
+    if (window.scrollY > 50) {
+
+        navbar.classList.add("scrolled");
+
+    } else {
+
+        navbar.classList.remove("scrolled");
+
+    }
+
+});
+
+/*==================================
+    SCROLL PROGRESS BAR
+==================================*/
+
+const progressBar = document.getElementById("scroll-progress");
+
+window.addEventListener("scroll", () => {
+
+    if (!progressBar) return;
+
+    const scrollTop = window.scrollY;
+
+    const height =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+    const progress = (scrollTop / height) * 100;
+
+    progressBar.style.width = progress + "%";
+
+});
+
+/*==================================
+    BACK TO TOP BUTTON
+==================================*/
+
+const backTop = document.querySelector(".back-to-top");
+
+window.addEventListener("scroll", () => {
+
+    if (!backTop) return;
+
+    if (window.scrollY > 500) {
+
+        backTop.classList.add("show");
+
+    } else {
+
+        backTop.classList.remove("show");
+
+    }
+
+});
+
+if (backTop) {
+
+    backTop.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
 
         });
-
-        button.addEventListener("mouseleave", () => {
-
-            button.style.transform = "";
-
-        });
-
-    });
-
-    // QR Code hover animation
-
-    const qr = document.querySelector(".qr");
-
-    if(qr){
-
-        qr.addEventListener("mouseenter",()=>{
-
-            qr.style.transform="scale(1.05)";
-
-        });
-
-        qr.addEventListener("mouseleave",()=>{
-
-            qr.style.transform="scale(1)";
-
-        });
-
-       if ("serviceWorker" in navigator) {
-
-    window.addEventListener("load", () => {
-
-        navigator.serviceWorker
-            .register("./service-worker.js")
-            .then(registration => {
-
-                console.log(
-                    "Service Worker Registered",
-                    registration.scope
-                );
-
-            })
-            .catch(error => {
-
-                console.error(
-                    "Service Worker Registration Failed",
-                    error
-                );
-
-            });
 
     });
 
 }
 
-    }
+/*==================================
+    FOOTER YEAR
+==================================*/
 
-    console.log("Website Loaded Successfully");
+const yearElement = document.querySelector("#year");
 
-});
+if (yearElement) {
+
+    yearElement.textContent = new Date().getFullYear();
+
+}
+
+console.log("Portfolio Version 2.0 Loaded Successfully");
