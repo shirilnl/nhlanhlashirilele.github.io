@@ -877,3 +877,236 @@ experience.textContent=currentYear-startYear;
 
 console.log("Statistics Module Loaded");
 
+/*==================================================
+    PORTFOLIO V2.0
+    Stage 3 - Part 6
+==================================================*/
+
+/*==================================
+    TYPEWRITER EFFECT
+==================================*/
+
+const typewriter = document.querySelector(".typewriter");
+
+const professions = [
+
+"Electrical & Electronic Engineer",
+
+"Telecommunications Engineer",
+
+"Network Infrastructure Engineer",
+
+"Physical Security Systems Engineer",
+
+"SCADA & Automation Engineer",
+
+"Fiber Optic Specialist",
+
+"Microwave Transmission Engineer",
+
+"Cloud Technology Enthusiast"
+
+];
+
+let professionIndex = 0;
+let letterIndex = 0;
+let deleting = false;
+
+function typeEffect(){
+
+    if(!typewriter) return;
+
+    const current = professions[professionIndex];
+
+    if(!deleting){
+
+        typewriter.textContent = current.substring(0,letterIndex);
+
+        letterIndex++;
+
+        if(letterIndex > current.length){
+
+            deleting = true;
+
+            setTimeout(typeEffect,1800);
+
+            return;
+
+        }
+
+    }else{
+
+        typewriter.textContent = current.substring(0,letterIndex);
+
+        letterIndex--;
+
+        if(letterIndex < 0){
+
+            deleting = false;
+
+            professionIndex++;
+
+            if(professionIndex >= professions.length){
+
+                professionIndex = 0;
+
+            }
+
+        }
+
+    }
+
+    const speed = deleting ? 45 : 85;
+
+    setTimeout(typeEffect,speed);
+
+}
+
+typeEffect();
+
+/*==================================
+    CURSOR BLINK
+==================================*/
+
+setInterval(()=>{
+
+    const cursor=document.querySelector(".cursor");
+
+    if(cursor){
+
+        cursor.classList.toggle("blink");
+
+    }
+
+},500);
+
+/*==================================
+    GREETING
+==================================*/
+
+const greeting=document.querySelector(".greeting");
+
+if(greeting){
+
+    const hour=new Date().getHours();
+
+    let message="Welcome";
+
+    if(hour<12){
+
+        message="Good Morning";
+
+    }
+
+    else if(hour<18){
+
+        message="Good Afternoon";
+
+    }
+
+    else{
+
+        message="Good Evening";
+
+    }
+
+    greeting.textContent=message;
+
+}
+
+/*==================================
+    HERO FADE
+==================================*/
+
+const hero=document.querySelector(".hero-content");
+
+if(hero){
+
+    hero.animate([
+
+        {
+
+            opacity:0,
+
+            transform:"translateY(40px)"
+
+        },
+
+        {
+
+            opacity:1,
+
+            transform:"translateY(0)"
+
+        }
+
+    ],{
+
+        duration:1200,
+
+        easing:"ease-out",
+
+        fill:"forwards"
+
+    });
+
+}
+
+/*==================================
+    HERO PARALLAX
+==================================*/
+
+const heroImage=document.querySelector(".hero-image img");
+
+window.addEventListener("mousemove",(event)=>{
+
+    if(!heroImage) return;
+
+    const x=(window.innerWidth/2-event.clientX)/40;
+
+    const y=(window.innerHeight/2-event.clientY)/40;
+
+    heroImage.style.transform=`translate(${x}px,${y}px)`;
+
+});
+
+/*==================================
+    HERO BUTTON ANIMATION
+==================================*/
+
+document.querySelectorAll(".hero .btn").forEach((button,index)=>{
+
+    button.animate([
+
+        {
+
+            opacity:0,
+
+            transform:"translateY(30px)"
+
+        },
+
+        {
+
+            opacity:1,
+
+            transform:"translateY(0)"
+
+        }
+
+    ],{
+
+        duration:1000,
+
+        delay:700+(index*250),
+
+        fill:"forwards",
+
+        easing:"ease-out"
+
+    });
+
+});
+
+console.log("Hero Animation Module Loaded");
+
