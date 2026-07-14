@@ -7,9 +7,17 @@
 /* =====================================================
    DOM READY
 ===================================================== */
-
 document.addEventListener("DOMContentLoaded", () => {
 
+    console.log(`${CONFIG.website.name}`);
+
+    console.log(`Version ${CONFIG.website.version}`);
+
+    console.log("Portfolio initialized.");
+
+});
+
+document.addEventListener("DOMContentLoaded", () => {
 
 
 /* =====================================================
