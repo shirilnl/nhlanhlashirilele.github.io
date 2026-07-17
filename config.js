@@ -46,27 +46,101 @@ window.NLS.config = {
         aboutImage: "images/about.jpg"
     },
 
-    contact: {
+/* =====================================================
+   NLS PORTFOLIO CONFIGURATION
+   Milestone 3 — Contact System
+===================================================== */
 
-        phone: "+27710059058",
 
-        whatsapp: "27710059058",
+const PORTFOLIO_CONFIG = {
 
-        email: "shirilelenl94@gmail.com",
 
-        website:
-        "https://shirilnl.github.io/nhlanhlashirilele.github.io/",
+    /* ==========================
+       PERSONAL INFORMATION
+    =========================== */
 
-        linkedin:
-        "https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba",
 
-        facebook:
-        "https://facebook.com/nhlanhlalucky.shirilele",
+    name:
+    "Nhlanhla Lucky Shirilele",
 
-        github: "",
 
-        address: "Gauteng, South Africa"
-    },
+
+    title:
+    "Electrical & Electronic Engineer",
+
+
+
+    description:
+    "Electrical & Electronic Engineer specializing in Telecommunications, Fibre Networks, Network Infrastructure, Physical Security Systems and Digital Engineering.",
+
+
+
+
+    /* ==========================
+       CONTACT INFORMATION
+    =========================== */
+
+
+    phone:
+    "+27710059058",
+
+
+
+    whatsapp:
+    "27710059058",
+
+
+
+    email:
+    "shirilelenl94@gmail.com",
+
+
+
+
+    /* ==========================
+       SOCIAL MEDIA
+    =========================== */
+
+
+    linkedin:
+    "https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba",
+
+
+
+    facebook:
+    "https://facebook.com/nhlanhlalucky.shirilele",
+
+
+
+
+    /* ==========================
+       WEBSITE
+    =========================== */
+
+
+    website:
+    "https://shirilnl.github.io/nhlanhlashirilele.github.io/",
+
+
+
+
+    /* ==========================
+       LOCATION
+    =========================== */
+
+
+    location:
+    "Gauteng, South Africa"
+
+};
+
+
+
+
+
+/* Make available globally */
+
+window.PORTFOLIO_CONFIG = PORTFOLIO_CONFIG;
 
     downloads: {
 
