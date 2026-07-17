@@ -1,35 +1,45 @@
-"use strict";
-
-/*==========================================================
- NLS ENGINEERING PORTFOLIO
- Utility Library
- Version : 3.0.0
- Author  : Nhlanhla Lucky Shirilele
-
- Shared helper functions used throughout the portfolio.
-==========================================================*/
+/*=========================================================
+  NLS Engineering Platform v4.0
+  File: utils.js
+=========================================================*/
 
 window.NLS = window.NLS || {};
 
-window.NLS.utils = {
+window.NLS.utils = (() => {
 
-    /*======================================================
-        SELECTORS
-    ======================================================*/
+    "use strict";
 
-    $: (selector) => document.querySelector(selector),
+    /*=====================================================
+        DOM
+    =====================================================*/
 
-    $$: (selector) => document.querySelectorAll(selector),
+    const $ = (selector, scope = document) =>
+        scope.querySelector(selector);
 
-    byId: (id) => document.getElementById(id),
+    const $$ = (selector, scope = document) =>
+        [...scope.querySelectorAll(selector)];
 
-    /*======================================================
-        TEXT
-    ======================================================*/
+    const create = (tag, className = "") => {
 
-    setText(selector, value) {
+        const element = document.createElement(tag);
 
-        const element = this.$(selector);
+        if (className) {
+
+            element.className = className;
+
+        }
+
+        return element;
+
+    };
+
+    /*=====================================================
+        CONTENT
+    =====================================================*/
+
+    const text = (selector, value) => {
+
+        const element = $(selector);
 
         if (element) {
 
@@ -37,15 +47,11 @@ window.NLS.utils = {
 
         }
 
-    },
+    };
 
-    /*======================================================
-        HTML
-    ======================================================*/
+    const html = (selector, value) => {
 
-    setHTML(selector, value) {
-
-        const element = this.$(selector);
+        const element = $(selector);
 
         if (element) {
 
@@ -53,89 +59,99 @@ window.NLS.utils = {
 
         }
 
-    },
+    };
 
-    /*======================================================
-        IMAGE
-    ======================================================*/
+    /*=====================================================
+        ATTRIBUTES
+    =====================================================*/
 
-    setImage(selector, src, alt = "") {
+    const attr = (selector, attribute, value) => {
 
-        const image = this.$(selector);
-
-        if (!image) return;
-
-        image.src = src;
-
-        image.alt = alt;
-
-    },
-
-    /*======================================================
-        LINK
-    ======================================================*/
-
-    setLink(selector, href) {
-
-        const link = this.$(selector);
-
-        if (link) {
-
-            link.href = href;
-
-        }
-
-    },
-
-    /*======================================================
-        SHOW / HIDE
-    ======================================================*/
-
-    show(selector) {
-
-        const element = this.$(selector);
+        const element = $(selector);
 
         if (element) {
 
-            element.style.display = "";
+            element.setAttribute(attribute, value);
 
         }
 
-    },
+    };
 
-    hide(selector) {
+    /*=====================================================
+        EVENTS
+    =====================================================*/
 
-        const element = this.$(selector);
+    const on = (selector, event, callback) => {
 
-        if (element) {
-
-            element.style.display = "none";
-
-        }
-
-    },
-
-    toggle(selector) {
-
-        const element = this.$(selector);
+        const element = $(selector);
 
         if (!element) return;
 
-        element.classList.toggle("active");
+        element.addEventListener(event, callback);
 
-    },
+    };
 
-    /*======================================================
-        SMOOTH SCROLL
-    ======================================================*/
+    const onAll = (selector, event, callback) => {
 
-    scrollTo(target) {
+        $$(selector).forEach(element => {
 
-        const section = this.$(target);
+            element.addEventListener(event, callback);
 
-        if (!section) return;
+        });
 
-        section.scrollIntoView({
+    };
+
+    /*=====================================================
+        CLASSES
+    =====================================================*/
+
+    const addClass = (selector, className) => {
+
+        const element = $(selector);
+
+        if (element) {
+
+            element.classList.add(className);
+
+        }
+
+    };
+
+    const removeClass = (selector, className) => {
+
+        const element = $(selector);
+
+        if (element) {
+
+            element.classList.remove(className);
+
+        }
+
+    };
+
+    const toggleClass = (selector, className) => {
+
+        const element = $(selector);
+
+        if (element) {
+
+            element.classList.toggle(className);
+
+        }
+
+    };
+
+    /*=====================================================
+        SCROLL
+    =====================================================*/
+
+    const scrollToElement = (id) => {
+
+        const element = $(id);
+
+        if (!element) return;
+
+        element.scrollIntoView({
 
             behavior: "smooth",
 
@@ -143,13 +159,204 @@ window.NLS.utils = {
 
         });
 
-    },
+    };
 
-    /*======================================================
-        COPY TO CLIPBOARD
-    ======================================================*/
+    const scrollTop = () => {
 
-    async copy(text) {
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    };
+
+    /*=====================================================
+        OBSERVER
+    =====================================================*/
+
+    const observe = (selector, callback, options = {}) => {
+
+        const elements = $$(selector);
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    callback(entry.target);
+
+                }
+
+            });
+
+        }, {
+
+            threshold: 0.2,
+
+            ...options
+
+        });
+
+        elements.forEach(element => observer.observe(element));
+
+    };
+
+    /*=====================================================
+        COUNTERS
+    =====================================================*/
+
+    const animateCounter = (element) => {
+
+        const target = Number(element.dataset.target);
+
+        const suffix = element.dataset.suffix || "";
+
+        let current = 0;
+
+        const increment = target / 100;
+
+        const update = () => {
+
+            current += increment;
+
+            if (current >= target) {
+
+                element.textContent = target + suffix;
+
+                return;
+
+            }
+
+            element.textContent =
+                Math.floor(current) + suffix;
+
+            requestAnimationFrame(update);
+
+        };
+
+        update();
+
+    };
+
+    /*=====================================================
+        SKILL BARS
+    =====================================================*/
+
+    const animateSkillBars = () => {
+
+        $$(".skill-progress").forEach(bar => {
+
+            const width = bar.dataset.progress;
+
+            bar.style.width = width + "%";
+
+        });
+
+    };
+
+    /*=====================================================
+        LOADER
+    =====================================================*/
+
+    const hideLoader = () => {
+
+        const loader = $("#preloader");
+
+        if (!loader) return;
+
+        loader.classList.add("hide");
+
+        setTimeout(() => {
+
+            loader.remove();
+
+        }, 500);
+
+    };
+
+    /*=====================================================
+        PROGRESS BAR
+    =====================================================*/
+
+    const updateProgressBar = () => {
+
+        const progress = $("#progress-bar");
+
+        if (!progress) return;
+
+        const height =
+            document.documentElement.scrollHeight -
+            window.innerHeight;
+
+        const percentage =
+            (window.scrollY / height) * 100;
+
+        progress.style.width =
+            percentage + "%";
+
+    };
+
+    /*=====================================================
+        YEAR
+    =====================================================*/
+
+    const updateYear = () => {
+
+        $$(".current-year").forEach(item => {
+
+            item.textContent =
+                new Date().getFullYear();
+
+        });
+
+    };
+
+    /*=====================================================
+        THEME
+    =====================================================*/
+
+    const saveTheme = (theme) => {
+
+        localStorage.setItem("theme", theme);
+
+    };
+
+    const loadTheme = () => {
+
+        return localStorage.getItem("theme") || "light";
+
+    };
+
+    /*=====================================================
+        DOWNLOAD
+    =====================================================*/
+
+    const download = (file) => {
+
+        const link =
+            document.createElement("a");
+
+        link.href = file;
+
+        link.download = "";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+    };
+
+    /*=====================================================
+        COPY
+    =====================================================*/
+
+    const copy = async (text) => {
 
         try {
 
@@ -165,180 +372,85 @@ window.NLS.utils = {
 
         }
 
-    },
+    };
 
-    /*======================================================
-        DATE
-    ======================================================*/
+    /*=====================================================
+        FORMAT
+    =====================================================*/
 
-    currentYear() {
+    const capitalize = (text) => {
 
-        return new Date().getFullYear();
+        return text.charAt(0).toUpperCase() +
+               text.slice(1);
 
-    },
+    };
 
-    /*======================================================
-        NUMBER FORMAT
-    ======================================================*/
+    /*=====================================================
+        RANDOM ID
+    =====================================================*/
 
-    number(value) {
+    const uuid = () => {
 
-        return new Intl.NumberFormat().format(value);
+        return crypto.randomUUID();
 
-    },
+    };
 
-    /*======================================================
-        RANDOM
-    ======================================================*/
+    /*=====================================================
+        RETURN
+    =====================================================*/
 
-    random(min, max) {
+    return {
 
-        return Math.floor(
+        $,
 
-            Math.random() * (max - min + 1)
+        $$,
 
-        ) + min;
+        create,
 
-    },
+        text,
 
-    /*======================================================
-        DEVICE
-    ======================================================*/
+        html,
 
-    isMobile() {
+        attr,
 
-        return window.innerWidth < 768;
+        on,
 
-    },
+        onAll,
 
-    /*======================================================
-        URL
-    ======================================================*/
+        addClass,
 
-    open(url) {
+        removeClass,
 
-        window.open(
+        toggleClass,
 
-            url,
+        scrollToElement,
 
-            "_blank",
+        scrollTop,
 
-            "noopener"
+        observe,
 
-        );
+        animateCounter,
 
-    },
+        animateSkillBars,
 
-    /*======================================================
-        EMAIL
-    ======================================================*/
+        hideLoader,
 
-    email(address) {
+        updateProgressBar,
 
-        window.location.href =
+        updateYear,
 
-            `mailto:${address}`;
+        saveTheme,
 
-    },
+        loadTheme,
 
-    /*======================================================
-        PHONE
-    ======================================================*/
+        download,
 
-    phone(number) {
+        copy,
 
-        window.location.href =
+        capitalize,
 
-            `tel:${number}`;
+        uuid
 
-    },
+    };
 
-    /*======================================================
-        WHATSAPP
-    ======================================================*/
-
-    whatsapp(number) {
-
-        this.open(
-
-            `https://wa.me/${number}`
-
-        );
-
-    },
-
-    /*======================================================
-        DOWNLOAD
-    ======================================================*/
-
-    download(file) {
-
-        const link = document.createElement("a");
-
-        link.href = file;
-
-        link.download = "";
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-
-    },
-
-    /*======================================================
-        CLASS HELPERS
-    ======================================================*/
-
-    addClass(selector, className) {
-
-        const element = this.$(selector);
-
-        if (element) {
-
-            element.classList.add(className);
-
-        }
-
-    },
-
-    removeClass(selector, className) {
-
-        const element = this.$(selector);
-
-        if (element) {
-
-            element.classList.remove(className);
-
-        }
-
-    },
-
-    /*======================================================
-        DEBOUNCE
-    ======================================================*/
-
-    debounce(callback, delay = 200) {
-
-        let timer;
-
-        return (...args) => {
-
-            clearTimeout(timer);
-
-            timer = setTimeout(() => {
-
-                callback(...args);
-
-            }, delay);
-
-        };
-
-    }
-
-};
-
-Object.freeze(window.NLS.utils);
-
-console.log("Utilities Loaded");
+})();
