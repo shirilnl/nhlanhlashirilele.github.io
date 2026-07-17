@@ -1,10 +1,12 @@
 /*=========================================================
-NLS Engineering Platform
-Version: 5.0
+NLS ENGINEERING PLATFORM
 File: script.js
+Version: 5.1
 
 ```
-Integrated:
+Dynamic Portfolio System
+
+Includes:
 - Theme system
 - Mobile navigation
 - Typing effect
@@ -14,13 +16,20 @@ Integrated:
 - Counters
 - Skill bars
 - Reveal animations
-- Dynamic content rendering
-- QR code generation
+- Statistics rendering
+- Skills rendering
+- Experience rendering
+- Education rendering
+- Technology rendering
+- Project rendering
+- Certificate rendering
+- Download rendering
 - Contact links
-- Dynamic vCard download
-- Contact form mailto integration
-- PWA registration
-- AI/Admin integration
+- QR code
+- vCard
+- Contact form
+- Lightbox
+- PWA
 ```
 
 =========================================================*/
@@ -34,101 +43,48 @@ GLOBAL APP
 const App = {
 
 ```
-config: window.NLS?.config || {},
+config:
+    window.NLS?.config || {},
 
-data: window.NLS?.data || {},
-
-utils: window.NLS?.utils || {},
+data:
+    window.NLS?.data || {},
 
 state: {
 
-    loaded: false,
+    loaded:
+        false,
 
-    theme: "light",
+    theme:
+        "light",
 
-    menuOpen: false,
-
-    typingIndex: 0,
-
-    typingText: "",
-
-    typingDeleting: false,
-
-    observer: null
+    menuOpen:
+        false
 
 }
 ```
 
 };
 
-/*=========================================================
-DOM REFERENCES
-=========================================================*/
-
-const DOM = {
-
-```
-body: document.body,
-
-html: document.documentElement,
-
-preloader:
-    document.getElementById("preloader"),
-
-progressBar:
-    document.getElementById("progress-bar"),
-
-backToTop:
-    document.getElementById("backToTop"),
-
-themeToggle:
-    document.getElementById("theme-toggle"),
-
-menuButton:
-    document.querySelector(".menu-btn"),
-
-navbar:
-    document.querySelector(".navbar"),
-
-mobileOverlay:
-    document.querySelector(".mobile-overlay"),
-
-typing:
-    document.querySelector(".typing-text")
-```
-
-};
+window.App =
+App;
 
 /*=========================================================
-INITIALIZATION
+DOM READY
 =========================================================*/
 
 document.addEventListener(
-"DOMContentLoaded",
-init
-);
-
-function init() {
 
 ```
-console.log(
-    "================================"
+"DOMContentLoaded",
+
+initializeApplication
+```
+
 );
 
-console.log(
-    "NLS Engineering Platform"
-);
+function initializeApplication() {
 
-console.log(
-    "Version:",
-    App.config.app?.version || "5.0"
-);
-
-console.log(
-    "================================"
-);
-
-
+```
 loadTheme();
 
 initializeNavigation();
@@ -139,832 +95,220 @@ initializeProgressBar();
 
 initializeTyping();
 
-initializeCounters();
-
-initializeSkillBars();
-
-initializeRevealAnimations();
-
 initializeSmoothScroll();
 
 initializeActiveNavigation();
 
 initializeHeaderScroll();
 
-initializeLazyImages();
-
-initializeProjectFilters();
-
-initializeLightbox();
-
 initializeContact();
 
 initializeQR();
 
-initializeDownloads();
+initializeVCard();
 
-initializeCurrentYear();
+initializeContactForm();
 
-renderWebsite();
+initializeLightbox();
 
-initializePWA();
-
-initializeAI();
-
-initializeAdmin();
+initializeThemeToggle();
 
 initializeGlobalKeyboardShortcuts();
 
-App.state.loaded = true;
-```
 
-}
+renderAllDynamicContent();
 
-/*=========================================================
-PRELOADER
-=========================================================*/
 
-function finishLoading() {
+initializeRevealAnimations();
 
-```
-if (!DOM.preloader) return;
+initializeCounters();
 
+initializeSkillBars();
 
-DOM.preloader.classList.add(
-    "hide"
-);
+initializeLazyImages();
 
+initializeCurrentYear();
 
-setTimeout(() => {
-
-    DOM.preloader.remove();
-
-}, 600);
-```
-
-}
-
-window.addEventListener(
-"load",
-finishLoading
-);
-
-/*=========================================================
-THEME SYSTEM
-=========================================================*/
-
-function loadTheme() {
-
-```
-const savedTheme =
-
-    localStorage.getItem(
-        "theme"
-    ) ||
-
-    App.config.app?.theme ||
-
-    "light";
-
-
-App.state.theme =
-    savedTheme;
-
-
-DOM.html.setAttribute(
-
-    "data-theme",
-
-    savedTheme
-
-);
-
-
-updateThemeIcon();
-```
-
-}
-
-function toggleTheme() {
-
-```
-App.state.theme =
-
-    App.state.theme === "light"
-
-        ? "dark"
-
-        : "light";
-
-
-DOM.html.setAttribute(
-
-    "data-theme",
-
-    App.state.theme
-
-);
-
-
-localStorage.setItem(
-
-    "theme",
-
-    App.state.theme
-
-);
-
-
-updateThemeIcon();
-```
-
-}
-
-function updateThemeIcon() {
-
-```
-if (!DOM.themeToggle)
-    return;
-
-
-const icon =
-    DOM.themeToggle.querySelector(
-        "i"
-    );
-
-
-if (!icon)
-    return;
-
-
-icon.className =
-
-    App.state.theme === "dark"
-
-        ? "fas fa-sun"
-
-        : "fas fa-moon";
-```
-
-}
-
-if (DOM.themeToggle) {
-
-```
-DOM.themeToggle.addEventListener(
-
-    "click",
-
-    toggleTheme
-
-);
-```
-
-}
-
-/*=========================================================
-MOBILE NAVIGATION
-=========================================================*/
-
-function initializeNavigation() {
-
-```
-if (!DOM.menuButton)
-    return;
-
-
-DOM.menuButton.addEventListener(
-
-    "click",
-
-    toggleMenu
-
-);
-
-
-DOM.mobileOverlay?.addEventListener(
-
-    "click",
-
-    closeMenu
-
-);
-
-
-document
-
-    .querySelectorAll(
-        ".navbar a"
-    )
-
-    .forEach(link => {
-
-        link.addEventListener(
-
-            "click",
-
-            closeMenu
-
-        );
-
-    });
-```
-
-}
-
-function toggleMenu() {
-
-```
-App.state.menuOpen =
-
-    !App.state.menuOpen;
-
-
-DOM.navbar?.classList.toggle(
-
-    "active",
-
-    App.state.menuOpen
-
-);
-
-
-DOM.mobileOverlay?.classList.toggle(
-
-    "active",
-
-    App.state.menuOpen
-
-);
-
-
-DOM.menuButton?.classList.toggle(
-
-    "active",
-
-    App.state.menuOpen
-
-);
-```
-
-}
-
-function closeMenu() {
-
-```
-App.state.menuOpen = false;
-
-
-DOM.navbar?.classList.remove(
-    "active"
-);
-
-
-DOM.mobileOverlay?.classList.remove(
-    "active"
-);
-
-
-DOM.menuButton?.classList.remove(
-    "active"
-);
-```
-
-}
-
-window.addEventListener(
-
-```
-"resize",
-
-() => {
-
-    if (
-
-        window.innerWidth > 992 &&
-
-        App.state.menuOpen
-
-    ) {
-
-        closeMenu();
-
-    }
-
-}
-```
-
-);
-
-/*=========================================================
-TYPING EFFECT
-=========================================================*/
-
-function initializeTyping() {
-
-```
-if (!DOM.typing)
-    return;
-
-
-const words =
-    App.data.hero?.subtitle || [];
-
-
-if (!words.length)
-    return;
-
-
-let wordIndex = 0;
-
-let letterIndex = 0;
-
-let deleting = false;
-
-
-function type() {
-
-    const currentWord =
-        words[wordIndex];
-
-
-    if (!deleting) {
-
-        DOM.typing.textContent =
-
-            currentWord.substring(
-                0,
-                letterIndex++
-            );
-
-
-        if (
-
-            letterIndex >
-            currentWord.length
-
-        ) {
-
-            deleting = true;
-
-
-            setTimeout(
-                type,
-                1800
-            );
-
-
-            return;
-
-        }
-
-    }
-
-    else {
-
-        DOM.typing.textContent =
-
-            currentWord.substring(
-                0,
-                letterIndex--
-            );
-
-
-        if (letterIndex < 0) {
-
-            deleting = false;
-
-            wordIndex++;
-
-
-            if (
-
-                wordIndex >=
-                words.length
-
-            ) {
-
-                wordIndex = 0;
-
-            }
-
-        }
-
-    }
-
-
-    setTimeout(
-
-        type,
-
-        deleting
-            ? 45
-            : 90
-
-    );
-
-}
-
-
-type();
-```
-
-}
-
-/*=========================================================
-SCROLL PROGRESS
-=========================================================*/
-
-function initializeProgressBar() {
-
-```
-if (!DOM.progressBar)
-    return;
-
-
-window.addEventListener(
-
-    "scroll",
-
-    updateProgressBar,
-
-    {
-        passive: true
-    }
-
-);
-
-
-updateProgressBar();
-```
-
-}
-
-function updateProgressBar() {
-
-```
-const scrollTop =
-    window.scrollY;
-
-
-const pageHeight =
-
-    document.documentElement
-        .scrollHeight
-
-    -
-
-    window.innerHeight;
-
-
-if (pageHeight <= 0)
-    return;
-
-
-const progress =
-
-    (scrollTop / pageHeight)
-    * 100;
-
-
-DOM.progressBar.style.width =
-
-    `${progress}%`;
-```
-
-}
-
-/*=========================================================
-BACK TO TOP
-=========================================================*/
-
-function initializeBackToTop() {
-
-```
-if (!DOM.backToTop)
-    return;
-
-
-window.addEventListener(
-
-    "scroll",
-
-    () => {
-
-        DOM.backToTop.classList.toggle(
-
-            "show",
-
-            window.scrollY > 500
-
-        );
-
-    },
-
-    {
-        passive: true
-    }
-
-);
-
-
-DOM.backToTop.addEventListener(
-
-    "click",
-
-    () => {
-
-        window.scrollTo({
-
-            top: 0,
-
-            behavior: "smooth"
-
-        });
-
-    }
-
-);
-```
-
-}
-
-/*=========================================================
-SMOOTH SCROLL
-=========================================================*/
-
-function initializeSmoothScroll() {
-
-```
-document
-
-    .querySelectorAll(
-        'a[href^="#"]'
-    )
-
-    .forEach(link => {
-
-        link.addEventListener(
-
-            "click",
-
-            function (event) {
-
-                const href =
-                    this.getAttribute(
-                        "href"
-                    );
-
-
-                if (
-                    !href ||
-                    href === "#"
-                )
-                    return;
-
-
-                const target =
-                    document.querySelector(
-                        href
-                    );
-
-
-                if (!target)
-                    return;
-
-
-                event.preventDefault();
-
-
-                target.scrollIntoView({
-
-                    behavior:
-                        "smooth",
-
-                    block:
-                        "start"
-
-                });
-
-            }
-
-        );
-
-    });
-```
-
-}
-
-/*=========================================================
-ACTIVE NAVIGATION
-=========================================================*/
-
-function initializeActiveNavigation() {
-
-```
-const sections =
-    document.querySelectorAll(
-        "section[id]"
-    );
-
-
-const navLinks =
-    document.querySelectorAll(
-        ".navbar a"
-    );
+initializePWA();
 
 
 if (
-    !sections.length ||
-    !navLinks.length
-)
-    return;
 
+    typeof AI !== "undefined" &&
 
-window.addEventListener(
+    typeof AI.initialize === "function"
 
-    "scroll",
+) {
 
-    () => {
-
-        let current = "";
-
-
-        sections.forEach(section => {
-
-            const top =
-
-                section.offsetTop
-                - 160;
-
-
-            const bottom =
-
-                top +
-                section.offsetHeight;
-
-
-            if (
-
-                window.scrollY >= top &&
-
-                window.scrollY < bottom
-
-            ) {
-
-                current =
-                    section.id;
-
-            }
-
-        });
-
-
-        navLinks.forEach(link => {
-
-            link.classList.remove(
-                "active"
-            );
-
-
-            if (
-
-                link.getAttribute(
-                    "href"
-                )
-
-                ===
-
-                `#${current}`
-
-            ) {
-
-                link.classList.add(
-                    "active"
-                );
-
-            }
-
-        });
-
-    },
-
-    {
-        passive: true
-    }
-
-);
-```
+    AI.initialize();
 
 }
-
-/*=========================================================
-HEADER SCROLL EFFECT
-=========================================================*/
-
-function initializeHeaderScroll() {
-
-```
-const header =
-    document.querySelector(
-        "header"
-    );
-
-
-if (!header)
-    return;
-
-
-window.addEventListener(
-
-    "scroll",
-
-    () => {
-
-        header.classList.toggle(
-
-            "scrolled",
-
-            window.scrollY > 20
-
-        );
-
-    },
-
-    {
-        passive: true
-    }
-
-);
-```
-
-}
-
-/*=========================================================
-LAZY IMAGES
-=========================================================*/
-
-function initializeLazyImages() {
-
-```
-const images =
-    document.querySelectorAll(
-        "img[data-src]"
-    );
 
 
 if (
-    !images.length ||
-    !("IntersectionObserver" in window)
-)
-    return;
+
+    typeof Admin !== "undefined" &&
+
+    typeof Admin.initialize === "function"
+
+) {
+
+    Admin.initialize();
+
+}
 
 
-const observer =
-
-    new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (
-                    !entry.isIntersecting
-                )
-                    return;
+App.state.loaded =
+    true;
 
 
-                const image =
-                    entry.target;
+console.log(
 
+    "NLS Engineering Platform Loaded"
 
-                image.src =
-                    image.dataset.src;
+);
+```
 
+}
 
-                image.removeAttribute(
-                    "data-src"
-                );
+/*=========================================================
+RENDER ALL DYNAMIC CONTENT
+=========================================================*/
 
+function renderAllDynamicContent() {
 
-                observer.unobserve(
-                    image
-                );
+```
+renderStatistics();
 
-            });
+renderSkills();
 
-        },
+renderExperience();
 
-        {
-            threshold: 0.2
-        }
+renderEducation();
+
+renderTechnologies();
+
+renderProjects();
+
+renderCertificates();
+
+renderDownloads();
+```
+
+}
+
+/*=========================================================
+STATISTICS
+=========================================================*/
+
+function renderStatistics() {
+
+```
+const container =
+
+    document.getElementById(
+
+        "statisticsGrid"
 
     );
 
 
-images.forEach(image => {
+if (!container)
+    return;
 
-    observer.observe(image);
+
+const statistics =
+
+    Array.isArray(
+
+        App.data.statistics
+
+    )
+
+        ? App.data.statistics
+
+        : [];
+
+
+container.innerHTML = "";
+
+
+statistics.forEach(stat => {
+
+
+    const card =
+
+        document.createElement(
+
+            "div"
+
+        );
+
+
+    card.className =
+        "stat-card";
+
+
+    card.innerHTML = `
+
+        <i class="fas ${
+
+            escapeHTML(
+
+                stat.icon || "fa-chart-line"
+
+            )
+
+        }"></i>
+
+
+        <strong
+
+            class="counter"
+
+            data-target="${
+
+                extractNumber(
+
+                    stat.value
+
+                )
+
+            }"
+
+            data-suffix="${
+
+                extractSuffix(
+
+                    stat.value
+
+                )
+
+            }">
+
+            0
+
+        </strong>
+
+
+        <span>
+
+            ${
+
+                escapeHTML(
+
+                    stat.label || ""
+
+                )
+
+            }
+
+        </span>
+
+    `;
+
+
+    container.appendChild(card);
 
 });
 ```
@@ -972,220 +316,314 @@ images.forEach(image => {
 }
 
 /*=========================================================
-COUNTER ANIMATION
+SKILLS
 =========================================================*/
 
-function initializeCounters() {
+function renderSkills() {
 
 ```
-const counters =
-    document.querySelectorAll(
-        ".counter"
+const container =
+
+    document.getElementById(
+
+        "skillsGrid"
+
     );
 
 
-if (
-    !counters.length ||
-    !("IntersectionObserver" in window)
-)
+if (!container)
     return;
 
 
-const observer =
+const skills =
 
-    new IntersectionObserver(
+    Array.isArray(
 
-        entries => {
+        App.data.skills
 
-            entries.forEach(entry => {
+    )
 
-                if (
-                    !entry.isIntersecting
-                )
-                    return;
+        ? App.data.skills
 
-
-                animateCounter(
-                    entry.target
-                );
+        : [];
 
 
-                observer.unobserve(
-                    entry.target
-                );
-
-            });
-
-        },
-
-        {
-            threshold: 0.4
-        }
-
-    );
+container.innerHTML = "";
 
 
-counters.forEach(counter => {
+skills.forEach(skill => {
 
-    observer.observe(counter);
+
+    const card =
+
+        document.createElement(
+
+            "div"
+
+        );
+
+
+    card.className =
+        "skill-card";
+
+
+    card.innerHTML = `
+
+        <div class="skill-header">
+
+            <div class="skill-name">
+
+                <i class="fas ${
+
+                    escapeHTML(
+
+                        skill.icon || "fa-star"
+
+                    )
+
+                }"></i>
+
+
+                <span>
+
+                    ${
+
+                        escapeHTML(
+
+                            skill.name || ""
+
+                        )
+
+                    }
+
+                </span>
+
+            </div>
+
+
+            <span class="skill-percentage">
+
+                ${
+
+                    Number(
+
+                        skill.level || 0
+
+                    )
+
+                }%
+
+            </span>
+
+        </div>
+
+
+        <div class="skill-bar">
+
+            <div
+
+                class="skill-progress"
+
+                data-progress="${
+
+                    Number(
+
+                        skill.level || 0
+
+                    )
+
+                }">
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(card);
 
 });
 ```
 
 }
 
-function animateCounter(counter) {
-
-```
-const target =
-    Number(
-        counter.dataset.target
-    );
-
-
-const suffix =
-    counter.dataset.suffix || "";
-
-
-if (
-    Number.isNaN(target)
-)
-    return;
-
-
-const duration =
-    1800;
-
-
-const start =
-    performance.now();
-
-
-function update(now) {
-
-    const progress =
-
-        Math.min(
-
-            (now - start)
-            / duration,
-
-            1
-
-        );
-
-
-    const value =
-
-        Math.floor(
-            progress * target
-        );
-
-
-    counter.textContent =
-
-        value + suffix;
-
-
-    if (
-        progress < 1
-    ) {
-
-        requestAnimationFrame(
-            update
-        );
-
-    }
-
-    else {
-
-        counter.textContent =
-            target + suffix;
-
-    }
-
-}
-
-
-requestAnimationFrame(
-    update
-);
-```
-
-}
-
 /*=========================================================
-SKILL BARS
+EXPERIENCE
 =========================================================*/
 
-function initializeSkillBars() {
+function renderExperience() {
 
 ```
-const bars =
-    document.querySelectorAll(
-        ".skill-progress"
+const container =
+
+    document.getElementById(
+
+        "experienceTimeline"
+
     );
 
 
-if (
-    !bars.length ||
-    !("IntersectionObserver" in window)
-)
+if (!container)
     return;
 
 
-const observer =
+const experience =
 
-    new IntersectionObserver(
+    Array.isArray(
 
-        entries => {
+        App.data.experience
 
-            entries.forEach(entry => {
+    )
 
-                if (
-                    !entry.isIntersecting
-                )
-                    return;
+        ? App.data.experience
 
-
-                const bar =
-                    entry.target;
+        : [];
 
 
-                const progress =
-                    bar.dataset.progress;
+container.innerHTML = "";
 
 
-                if (progress) {
+experience.forEach(item => {
 
-                    bar.style.width =
-                        `${progress}%`;
+
+    const article =
+
+        document.createElement(
+
+            "article"
+
+        );
+
+
+    article.className =
+        "timeline-item";
+
+
+    const technologies =
+
+        Array.isArray(
+
+            item.technologies
+
+        )
+
+            ? item.technologies
+
+            : [];
+
+
+    article.innerHTML = `
+
+        <div class="timeline-marker">
+
+            <i class="fas fa-briefcase"></i>
+
+        </div>
+
+
+        <div class="timeline-content">
+
+            <span class="timeline-period">
+
+                ${
+
+                    escapeHTML(
+
+                        item.period || ""
+
+                    )
 
                 }
 
-
-                observer.unobserve(
-                    bar
-                );
-
-            });
-
-        },
-
-        {
-            threshold: 0.3
-        }
-
-    );
+            </span>
 
 
-bars.forEach(bar => {
+            <h3>
 
-    bar.style.width =
-        "0%";
+                ${
+
+                    escapeHTML(
+
+                        item.title || ""
+
+                    )
+
+                }
+
+            </h3>
 
 
-    observer.observe(bar);
+            <h4>
+
+                ${
+
+                    escapeHTML(
+
+                        item.company || ""
+
+                    )
+
+                }
+
+            </h4>
+
+
+            <p>
+
+                ${
+
+                    escapeHTML(
+
+                        item.description || ""
+
+                    )
+
+                }
+
+            </p>
+
+
+            <div class="technology-tags">
+
+                ${
+
+                    technologies
+
+                        .map(
+
+                            technology => `
+
+                                <span>
+
+                                    ${
+
+                                        escapeHTML(
+
+                                            technology
+
+                                        )
+
+                                    }
+
+                                </span>
+
+                            `
+
+                        )
+
+                        .join("")
+
+                }
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    container.appendChild(article);
 
 });
 ```
@@ -1193,79 +631,129 @@ bars.forEach(bar => {
 }
 
 /*=========================================================
-SECTION REVEAL
+EDUCATION
 =========================================================*/
 
-function initializeRevealAnimations() {
+function renderEducation() {
 
 ```
-const elements =
+const container =
 
-    document.querySelectorAll(
+    document.getElementById(
 
-        ".section, " +
-
-        ".stat-card, " +
-
-        ".project-card, " +
-
-        ".certificate-card, " +
-
-        ".service-card, " +
-
-        ".achievement-card, " +
-
-        ".education-card, " +
-
-        ".technology-card"
+        "educationGrid"
 
     );
 
 
-if (
-    !elements.length ||
-    !("IntersectionObserver" in window)
-)
+if (!container)
     return;
 
 
-const observer =
+const education =
 
-    new IntersectionObserver(
+    Array.isArray(
 
-        entries => {
+        App.data.education
 
-            entries.forEach(entry => {
+    )
 
-                if (
-                    !entry.isIntersecting
+        ? App.data.education
+
+        : [];
+
+
+container.innerHTML = "";
+
+
+education.forEach(item => {
+
+
+    const card =
+
+        document.createElement(
+
+            "article"
+
+        );
+
+
+    card.className =
+        "education-card";
+
+
+    card.innerHTML = `
+
+        <div class="education-icon">
+
+            <i class="fas fa-graduation-cap"></i>
+
+        </div>
+
+
+        <span class="education-period">
+
+            ${
+
+                escapeHTML(
+
+                    item.period || ""
+
                 )
-                    return;
+
+            }
+
+        </span>
 
 
-                entry.target.classList.add(
-                    "animate"
-                );
+        <h3>
+
+            ${
+
+                escapeHTML(
+
+                    item.qualification || ""
+
+                )
+
+            }
+
+        </h3>
 
 
-                observer.unobserve(
-                    entry.target
-                );
+        <h4>
 
-            });
+            ${
 
-        },
+                escapeHTML(
 
-        {
-            threshold: 0.15
-        }
+                    item.institution || ""
 
-    );
+                )
+
+            }
+
+        </h4>
 
 
-elements.forEach(element => {
+        <p>
 
-    observer.observe(element);
+            ${
+
+                escapeHTML(
+
+                    item.description || ""
+
+                )
+
+            }
+
+        </p>
+
+    `;
+
+
+    container.appendChild(card);
 
 });
 ```
@@ -1273,87 +761,122 @@ elements.forEach(element => {
 }
 
 /*=========================================================
-DYNAMIC PROFILE
+TECHNOLOGIES
 =========================================================*/
 
-function populateProfile() {
+function renderTechnologies() {
 
 ```
-const profile =
-    App.config.profile;
+const container =
+
+    document.getElementById(
+
+        "technologyGrid"
+
+    );
 
 
-if (!profile)
+if (!container)
     return;
 
 
-if (
-    profile.fullName &&
-    document.title
-) {
+const technologies =
 
-    document.title =
+    Array.isArray(
 
-        `${profile.fullName} | ` +
-        `${profile.title || ""}`;
+        App.data.technologies
 
-}
-
-
-document
-
-    .querySelectorAll(
-        "[data-name]"
     )
 
-    .forEach(element => {
+        ? App.data.technologies
 
-        element.textContent =
-            profile.fullName || "";
-
-    });
+        : [];
 
 
-document
-
-    .querySelectorAll(
-        "[data-title]"
-    )
-
-    .forEach(element => {
-
-        element.textContent =
-            profile.title || "";
-
-    });
+container.innerHTML = "";
 
 
-document
+technologies.forEach(technology => {
 
-    .querySelectorAll(
-        "[data-headline]"
-    )
 
-    .forEach(element => {
+    const card =
 
-        element.textContent =
-            profile.headline || "";
+        document.createElement(
 
-    });
+            "div"
+
+        );
+
+
+    card.className =
+        "technology-card";
+
+
+    card.innerHTML = `
+
+        <i class="fas ${
+
+            escapeHTML(
+
+                technology.icon || "fa-microchip"
+
+            )
+
+        }"></i>
+
+
+        <h3>
+
+            ${
+
+                escapeHTML(
+
+                    technology.name || ""
+
+                )
+
+            }
+
+        </h3>
+
+
+        <span>
+
+            ${
+
+                escapeHTML(
+
+                    technology.category || ""
+
+                )
+
+            }
+
+        </span>
+
+    `;
+
+
+    container.appendChild(card);
+
+});
 ```
 
 }
 
 /*=========================================================
-RENDER PROJECTS
+PROJECTS
 =========================================================*/
 
 function renderProjects() {
 
 ```
 const container =
+
     document.getElementById(
+
         "projectsGrid"
+
     );
 
 
@@ -1362,8 +885,11 @@ if (!container)
 
 
 const projects =
+
     Array.isArray(
+
         App.data.projects
+
     )
 
         ? App.data.projects
@@ -1376,24 +902,31 @@ container.innerHTML = "";
 
 projects.forEach(project => {
 
-    const article =
+
+    const card =
+
         document.createElement(
+
             "article"
+
         );
 
 
-    article.className =
+    card.className =
         "project-card";
 
 
-    article.dataset.category =
+    card.dataset.category =
+
         project.category || "";
 
 
     const technologies =
 
         Array.isArray(
+
             project.technologies
+
         )
 
             ? project.technologies
@@ -1401,58 +934,115 @@ projects.forEach(project => {
             : [];
 
 
-    article.innerHTML = `
+    card.innerHTML = `
 
-        <img
+        <div class="project-image">
 
-            src="${escapeHTML(
-                project.image || ""
-            )}"
+            <img
 
-            alt="${escapeHTML(
-                project.title || ""
-            )}"
+                src="${
 
-            loading="lazy">
+                    escapeHTML(
 
-        <div class="project-content">
+                        project.image || ""
 
-            <span class="project-tag">
+                    )
 
-                ${escapeHTML(
-                    project.category || ""
-                )}
+                }"
+
+                alt="${
+
+                    escapeHTML(
+
+                        project.title || ""
+
+                    )
+
+                }"
+
+                loading="lazy">
+
+
+            <span class="project-category">
+
+                ${
+
+                    escapeHTML(
+
+                        project.category || ""
+
+                    )
+
+                }
 
             </span>
 
+        </div>
+
+
+        <div class="project-content">
+
             <h3>
 
-                ${escapeHTML(
-                    project.title || ""
-                )}
+                ${
+
+                    escapeHTML(
+
+                        project.title || ""
+
+                    )
+
+                }
 
             </h3>
 
+
             <p>
 
-                ${escapeHTML(
-                    project.description || ""
-                )}
+                ${
+
+                    escapeHTML(
+
+                        project.description || ""
+
+                    )
+
+                }
 
             </p>
 
-            <div class="project-technologies">
 
-                ${technologies
+            <div class="technology-badges">
 
-                    .map(
-                        technology =>
-                            `<span>${escapeHTML(
-                                technology
-                            )}</span>`
-                    )
+                ${
 
-                    .join("")}
+                    technologies
+
+                        .map(
+
+                            technology => `
+
+                                <span>
+
+                                    ${
+
+                                        escapeHTML(
+
+                                            technology
+
+                                        )
+
+                                    }
+
+                                </span>
+
+                            `
+
+                        )
+
+                        .join("")
+
+                }
 
             </div>
 
@@ -1461,14 +1051,12 @@ projects.forEach(project => {
     `;
 
 
-    container.appendChild(
-        article
-    );
+    container.appendChild(card);
 
 });
 
 
-initializeRevealAnimations();
+initializeProjectFilters();
 ```
 
 }
@@ -1481,25 +1069,35 @@ function initializeProjectFilters() {
 
 ```
 const buttons =
+
     document.querySelectorAll(
+
         ".filter-btn"
+
     );
 
 
-const grid =
-    document.getElementById(
-        "projectsGrid"
+const projects =
+
+    document.querySelectorAll(
+
+        ".project-card"
+
     );
 
 
 if (
+
     !buttons.length ||
-    !grid
+
+    !projects.length
+
 )
     return;
 
 
 buttons.forEach(button => {
+
 
     button.addEventListener(
 
@@ -1507,37 +1105,47 @@ buttons.forEach(button => {
 
         () => {
 
+
             const filter =
-                button.dataset.filter;
+
+                (
+
+                    button.dataset.filter
+
+                    || "all"
+
+                )
+
+                .toLowerCase();
 
 
-            buttons.forEach(btn => {
+            buttons.forEach(item => {
 
-                btn.classList.remove(
+                item.classList.remove(
+
                     "active"
+
                 );
 
             });
 
 
             button.classList.add(
+
                 "active"
+
             );
 
 
-            const projects =
-                grid.querySelectorAll(
-                    ".project-card"
-                );
-
-
             projects.forEach(project => {
+
 
                 const category =
 
                     (
 
                         project.dataset.category
+
                         || ""
 
                     )
@@ -1545,21 +1153,21 @@ buttons.forEach(button => {
                     .toLowerCase();
 
 
-                const matches =
+                const visible =
 
                     filter === "all"
 
                     ||
 
-                    category.includes(
-                        filter.toLowerCase()
-                    );
+                    category === filter;
 
 
                 project.style.display =
 
-                    matches
+                    visible
+
                         ? ""
+
                         : "none";
 
             });
@@ -1574,15 +1182,18 @@ buttons.forEach(button => {
 }
 
 /*=========================================================
-RENDER CERTIFICATES
+CERTIFICATES
 =========================================================*/
 
 function renderCertificates() {
 
 ```
 const container =
+
     document.getElementById(
+
         "certificateGrid"
+
     );
 
 
@@ -1593,7 +1204,9 @@ if (!container)
 const certificates =
 
     Array.isArray(
+
         App.data.certificates
+
     )
 
         ? App.data.certificates
@@ -1604,94 +1217,98 @@ const certificates =
 container.innerHTML = "";
 
 
-certificates.forEach(cert => {
+certificates.forEach(certificate => {
 
-    const article =
+
+    const card =
+
         document.createElement(
+
             "article"
+
         );
 
 
-    article.className =
+    card.className =
         "certificate-card";
 
 
-    article.innerHTML = `
+    card.innerHTML = `
 
-        <img
+        <div class="certificate-image">
 
-            src="${escapeHTML(
-                cert.image || ""
-            )}"
+            <img
 
-            alt="${escapeHTML(
-                cert.title || ""
-            )}"
+                src="${
 
-            loading="lazy">
+                    escapeHTML(
 
-        <h3>
+                        certificate.image || ""
 
-            ${escapeHTML(
-                cert.title || ""
-            )}
+                    )
 
-        </h3>
+                }"
 
-        <button
+                alt="${
 
-            class="btn btn-primary"
+                    escapeHTML(
 
-            type="button"
+                        certificate.title || ""
 
-            data-certificate-file=
+                    )
 
-                "${escapeHTML(
-                    cert.file || ""
-                )}">
+                }"
 
-            View Certificate
+                loading="lazy">
 
-        </button>
+        </div>
+
+
+        <div class="certificate-content">
+
+            <h3>
+
+                ${
+
+                    escapeHTML(
+
+                        certificate.title || ""
+
+                    )
+
+                }
+
+            </h3>
+
+
+            <a
+
+                href="${
+
+                    escapeHTML(
+
+                        certificate.file || "#"
+
+                    )
+
+                }"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+                class="btn btn-primary">
+
+                View Certificate
+
+            </a>
+
+        </div>
 
     `;
 
 
-    const button =
-        article.querySelector(
-            "[data-certificate-file]"
-        );
-
-
-    button?.addEventListener(
-
-        "click",
-
-        () => {
-
-            const file =
-                button.dataset
-                    .certificateFile;
-
-
-            if (file) {
-
-                window.open(
-                    file,
-                    "_blank",
-                    "noopener,noreferrer"
-                );
-
-            }
-
-        }
-
-    );
-
-
-    container.appendChild(
-        article
-    );
+    container.appendChild(card);
 
 });
 ```
@@ -1699,15 +1316,18 @@ certificates.forEach(cert => {
 }
 
 /*=========================================================
-RENDER DOWNLOADS
+DOWNLOADS
 =========================================================*/
 
 function renderDownloads() {
 
 ```
 const container =
+
     document.getElementById(
+
         "downloadsGrid"
+
     );
 
 
@@ -1718,7 +1338,9 @@ if (!container)
 const downloads =
 
     Array.isArray(
+
         App.data.downloads
+
     )
 
         ? App.data.downloads
@@ -1729,157 +1351,63 @@ const downloads =
 container.innerHTML = "";
 
 
-downloads.forEach(file => {
+downloads.forEach(download => {
 
-    const link =
+
+    const card =
+
         document.createElement(
+
             "a"
+
         );
 
 
-    link.className =
+    card.className =
         "download-card";
 
 
-    link.href =
-        file.file || "#";
+    card.href =
+        download.file || "#";
 
 
-    link.download =
+    card.download =
         "";
 
 
-    link.innerHTML = `
+    card.innerHTML = `
 
         <i class="fas ${
+
             escapeHTML(
-                file.icon || "fa-file"
+
+                download.icon || "fa-file"
+
             )
+
         }"></i>
+
 
         <span>
 
-            ${escapeHTML(
-                file.name || "Download"
-            )}
+            ${
+
+                escapeHTML(
+
+                    download.name || "Download"
+
+                )
+
+            }
 
         </span>
 
     `;
 
 
-    container.appendChild(
-        link
-    );
+    container.appendChild(card);
 
 });
-```
-
-}
-
-/*=========================================================
-WEBSITE RENDER
-=========================================================*/
-
-function renderWebsite() {
-
-```
-populateProfile();
-
-renderProjects();
-
-renderCertificates();
-
-renderDownloads();
-```
-
-}
-
-/*=========================================================
-QR CODE
-=========================================================*/
-
-function initializeQR() {
-
-```
-const qrContainer =
-    document.getElementById(
-        "qrCode"
-    );
-
-
-if (!qrContainer)
-    return;
-
-
-const qrConfig =
-    App.config.qr || {};
-
-
-if (
-    qrConfig.enabled === false
-)
-    return;
-
-
-if (
-    typeof QRCode === "undefined"
-) {
-
-    console.warn(
-        "QRCode library not loaded."
-    );
-
-
-    return;
-
-}
-
-
-const portfolioURL =
-
-    qrConfig.portfolioURL
-
-    ||
-
-    window.location.href;
-
-
-qrContainer.innerHTML = "";
-
-
-new QRCode(
-
-    qrContainer,
-
-    {
-
-        text:
-            portfolioURL,
-
-
-        width:
-            220,
-
-
-        height:
-            220,
-
-
-        colorDark:
-            "#111827",
-
-
-        colorLight:
-            "#ffffff",
-
-
-        correctLevel:
-            QRCode.CorrectLevel.H
-
-    }
-
-);
 ```
 
 }
@@ -1892,6 +1420,7 @@ function initializeContact() {
 
 ```
 const contact =
+
     App.config.contact;
 
 
@@ -1899,42 +1428,19 @@ if (!contact)
     return;
 
 
-const phone =
-    contact.phone || "";
-
-
-const email =
-    contact.email || "";
-
-
-const whatsapp =
-    contact.whatsapp || "";
-
-
-const linkedin =
-    contact.linkedin || "";
-
-
-const facebook =
-    contact.facebook || "";
-
-
 document
 
     .querySelectorAll(
+
         "[data-phone]"
+
     )
 
     .forEach(element => {
 
         element.href =
-            `tel:${phone}`;
 
-
-        element.setAttribute(
-            "aria-label",
-            `Call ${phone}`
-        );
+            `tel:${contact.phone}`;
 
     });
 
@@ -1942,19 +1448,16 @@ document
 document
 
     .querySelectorAll(
+
         "[data-email]"
+
     )
 
     .forEach(element => {
 
         element.href =
-            `mailto:${email}`;
 
-
-        element.setAttribute(
-            "aria-label",
-            `Email ${email}`
-        );
+            `mailto:${contact.email}`;
 
     });
 
@@ -1962,27 +1465,22 @@ document
 document
 
     .querySelectorAll(
+
         "[data-whatsapp]"
+
     )
 
     .forEach(element => {
 
         element.href =
-            `https://wa.me/${whatsapp}`;
 
+            `https://wa.me/${contact.whatsapp}`;
 
         element.target =
             "_blank";
 
-
         element.rel =
             "noopener noreferrer";
-
-
-        element.setAttribute(
-            "aria-label",
-            "Contact on WhatsApp"
-        );
 
     });
 
@@ -1990,18 +1488,18 @@ document
 document
 
     .querySelectorAll(
+
         "[data-linkedin]"
+
     )
 
     .forEach(element => {
 
         element.href =
-            linkedin;
-
+            contact.linkedin;
 
         element.target =
             "_blank";
-
 
         element.rel =
             "noopener noreferrer";
@@ -2012,34 +1510,94 @@ document
 document
 
     .querySelectorAll(
+
         "[data-facebook]"
+
     )
 
     .forEach(element => {
 
         element.href =
-            facebook;
-
+            contact.facebook;
 
         element.target =
             "_blank";
-
 
         element.rel =
             "noopener noreferrer";
 
     });
-
-
-initializeVCard();
-
-initializeContactForm();
 ```
 
 }
 
 /*=========================================================
-DYNAMIC VCARD
+QR CODE
+=========================================================*/
+
+function initializeQR() {
+
+```
+const container =
+
+    document.getElementById(
+
+        "qrCode"
+
+    );
+
+
+if (
+
+    !container ||
+
+    typeof QRCode ===
+
+    "undefined"
+
+)
+    return;
+
+
+const url =
+
+    App.config.qr?.portfolioURL
+
+    ||
+
+    window.location.href;
+
+
+container.innerHTML = "";
+
+
+new QRCode(
+
+    container,
+
+    {
+
+        text:
+            url,
+
+        width:
+            220,
+
+        height:
+            220,
+
+        correctLevel:
+            QRCode.CorrectLevel.H
+
+    }
+
+);
+```
+
+}
+
+/*=========================================================
+VCARD
 =========================================================*/
 
 function initializeVCard() {
@@ -2054,8 +1612,11 @@ const profile =
 
 
 if (
+
     !contact ||
+
     !profile
+
 )
     return;
 
@@ -2076,23 +1637,33 @@ const vCard = [
     "VERSION:3.0",
 
     `FN:${escapeVCard(
+
         profile.fullName
+
     )}`,
 
     `TITLE:${escapeVCard(
+
         profile.title
+
     )}`,
 
     `TEL;TYPE=CELL:${escapeVCard(
+
         contact.phone
+
     )}`,
 
     `EMAIL:${escapeVCard(
+
         contact.email
+
     )}`,
 
     `URL:${escapeVCard(
+
         website
+
     )}`,
 
     "END:VCARD"
@@ -2101,28 +1672,37 @@ const vCard = [
 
 
 const blob =
+
     new Blob(
 
         [vCard],
 
         {
+
             type:
-                "text/vcard;charset=utf-8"
+
+                "text/vcard"
+
         }
 
     );
 
 
 const url =
+
     URL.createObjectURL(
+
         blob
+
     );
 
 
 document
 
     .querySelectorAll(
+
         'a[href="vcard.vcf"]'
+
     )
 
     .forEach(link => {
@@ -2130,21 +1710,10 @@ document
         link.href =
             url;
 
-
         link.download =
             "Nhlanhla_Lucky_Shirilele.vcf";
 
     });
-
-
-window.NLS_VCARD = {
-
-    content:
-        vCard,
-
-    url
-
-};
 ```
 
 }
@@ -2157,8 +1726,11 @@ function initializeContactForm() {
 
 ```
 const form =
+
     document.getElementById(
+
         "contactForm"
+
     );
 
 
@@ -2172,53 +1744,56 @@ form.addEventListener(
 
     event => {
 
+
         event.preventDefault();
 
 
         const name =
+
             document.getElementById(
+
                 "name"
+
             )?.value.trim() || "";
 
 
         const email =
+
             document.getElementById(
+
                 "email"
+
             )?.value.trim() || "";
 
 
         const subject =
+
             document.getElementById(
+
                 "subject"
+
             )?.value.trim() || "";
 
 
         const message =
+
             document.getElementById(
+
                 "message"
+
             )?.value.trim() || "";
 
 
-        const contact =
-            App.config.contact;
+        const destination =
+
+            App.config.contact?.email;
 
 
-        if (
-            !contact?.email
-        )
+        if (!destination)
             return;
 
 
-        const emailSubject =
-
-            subject
-
-            ||
-
-            `Portfolio enquiry from ${name}`;
-
-
-        const emailBody =
+        const body =
 ```
 
 `Name: ${name}
@@ -2230,25 +1805,23 @@ Message:
 ${message}`;
 
 ```
-        const mailto =
+        window.location.href =
 
-            `mailto:${contact.email}`
-
-            +
+            `mailto:${destination}` +
 
             `?subject=${encodeURIComponent(
-                emailSubject
-            )}`
 
-            +
+                subject ||
+
+                "Portfolio Enquiry"
+
+            )}` +
 
             `&body=${encodeURIComponent(
-                emailBody
+
+                body
+
             )}`;
-
-
-        window.location.href =
-            mailto;
 
     }
 
@@ -2258,63 +1831,937 @@ ${message}`;
 }
 
 /*=========================================================
-DOWNLOAD SYSTEM
+THEME
 =========================================================*/
 
-function initializeDownloads() {
+function initializeThemeToggle() {
+
+```
+const toggle =
+
+    document.getElementById(
+
+        "theme-toggle"
+
+    );
+
+
+if (!toggle)
+    return;
+
+
+toggle.addEventListener(
+
+    "click",
+
+    toggleTheme
+
+);
+```
+
+}
+
+function loadTheme() {
+
+```
+const saved =
+
+    localStorage.getItem(
+
+        "theme"
+
+    )
+
+    ||
+
+    "light";
+
+
+App.state.theme =
+    saved;
+
+
+document.documentElement
+
+    .setAttribute(
+
+        "data-theme",
+
+        saved
+
+    );
+```
+
+}
+
+function toggleTheme() {
+
+```
+const newTheme =
+
+    App.state.theme === "light"
+
+        ? "dark"
+
+        : "light";
+
+
+App.state.theme =
+    newTheme;
+
+
+document.documentElement
+
+    .setAttribute(
+
+        "data-theme",
+
+        newTheme
+
+    );
+
+
+localStorage.setItem(
+
+    "theme",
+
+    newTheme
+
+);
+```
+
+}
+
+/*=========================================================
+MOBILE NAVIGATION
+=========================================================*/
+
+function initializeNavigation() {
+
+```
+const menuButton =
+
+    document.querySelector(
+
+        ".menu-btn"
+
+    );
+
+
+const navbar =
+
+    document.querySelector(
+
+        ".navbar"
+
+    );
+
+
+if (!menuButton)
+    return;
+
+
+menuButton.addEventListener(
+
+    "click",
+
+    () => {
+
+        App.state.menuOpen =
+
+            !App.state.menuOpen;
+
+
+        navbar?.classList.toggle(
+
+            "active",
+
+            App.state.menuOpen
+
+        );
+
+    }
+
+);
+```
+
+}
+
+/*=========================================================
+SMOOTH SCROLL
+=========================================================*/
+
+function initializeSmoothScroll() {
 
 ```
 document
 
     .querySelectorAll(
-        "[data-download]"
+
+        'a[href^="#"]'
+
     )
 
-    .forEach(button => {
+    .forEach(link => {
 
-        button.addEventListener(
+
+        link.addEventListener(
 
             "click",
 
-            function () {
-
-                const file =
-                    this.dataset.download;
+            event => {
 
 
-                if (!file)
-                    return;
+                const target =
 
+                    document.querySelector(
 
-                const link =
-                    document.createElement(
-                        "a"
+                        link.getAttribute(
+
+                            "href"
+
+                        )
+
                     );
 
 
-                link.href =
-                    file;
+                if (!target)
+                    return;
 
 
-                link.download =
-                    "";
+                event.preventDefault();
 
 
-                document.body.appendChild(
-                    link
-                );
+                target.scrollIntoView({
 
+                    behavior:
+                        "smooth"
 
-                link.click();
-
-
-                link.remove();
+                });
 
             }
 
         );
 
     });
+```
+
+}
+
+/*=========================================================
+SCROLL PROGRESS
+=========================================================*/
+
+function initializeProgressBar() {
+
+```
+const bar =
+
+    document.getElementById(
+
+        "progress-bar"
+
+    );
+
+
+if (!bar)
+    return;
+
+
+window.addEventListener(
+
+    "scroll",
+
+    () => {
+
+
+        const height =
+
+            document.documentElement
+
+                .scrollHeight
+
+            -
+
+            window.innerHeight;
+
+
+        const progress =
+
+            height > 0
+
+                ? (
+
+                    window.scrollY
+
+                    /
+
+                    height
+
+                )
+
+                * 100
+
+                : 0;
+
+
+        bar.style.width =
+
+            `${progress}%`;
+
+    },
+
+    {
+
+        passive:
+            true
+
+    }
+
+);
+```
+
+}
+
+/*=========================================================
+BACK TO TOP
+=========================================================*/
+
+function initializeBackToTop() {
+
+```
+const button =
+
+    document.getElementById(
+
+        "backToTop"
+
+    );
+
+
+if (!button)
+    return;
+
+
+window.addEventListener(
+
+    "scroll",
+
+    () => {
+
+        button.classList.toggle(
+
+            "show",
+
+            window.scrollY > 500
+
+        );
+
+    },
+
+    {
+
+        passive:
+            true
+
+    }
+
+);
+
+
+button.addEventListener(
+
+    "click",
+
+    () => {
+
+        window.scrollTo({
+
+            top:
+                0,
+
+            behavior:
+                "smooth"
+
+        });
+
+    }
+
+);
+```
+
+}
+
+/*=========================================================
+TYPING EFFECT
+=========================================================*/
+
+function initializeTyping() {
+
+```
+const element =
+
+    document.querySelector(
+
+        ".typing-text"
+
+    );
+
+
+const words =
+
+    App.data.hero?.subtitle;
+
+
+if (
+
+    !element ||
+
+    !Array.isArray(words)
+
+)
+    return;
+
+
+let wordIndex =
+    0;
+
+
+let letterIndex =
+    0;
+
+
+let deleting =
+    false;
+
+
+function type() {
+
+
+    const word =
+        words[wordIndex];
+
+
+    if (!deleting) {
+
+
+        element.textContent =
+
+            word.substring(
+
+                0,
+
+                letterIndex++
+
+            );
+
+
+        if (
+
+            letterIndex >
+
+            word.length
+
+        ) {
+
+            deleting =
+                true;
+
+
+            setTimeout(
+
+                type,
+
+                1500
+
+            );
+
+
+            return;
+
+        }
+
+    }
+
+    else {
+
+
+        element.textContent =
+
+            word.substring(
+
+                0,
+
+                letterIndex--
+
+            );
+
+
+        if (
+
+            letterIndex < 0
+
+        ) {
+
+            deleting =
+                false;
+
+
+            wordIndex =
+
+                (
+
+                    wordIndex + 1
+
+                )
+
+                %
+
+                words.length;
+
+        }
+
+    }
+
+
+    setTimeout(
+
+        type,
+
+        deleting
+
+            ? 45
+
+            : 90
+
+    );
+
+}
+
+
+type();
+```
+
+}
+
+/*=========================================================
+COUNTERS
+=========================================================*/
+
+function initializeCounters() {
+
+```
+const counters =
+
+    document.querySelectorAll(
+
+        ".counter"
+
+    );
+
+
+counters.forEach(counter => {
+
+
+    const target =
+
+        Number(
+
+            counter.dataset.target
+
+        );
+
+
+    const suffix =
+
+        counter.dataset.suffix
+
+        || "";
+
+
+    if (
+
+        Number.isNaN(target)
+
+    )
+        return;
+
+
+    let current =
+        0;
+
+
+    const interval =
+
+        setInterval(
+
+            () => {
+
+
+                current +=
+
+                    Math.ceil(
+
+                        target / 40
+
+                    );
+
+
+                if (
+
+                    current >= target
+
+                ) {
+
+                    current =
+                        target;
+
+
+                    clearInterval(
+
+                        interval
+
+                    );
+
+                }
+
+
+                counter.textContent =
+
+                    `${current}${suffix}`;
+
+            },
+
+            35
+
+        );
+
+});
+```
+
+}
+
+/*=========================================================
+SKILL BARS
+=========================================================*/
+
+function initializeSkillBars() {
+
+```
+const bars =
+
+    document.querySelectorAll(
+
+        ".skill-progress"
+
+    );
+
+
+bars.forEach(bar => {
+
+
+    const value =
+
+        bar.dataset.progress;
+
+
+    if (value) {
+
+        requestAnimationFrame(
+
+            () => {
+
+                bar.style.width =
+
+                    `${value}%`;
+
+            }
+
+        );
+
+    }
+
+});
+```
+
+}
+
+/*=========================================================
+REVEAL ANIMATIONS
+=========================================================*/
+
+function initializeRevealAnimations() {
+
+```
+const elements =
+
+    document.querySelectorAll(
+
+        ".stat-card, " +
+
+        ".skill-card, " +
+
+        ".timeline-item, " +
+
+        ".education-card, " +
+
+        ".technology-card, " +
+
+        ".project-card, " +
+
+        ".certificate-card, " +
+
+        ".download-card"
+
+    );
+
+
+if (
+
+    !("IntersectionObserver" in window)
+
+) {
+
+    elements.forEach(
+
+        element =>
+
+            element.classList.add(
+
+                "animate"
+
+            )
+
+    );
+
+
+    return;
+
+}
+
+
+const observer =
+
+    new IntersectionObserver(
+
+        entries => {
+
+
+            entries.forEach(
+
+                entry => {
+
+
+                    if (
+
+                        entry.isIntersecting
+
+                    ) {
+
+
+                        entry.target
+
+                            .classList.add(
+
+                                "animate"
+
+                            );
+
+
+                        observer.unobserve(
+
+                            entry.target
+
+                        );
+
+                    }
+
+                }
+
+            );
+
+        },
+
+        {
+
+            threshold:
+                0.15
+
+        }
+
+    );
+
+
+elements.forEach(
+
+    element =>
+
+        observer.observe(
+
+            element
+
+        )
+
+);
+```
+
+}
+
+/*=========================================================
+ACTIVE NAVIGATION
+=========================================================*/
+
+function initializeActiveNavigation() {
+
+```
+const sections =
+
+    document.querySelectorAll(
+
+        "section[id]"
+
+    );
+
+
+const links =
+
+    document.querySelectorAll(
+
+        ".navbar a"
+
+    );
+
+
+if (
+
+    !sections.length ||
+
+    !links.length
+
+)
+    return;
+
+
+window.addEventListener(
+
+    "scroll",
+
+    () => {
+
+
+        let current =
+            "";
+
+
+        sections.forEach(
+
+            section => {
+
+
+                if (
+
+                    window.scrollY >=
+
+                    section.offsetTop
+
+                    - 180
+
+                ) {
+
+                    current =
+                        section.id;
+
+                }
+
+            }
+
+        );
+
+
+        links.forEach(
+
+            link => {
+
+
+                link.classList.toggle(
+
+                    "active",
+
+                    link.getAttribute(
+
+                        "href"
+
+                    )
+
+                    ===
+
+                    `#${current}`
+
+                );
+
+            }
+
+        );
+
+    },
+
+    {
+
+        passive:
+            true
+
+    }
+
+);
+```
+
+}
+
+/*=========================================================
+HEADER SCROLL
+=========================================================*/
+
+function initializeHeaderScroll() {
+
+```
+const header =
+
+    document.querySelector(
+
+        "header"
+
+    );
+
+
+if (!header)
+    return;
+
+
+window.addEventListener(
+
+    "scroll",
+
+    () => {
+
+
+        header.classList.toggle(
+
+            "scrolled",
+
+            window.scrollY > 20
+
+        );
+
+    },
+
+    {
+
+        passive:
+            true
+
+    }
+
+);
 ```
 
 }
@@ -2327,76 +2774,76 @@ function initializeLightbox() {
 
 ```
 const lightbox =
+
     document.getElementById(
+
         "lightbox"
+
     );
 
 
-const lightboxImage =
+const image =
+
     document.getElementById(
+
         "lightboxImage"
+
     );
 
 
 if (
+
     !lightbox ||
-    !lightboxImage
+
+    !image
+
 )
     return;
-
-
-const closeButton =
-    lightbox.querySelector(
-        ".lightbox-close"
-    );
 
 
 document
 
     .querySelectorAll(
+
         ".gallery-item img"
+
     )
 
-    .forEach(image => {
+    .forEach(
 
-        image.addEventListener(
-
-            "click",
-
-            () => {
-
-                lightboxImage.src =
-                    image.src;
+        thumbnail => {
 
 
-                lightboxImage.alt =
-                    image.alt;
+            thumbnail.addEventListener(
+
+                "click",
+
+                () => {
 
 
-                lightbox.classList.add(
-                    "active"
-                );
+                    image.src =
 
-            }
-
-        );
-
-    });
+                        thumbnail.src;
 
 
-closeButton?.addEventListener(
+                    image.alt =
 
-    "click",
+                        thumbnail.alt;
 
-    () => {
 
-        lightbox.classList.remove(
-            "active"
-        );
+                    lightbox.classList.add(
 
-    }
+                        "active"
 
-);
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
 
 
 lightbox.addEventListener(
@@ -2405,17 +2852,115 @@ lightbox.addEventListener(
 
     event => {
 
+
         if (
-            event.target === lightbox
+
+            event.target ===
+
+            lightbox
+
         ) {
 
             lightbox.classList.remove(
+
                 "active"
+
             );
 
         }
 
     }
+
+);
+```
+
+}
+
+/*=========================================================
+LAZY IMAGES
+=========================================================*/
+
+function initializeLazyImages() {
+
+```
+const images =
+
+    document.querySelectorAll(
+
+        "img[data-src]"
+
+    );
+
+
+if (
+
+    !("IntersectionObserver" in window)
+
+)
+    return;
+
+
+const observer =
+
+    new IntersectionObserver(
+
+        entries => {
+
+
+            entries.forEach(
+
+                entry => {
+
+
+                    if (
+
+                        !entry.isIntersecting
+
+                    )
+                        return;
+
+
+                    const image =
+
+                        entry.target;
+
+
+                    image.src =
+
+                        image.dataset.src;
+
+
+                    image.removeAttribute(
+
+                        "data-src"
+
+                    );
+
+
+                    observer.unobserve(
+
+                        image
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+images.forEach(
+
+    image =>
+
+        observer.observe(
+
+            image
+
+        )
 
 );
 ```
@@ -2429,108 +2974,27 @@ CURRENT YEAR
 function initializeCurrentYear() {
 
 ```
-const year =
-    new Date().getFullYear();
-
-
 document
 
     .querySelectorAll(
+
         ".current-year"
+
     )
 
-    .forEach(element => {
+    .forEach(
 
-        element.textContent =
-            year;
+        element => {
 
-    });
-```
+            element.textContent =
 
-}
+                new Date()
 
-/*=========================================================
-COPY TO CLIPBOARD
-=========================================================*/
+                    .getFullYear();
 
-async function copyText(text) {
+        }
 
-```
-try {
-
-    await navigator.clipboard
-        .writeText(text);
-
-
-    showToast(
-        "Copied successfully."
     );
-
-}
-
-catch {
-
-    showToast(
-        "Copy failed."
-    );
-
-}
-```
-
-}
-
-window.copyText =
-copyText;
-
-/*=========================================================
-TOAST
-=========================================================*/
-
-function showToast(message) {
-
-```
-const toast =
-    document.createElement(
-        "div"
-    );
-
-
-toast.className =
-    "toast";
-
-
-toast.textContent =
-    message;
-
-
-document.body.appendChild(
-    toast
-);
-
-
-requestAnimationFrame(() => {
-
-    toast.classList.add(
-        "show"
-    );
-
-});
-
-
-setTimeout(() => {
-
-    toast.classList.remove(
-        "show"
-    );
-
-
-    setTimeout(() => {
-
-        toast.remove();
-
-    }, 400);
-
-}, 3000);
 ```
 
 }
@@ -2543,7 +3007,9 @@ function initializePWA() {
 
 ```
 if (
+
     !("serviceWorker" in navigator)
+
 )
     return;
 
@@ -2551,63 +3017,24 @@ if (
 navigator.serviceWorker
 
     .register(
+
         "service-worker.js"
+
     )
 
-    .then(() => {
+    .catch(
 
-        console.log(
-            "Service Worker Registered."
-        );
+        error =>
 
-    })
+            console.error(
 
-    .catch(error => {
+                "Service Worker Error:",
 
-        console.error(
-            "Service Worker Error:",
-            error
-        );
+                error
 
-    });
-```
+            )
 
-}
-
-/*=========================================================
-AI
-=========================================================*/
-
-function initializeAI() {
-
-```
-if (
-    typeof AI !== "undefined" &&
-    typeof AI.initialize === "function"
-) {
-
-    AI.initialize();
-
-}
-```
-
-}
-
-/*=========================================================
-ADMIN
-=========================================================*/
-
-function initializeAdmin() {
-
-```
-if (
-    typeof Admin !== "undefined" &&
-    typeof Admin.initialize === "function"
-) {
-
-    Admin.initialize();
-
-}
+    );
 ```
 
 }
@@ -2625,20 +3052,27 @@ document.addEventListener(
 
     event => {
 
-        if (
-            event.key === "Escape"
-        ) {
 
-            closeMenu();
+        if (
+
+            event.key ===
+
+            "Escape"
+
+        ) {
 
             document
 
                 .querySelector(
+
                     "#lightbox.active"
+
                 )
 
                 ?.classList.remove(
+
                     "active"
+
                 );
 
         }
@@ -2651,37 +3085,99 @@ document.addEventListener(
 }
 
 /*=========================================================
+NUMBER HELPERS
+=========================================================*/
+
+function extractNumber(value) {
+
+```
+const match =
+
+    String(value)
+
+        .match(
+
+            /\d+/
+
+        );
+
+
+return match
+
+    ? Number(match[0])
+
+    : 0;
+```
+
+}
+
+function extractSuffix(value) {
+
+```
+return String(value)
+
+    .replace(
+
+        /\d+/,
+
+        ""
+
+    );
+```
+
+}
+
+/*=========================================================
 HTML ESCAPE
 =========================================================*/
 
 function escapeHTML(value) {
 
 ```
-return String(value ?? "")
+return String(
+
+    value ?? ""
+
+)
 
     .replace(
+
         /&/g,
+
         "&amp;"
+
     )
 
     .replace(
+
         /</g,
+
         "&lt;"
+
     )
 
     .replace(
+
         />/g,
+
         "&gt;"
+
     )
 
     .replace(
+
         /"/g,
+
         "&quot;"
+
     )
 
     .replace(
+
         /'/g,
+
         "&#039;"
+
     );
 ```
 
@@ -2694,67 +3190,49 @@ VCARD ESCAPE
 function escapeVCard(value) {
 
 ```
-return String(value ?? "")
+return String(
+
+    value ?? ""
+
+)
 
     .replace(
+
         /\\/g,
+
         "\\\\"
+
     )
 
     .replace(
+
         /\n/g,
+
         "\\n"
+
     )
 
     .replace(
+
         /;/g,
+
         "\\;"
+
     )
 
     .replace(
+
         /,/g,
+
         "\\,"
+
     );
 ```
 
 }
 
 /*=========================================================
-PAGE VISIBILITY
-=========================================================*/
-
-document.addEventListener(
-
-```
-"visibilitychange",
-
-() => {
-
-    if (
-        document.hidden
-    ) {
-
-        console.log(
-            "Page hidden"
-        );
-
-    }
-
-    else {
-
-        console.log(
-            "Page active"
-        );
-
-    }
-
-}
-```
-
-);
-
-/*=========================================================
-GLOBAL ERROR HANDLING
+ERROR HANDLING
 =========================================================*/
 
 window.addEventListener(
@@ -2764,9 +3242,10 @@ window.addEventListener(
 
 event => {
 
+
     console.error(
 
-        "JavaScript Error:",
+        "Portfolio Error:",
 
         event.message
 
@@ -2784,36 +3263,16 @@ window.addEventListener(
 
 event => {
 
+
     console.error(
 
-        "Promise Error:",
+        "Portfolio Promise Error:",
 
         event.reason
 
     );
 
 }
-```
-
-);
-
-/*=========================================================
-GLOBAL APP
-=========================================================*/
-
-window.App =
-App;
-
-/*=========================================================
-READY
-=========================================================*/
-
-console.log(
-
-```
-"%cNLS Engineering Platform Loaded",
-
-"color:#0066ff;font-size:16px;font-weight:bold"
 ```
 
 );
