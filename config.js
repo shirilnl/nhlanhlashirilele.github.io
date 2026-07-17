@@ -1,334 +1,145 @@
-"use strict";
-
-/*==========================================================
- NLS ENGINEERING PORTFOLIO
- Configuration File
- Version : 3.0.0
- Author  : Nhlanhla Lucky Shirilele
-
- This file contains ALL configurable values for the website.
- DO NOT place business logic in this file.
-==========================================================*/
+/*=========================================================
+  NLS Engineering Platform v4.0
+  File: config.js
+=========================================================*/
 
 window.NLS = window.NLS || {};
 
-/*==========================================================
- WEBSITE
-==========================================================*/
-
 window.NLS.config = {
 
-    website: {
-
-        name: "NLS Engineering Portfolio",
-
-        shortName: "NLS Portfolio",
-
-        version: "3.0.0",
-
+    app: {
+        name: "NLS Engineering Platform",
+        version: "4.0.0",
         author: "Nhlanhla Lucky Shirilele",
-
         language: "en",
-
-        timezone: "Africa/Johannesburg",
-
-        description:
-            "Professional portfolio of Electrical & Electronic Engineer Nhlanhla Lucky Shirilele.",
-
-        copyright:
-            "© 2026 Nhlanhla Lucky Shirilele",
-
-        lastUpdated:
-            "2026-07-14"
-
+        theme: "light",
+        animationSpeed: 400,
+        typingSpeed: 70,
+        offlineSupport: true,
+        debug: false
     },
-
-/*==========================================================
- PROFILE
-==========================================================*/
 
     profile: {
-
         firstName: "Nhlanhla",
-
         middleName: "Lucky",
-
         lastName: "Shirilele",
+        fullName: "Nhlanhla Lucky Shirilele",
 
-        fullName:
-            "Nhlanhla Lucky Shirilele",
+        title: "Electrical & Electronic Engineer",
 
-        initials:
-            "NLS",
+        headline:
+            "Electrical & Electronic Engineer specializing in Telecommunications, Fibre Networks, Network Infrastructure, Physical Security Systems and Digital Engineering.",
 
-        title:
-            "Electrical & Electronic Engineer",
+        bio:
+            "Passionate Electrical & Electronic Engineer with experience in telecommunications infrastructure, microwave systems, fibre technologies, surveillance systems, transport analysis, access integration and network infrastructure.",
 
-        subtitle:
-            "Telecommunications • Fibre Networks • Network Infrastructure • Physical Security",
+        location: "Gauteng, South Africa",
 
-        heroDescription:
+        availability: "Available for Opportunities",
 
-            "Electrical & Electronic Engineer specializing in telecommunications, fibre infrastructure, surveillance systems, access integration, transport analysis and digital engineering.",
+        profileImage: "images/profile.jpg",
 
-        availability:
-            "Available for Opportunities",
+        heroImage: "images/hero-bg.jpg",
 
-        status:
-            "Open to Work"
+        logo: "images/logo.png",
 
+        aboutImage: "images/about.jpg"
     },
-
-/*==========================================================
- CONTACT
-==========================================================*/
 
     contact: {
 
-        phone:
-            "+27710059058",
+        phone: "+27710059058",
 
-        whatsapp:
-            "27710059058",
+        whatsapp: "27710059058",
 
-        email:
-            "shirilelenl94@gmail.com",
+        email: "shirilelenl94@gmail.com",
 
         website:
-            "https://shirilnl.github.io/nhlanhlashirilele.github.io/",
-
-        address:
-            "Gauteng",
-
-        city:
-            "Johannesburg",
-
-        country:
-            "South Africa"
-
-    },
-
-/*==========================================================
- SOCIAL
-==========================================================*/
-
-    social: {
+        "https://shirilnl.github.io/nhlanhlashirilele.github.io/",
 
         linkedin:
-            "https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba",
+        "https://www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba",
 
         facebook:
-            "https://facebook.com/nhlanhlalucky.shirilele",
+        "https://facebook.com/nhlanhlalucky.shirilele",
 
-        github:
-            "",
+        github: "",
 
-        instagram:
-            "",
-
-        youtube:
-            "",
-
-        x:
-            ""
-
+        address: "Gauteng, South Africa"
     },
-
-/*==========================================================
- IMAGES
-==========================================================*/
-
-    images: {
-
-        logo:
-            "images/logo.png",
-
-        favicon:
-            "favicon.png",
-
-        profile:
-            "images/profile.jpg",
-
-        hero:
-            "images/hero-bg.jpg",
-
-        about:
-            "images/about.jpg",
-
-        qrLogo:
-            "images/logo.png",
-
-        defaultProject:
-            "images/project-placeholder.jpg"
-
-    },
-
-/*==========================================================
- DOCUMENTS
-==========================================================*/
-
-    files: {
-
-        cv:
-            "documents/CV.pdf",
-
-        vcard:
-            "downloads/vcard.vcf"
-
-    },
-
-/*==========================================================
- THEME
-==========================================================*/
-
-    theme: {
-
-        defaultTheme:
-            "dark",
-
-        allowThemeSwitch:
-            true,
-
-        primaryColor:
-            "#0A84FF",
-
-        secondaryColor:
-            "#121212",
-
-        accentColor:
-            "#16C60C",
-
-        borderRadius:
-            "14px"
-
-    },
-
-/*==========================================================
- QR CODE
-==========================================================*/
-
-    qr: {
-
-        size: 260,
-
-        margin: 2,
-
-        background:
-            "#FFFFFF",
-
-        foreground:
-            "#000000",
-
-        includeLogo:
-            true,
-
-        logo:
-            "images/logo.png",
-
-        downloadName:
-            "NLS-Engineering-QR"
-
-    },
-
-/*==========================================================
- DOWNLOADS
-==========================================================*/
 
     downloads: {
 
-        enableCV: true,
+        cv: "documents/CV.pdf",
 
-        enableVCard: true,
+        portfolio: "documents/Portfolio.pdf",
 
-        enableCertificates: true,
+        transcript: "documents/Transcript.pdf",
 
-        enablePortfolioPDF: false
+        degree: "documents/Degree.pdf",
 
+        vcard: "vcard.vcf"
     },
 
-/*==========================================================
- SEO
-==========================================================*/
+    qr: {
 
-    seo: {
+        enabled: true,
 
-        title:
-            "Nhlanhla Lucky Shirilele",
+        logo: "images/logo.png",
 
-        keywords: [
+        defaultType: "portfolio",
 
-            "Electrical Engineer",
+        portfolioURL:
+        "https://shirilnl.github.io/nhlanhlashirilele.github.io/",
 
-            "Electronic Engineer",
-
-            "Telecommunications",
-
-            "Fibre",
-
-            "Network Infrastructure",
-
-            "Physical Security",
-
-            "Portfolio"
-
-        ]
-
+        vCardFile: "vcard.vcf"
     },
 
-/*==========================================================
- AI (Future)
-==========================================================*/
+    social: {
 
-    ai: {
+        linkedin: true,
 
-        enabled: false,
+        facebook: true,
 
-        assistantName:
-            "Lucky AI",
+        whatsapp: true,
 
-        version:
-            "1.0",
+        phone: true,
 
-        welcome:
+        email: true,
 
-            "Hello! I'm Lucky AI. How can I help you today?"
-
+        github: false
     },
 
-/*==========================================================
- ADMIN (Future)
-==========================================================*/
+    statistics: {
 
-    admin: {
+        technicalSkills: 15,
 
-        enabled: false,
+        technologies: 8,
 
-        route:
-            "/admin",
+        commitment: 100,
 
-        version:
-            "1.0"
-
+        availability: 24
     },
 
-/*==========================================================
- PWA
-==========================================================*/
+    features: {
 
-    pwa: {
+        darkMode: true,
 
-        offline:
-            true,
+        typingEffect: true,
 
-        installable:
-            true
+        counters: true,
 
+        animations: true,
+
+        qrGenerator: true,
+
+        downloads: true,
+
+        pwa: true,
+
+        aiAssistant: false,
+
+        adminPanel: false
     }
 
 };
-
-/*==========================================================
- END OF CONFIG
-==========================================================*/
-
-Object.freeze(window.NLS.config);
