@@ -1,42 +1,58 @@
-"use strict";
-
-/*==========================================================
- NLS ENGINEERING PORTFOLIO
- Portfolio Data
- Version : 3.0.0
- Author  : Nhlanhla Lucky Shirilele
-
- This file contains ALL portfolio content.
- Business logic does NOT belong here.
-==========================================================*/
+/*=========================================================
+  NLS Engineering Platform v4.0
+  File: data.js
+=========================================================*/
 
 window.NLS = window.NLS || {};
 
 window.NLS.data = {
 
-    /*======================================================
-     HERO TYPING TEXT
-    ======================================================*/
+    /*=====================================================
+        HERO
+    =====================================================*/
 
-    heroTitles: [
+    hero: {
 
-        "Electrical & Electronic Engineer",
+        badge: "Electrical & Electronic Engineer",
 
-        "Telecommunications Engineer",
+        subtitle: [
+            "Telecommunications Engineer",
+            "Network Infrastructure Engineer",
+            "Fibre Network Specialist",
+            "Physical Security Systems",
+            "Access Integration",
+            "Digital Engineering",
+            "Transport Surveillance",
+            "Electrical Engineer"
+        ]
 
-        "Network Infrastructure Engineer",
+    },
 
-        "Fibre Network Specialist",
+    /*=====================================================
+        ABOUT
+    =====================================================*/
 
-        "Physical Security Engineer",
+    about: {
 
-        "Digital Engineering Professional"
+        title: "Designing Reliable Engineering Solutions",
 
-    ],
+        paragraph1:
+            "Electrical & Electronic Engineer with experience in telecommunications, microwave systems, fibre infrastructure, transport surveillance, access integration and digital engineering.",
 
-    /*======================================================
-     STATISTICS
-    ======================================================*/
+        paragraph2:
+            "Passionate about designing, implementing and maintaining reliable engineering systems that improve communication, connectivity, operational efficiency and infrastructure across South Africa.",
+
+        languages: [
+            "English",
+            "Xitsonga",
+            "isiZulu"
+        ]
+
+    },
+
+    /*=====================================================
+        STATISTICS
+    =====================================================*/
 
     statistics: [
 
@@ -47,7 +63,7 @@ window.NLS.data = {
         },
 
         {
-            title: "Engineering Technologies",
+            title: "Technologies",
             value: 8,
             suffix: "+"
         },
@@ -66,9 +82,9 @@ window.NLS.data = {
 
     ],
 
-    /*======================================================
-     PROFESSIONAL SKILLS
-    ======================================================*/
+    /*=====================================================
+        SKILLS
+    =====================================================*/
 
     skills: [
 
@@ -79,6 +95,11 @@ window.NLS.data = {
 
         {
             name: "Fibre Networks",
+            level: 93
+        },
+
+        {
+            name: "Microwave Systems",
             level: 92
         },
 
@@ -89,7 +110,7 @@ window.NLS.data = {
 
         {
             name: "Physical Security Systems",
-            level: 88
+            level: 90
         },
 
         {
@@ -98,70 +119,62 @@ window.NLS.data = {
         },
 
         {
-            name: "Surveillance Systems",
-            level: 91
-        },
-
-        {
-            name: "Technical Troubleshooting",
-            level: 94
+            name: "Transport Surveillance",
+            level: 88
         },
 
         {
             name: "Engineering Documentation",
-            level: 93
+            level: 94
+        },
+
+        {
+            name: "Technical Troubleshooting",
+            level: 95
         }
 
     ],
 
-    /*======================================================
-     TECHNOLOGIES
-    ======================================================*/
+    /*=====================================================
+        TECHNOLOGIES
+    =====================================================*/
 
     technologies: [
 
         "Microwave",
-
         "Fibre",
-
         "ISAM",
-
         "MSAN",
-
-        "Transport Networks",
-
-        "Access Control",
-
         "CCTV",
-
-        "Network Monitoring",
-
-        "Digital Engineering"
+        "Access Control",
+        "IP Networks",
+        "Telecommunications",
+        "Transport Analysis",
+        "Digital Engineering",
+        "TCP/IP",
+        "Optical Fibre"
 
     ],
 
-    /*======================================================
-     EXPERIENCE
-    ======================================================*/
+    /*=====================================================
+        EXPERIENCE
+    =====================================================*/
 
     experience: [
 
         {
 
-            company:
-                "Current Employer",
+            company: "Current Employer",
 
             position:
                 "Electrical & Electronic Engineer",
 
-            start:
-                "December 2023",
+            period:
+                "December 2023 - Present",
 
-            end:
-                "Present",
+            description:
 
-            location:
-                "South Africa",
+                "Supporting telecommunications infrastructure, microwave systems, fibre networks, transport surveillance, access integration, network monitoring and physical security systems.",
 
             responsibilities: [
 
@@ -169,19 +182,19 @@ window.NLS.data = {
 
                 "Microwave Systems",
 
-                "Fibre Network Technologies",
+                "Fibre Networks",
 
-                "ISAM/MSAN",
+                "ISAM / MSAN",
 
-                "Transport Surveillance",
+                "Network Monitoring",
 
                 "Access Integration",
 
-                "Alarm Monitoring",
+                "Alarm Surveillance",
 
-                "Network Optimization",
+                "Transport Analysis",
 
-                "Physical Security Systems"
+                "Infrastructure Support"
 
             ]
 
@@ -189,9 +202,9 @@ window.NLS.data = {
 
     ],
 
-    /*======================================================
-     EDUCATION
-    ======================================================*/
+    /*=====================================================
+        EDUCATION
+    =====================================================*/
 
     education: [
 
@@ -204,10 +217,10 @@ window.NLS.data = {
                 "Electrical & Electronic Engineering",
 
             institution:
-                "",
+                "University",
 
             year:
-                ""
+                "Completed"
 
         },
 
@@ -226,9 +239,9 @@ window.NLS.data = {
 
     ],
 
-    /*======================================================
-     PROJECTS
-    ======================================================*/
+    /*=====================================================
+        PROJECTS
+    =====================================================*/
 
     projects: [
 
@@ -238,11 +251,14 @@ window.NLS.data = {
                 "Telecommunications Infrastructure",
 
             image:
-                "images/project1.jpg",
+                "images/projects/project1.jpg",
+
+            category:
+                "Telecommunications",
 
             description:
 
-                "Engineering support for telecommunications infrastructure including microwave and fibre technologies.",
+                "Engineering support for fibre, microwave and transmission infrastructure.",
 
             technologies: [
 
@@ -250,12 +266,9 @@ window.NLS.data = {
 
                 "Fibre",
 
-                "Transmission"
+                "Transport"
 
-            ],
-
-            status:
-                "Completed"
+            ]
 
         },
 
@@ -265,11 +278,14 @@ window.NLS.data = {
                 "Physical Security Systems",
 
             image:
-                "images/project2.jpg",
+                "images/projects/project2.jpg",
+
+            category:
+                "Security",
 
             description:
 
-                "Integrated CCTV, surveillance and access control engineering.",
+                "Access control, CCTV surveillance and integrated security infrastructure.",
 
             technologies: [
 
@@ -279,10 +295,7 @@ window.NLS.data = {
 
                 "Monitoring"
 
-            ],
-
-            status:
-                "Completed"
+            ]
 
         },
 
@@ -292,11 +305,14 @@ window.NLS.data = {
                 "Network Infrastructure",
 
             image:
-                "images/project3.jpg",
+                "images/projects/project3.jpg",
+
+            category:
+                "Infrastructure",
 
             description:
 
-                "Supporting transport networks, ISAM/MSAN systems and infrastructure optimization.",
+                "Supporting ISAM, MSAN and network infrastructure technologies.",
 
             technologies: [
 
@@ -304,67 +320,89 @@ window.NLS.data = {
 
                 "MSAN",
 
-                "Networking"
+                "Networks"
 
-            ],
-
-            status:
-                "Completed"
+            ]
 
         }
 
     ],
 
-    /*======================================================
-     CERTIFICATES
-    ======================================================*/
+    /*=====================================================
+        CERTIFICATES
+    =====================================================*/
 
     certificates: [
 
         {
 
             title:
-                "Electrical & Electronic Engineering",
+                "Bachelor of Engineering",
 
-            issuer:
-                "",
+            file:
+                "documents/Degree.pdf",
 
-            year:
-                ""
-
-        },
-
-        {
-
-            title:
-                "Telecommunications Experience",
-
-            issuer:
-                "Professional Experience",
-
-            year:
-                "2023"
+            image:
+                "images/certificates/degree.jpg"
 
         },
 
         {
 
             title:
-                "Physical Security Systems",
+                "Academic Transcript",
 
-            issuer:
-                "Professional Experience",
+            file:
+                "documents/Transcript.pdf",
 
-            year:
-                "2023"
+            image:
+                "images/certificates/transcript.jpg"
 
         }
 
     ],
 
-    /*======================================================
-     ACHIEVEMENTS
-    ======================================================*/
+    /*=====================================================
+        DOWNLOADS
+    =====================================================*/
+
+    downloads: [
+
+        {
+
+            name: "Curriculum Vitae",
+
+            icon: "fa-file-pdf",
+
+            file: "documents/CV.pdf"
+
+        },
+
+        {
+
+            name: "Engineering Portfolio",
+
+            icon: "fa-book",
+
+            file: "documents/Portfolio.pdf"
+
+        },
+
+        {
+
+            name: "vCard",
+
+            icon: "fa-address-card",
+
+            file: "vcard.vcf"
+
+        }
+
+    ],
+
+    /*=====================================================
+        ACHIEVEMENTS
+    =====================================================*/
 
     achievements: [
 
@@ -372,54 +410,18 @@ window.NLS.data = {
 
         "Network Infrastructure",
 
+        "Fibre Technologies",
+
+        "Transport Surveillance",
+
+        "Access Integration",
+
         "Physical Security",
 
         "Digital Engineering",
 
-        "Transport Analysis",
-
-        "Systems Integration"
-
-    ],
-
-    /*======================================================
-     LANGUAGES
-    ======================================================*/
-
-    languages: [
-
-        "English",
-
-        "isiZulu",
-
-        "Xitsonga"
-
-    ],
-
-    /*======================================================
-     SERVICES
-    ======================================================*/
-
-    services: [
-
-        "Telecommunications",
-
-        "Network Infrastructure",
-
-        "Physical Security",
-
-        "Engineering Consulting",
-
-        "Technical Support",
-
-        "Digital Engineering"
+        "Infrastructure Planning"
 
     ]
 
 };
-
-/*==========================================================
- END OF DATA
-==========================================================*/
-
-Object.freeze(window.NLS.data);
