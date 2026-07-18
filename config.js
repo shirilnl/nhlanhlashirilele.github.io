@@ -5,7 +5,7 @@
    Version: 7.0.0
 ========================================================== */
 
-const APP_CONFIG = Object.freeze({
+const APP_CONFIG = ({
 
     app: {
 
