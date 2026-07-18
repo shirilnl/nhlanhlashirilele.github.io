@@ -1,7 +1,7 @@
 /* =========================================================
    NLS ENGINEERING PORTFOLIO
    service-worker.js
-   Production Cache System
+   Production PWA System
 ========================================================= */
 
 "use strict";
@@ -9,10 +9,15 @@
 
 const CACHE_NAME =
 
-    "nls-portfolio-v5";
+    "nls-portfolio-v7";
 
 
-const STATIC_CACHE = [
+const OFFLINE_PAGE =
+
+    "./index.html";
+
+
+const STATIC_ASSETS = [
 
     "./",
 
@@ -42,16 +47,11 @@ const STATIC_CACHE = [
 
     "./seo.js",
 
-    "./manifest.json",
+    "./security.js",
 
-    "./assets/icons/favicon.png",
-
-    "./assets/icons/icon-192.png",
-
-    "./assets/icons/icon-512.png"
+    "./manifest.json"
 
 ];
-
 
 
 /* =========================================================
@@ -67,6 +67,7 @@ self.addEventListener(
 
         event.waitUntil(
 
+
             caches.open(
 
                 CACHE_NAME
@@ -80,7 +81,7 @@ self.addEventListener(
 
                     return cache.addAll(
 
-                        STATIC_CACHE
+                        STATIC_ASSETS
 
                     );
 
@@ -106,7 +107,6 @@ self.addEventListener(
 );
 
 
-
 /* =========================================================
    ACTIVATE
 ========================================================= */
@@ -120,6 +120,7 @@ self.addEventListener(
 
         event.waitUntil(
 
+
             caches.keys()
 
                 .then(
@@ -128,6 +129,7 @@ self.addEventListener(
 
 
                         return Promise.all(
+
 
                             cacheNames
 
@@ -144,6 +146,7 @@ self.addEventListener(
                                 .map(
 
                                     cacheName =>
+
 
                                         caches.delete(
 
@@ -177,7 +180,6 @@ self.addEventListener(
 );
 
 
-
 /* =========================================================
    FETCH
 ========================================================= */
@@ -205,8 +207,8 @@ self.addEventListener(
             return;
 
 
-
         event.respondWith(
+
 
             fetch(
 
@@ -229,12 +231,6 @@ self.addEventListener(
 
                         200
 
-                        ||
-
-                        response.type ===
-
-                        "opaque"
-
                     ) {
 
 
@@ -243,7 +239,7 @@ self.addEventListener(
                     }
 
 
-                    const responseClone =
+                    const clonedResponse =
 
                         response.clone();
 
@@ -263,7 +259,7 @@ self.addEventListener(
 
                                 request,
 
-                                responseClone
+                                clonedResponse
 
                             );
 
@@ -294,15 +290,20 @@ self.addEventListener(
                         cachedResponse => {
 
 
-                            return cachedResponse
+                            if (
 
-                                ||
+                                cachedResponse
 
-                                caches.match(
+                            )
 
-                                    "./index.html"
+                                return cachedResponse;
 
-                                );
+
+                            return caches.match(
+
+                                OFFLINE_PAGE
+
+                            );
 
                         }
 
@@ -313,6 +314,39 @@ self.addEventListener(
             )
 
         );
+
+    }
+
+);
+
+
+/* =========================================================
+   MESSAGE HANDLING
+========================================================= */
+
+self.addEventListener(
+
+    "message",
+
+    event => {
+
+
+        if (
+
+            event.data
+
+            &&
+
+            event.data.type ===
+
+            "SKIP_WAITING"
+
+        ) {
+
+
+            self.skipWaiting();
+
+        }
 
     }
 
