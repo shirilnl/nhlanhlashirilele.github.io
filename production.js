@@ -1,15 +1,11 @@
 /* =========================================================
    NLS ENGINEERING PORTFOLIO
    production.js
-   Production Error Handling & Application Monitoring
+   Production Performance System
 ========================================================= */
 
 "use strict";
 
-
-/* =========================================================
-   GLOBAL NAMESPACE
-========================================================= */
 
 window.NLS = window.NLS || {};
 
@@ -24,21 +20,24 @@ NLS.production = {
     init() {
 
 
-        this.setupGlobalErrorHandler();
+        this.enableLazyLoading();
 
 
-        this.setupUnhandledRejectionHandler();
+        this.optimizeImages();
 
 
-        this.validateConfiguration();
+        this.preventLayoutShift();
 
 
-        this.cleanupOldErrors();
+        this.enableConnectionOptimization();
+
+
+        this.monitorPerformance();
 
 
         console.log(
 
-            "NLS Production System initialized successfully."
+            "NLS Production Performance System initialized."
 
         );
 
@@ -46,50 +45,273 @@ NLS.production = {
 
 
     /* =====================================================
-       GLOBAL JAVASCRIPT ERROR HANDLER
+       LAZY LOADING
     ===================================================== */
 
-    setupGlobalErrorHandler() {
+    enableLazyLoading() {
 
 
-        window.addEventListener(
+        const lazyImages =
 
-            "error",
+            document.querySelectorAll(
 
-            event => {
+                "img[loading='lazy']"
+
+            );
 
 
-                this.logError({
+        if (
 
-                    type:
+            !lazyImages.length
 
-                        "javascript",
+        )
 
-                    message:
+            return;
 
-                        event.message ||
 
-                        "Unknown JavaScript error.",
+        if (
 
-                    file:
+            "IntersectionObserver"
 
-                        event.filename ||
+            in window
 
-                        "",
+        ) {
 
-                    line:
 
-                        event.lineno ||
+            const imageObserver =
 
-                        0,
+                new IntersectionObserver(
 
-                    column:
+                    (
 
-                        event.colno ||
+                        entries,
 
-                        0
+                        observer
 
-                });
+                    ) => {
+
+
+                        entries.forEach(
+
+                            entry => {
+
+
+                                if (
+
+                                    entry.isIntersecting
+
+                                ) {
+
+
+                                    const image =
+
+                                        entry.target;
+
+
+                                    image.classList.add(
+
+                                        "image-loaded"
+
+                                    );
+
+
+                                    observer.unobserve(
+
+                                        image
+
+                                    );
+
+                                }
+
+                            }
+
+                        );
+
+                    },
+
+                    {
+
+                        rootMargin:
+
+                            "200px 0px"
+
+                    }
+
+                );
+
+
+            lazyImages.forEach(
+
+                image => {
+
+
+                    imageObserver.observe(
+
+                        image
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    },
+
+
+    /* =====================================================
+       IMAGE OPTIMIZATION
+    ===================================================== */
+
+    optimizeImages() {
+
+
+        const images =
+
+            document.querySelectorAll(
+
+                "img"
+
+            );
+
+
+        images.forEach(
+
+            image => {
+
+
+                if (
+
+                    !image.hasAttribute(
+
+                        "decoding"
+
+                    )
+
+                ) {
+
+
+                    image.setAttribute(
+
+                        "decoding",
+
+                        "async"
+
+                    );
+
+                }
+
+
+                if (
+
+                    !image.hasAttribute(
+
+                        "loading"
+
+                    )
+
+                ) {
+
+
+                    image.setAttribute(
+
+                        "loading",
+
+                        "lazy"
+
+                    );
+
+                }
+
+            }
+
+        );
+
+
+        const heroImage =
+
+            document.querySelector(
+
+                ".hero img"
+
+            );
+
+
+        if (
+
+            heroImage
+
+        ) {
+
+
+            heroImage.setAttribute(
+
+                "loading",
+
+                "eager"
+
+            );
+
+
+            heroImage.setAttribute(
+
+                "fetchpriority",
+
+                "high"
+
+            );
+
+        }
+
+    },
+
+
+    /* =====================================================
+       PREVENT LAYOUT SHIFT
+    ===================================================== */
+
+    preventLayoutShift() {
+
+
+        const images =
+
+            document.querySelectorAll(
+
+                "img"
+
+            );
+
+
+        images.forEach(
+
+            image => {
+
+
+                if (
+
+                    image.hasAttribute(
+
+                        "width"
+
+                    )
+
+                    &&
+
+                    image.hasAttribute(
+
+                        "height"
+
+                    )
+
+                )
+
+                    return;
+
+
+                image.style.aspectRatio =
+
+                    "16 / 9";
 
             }
 
@@ -99,171 +321,212 @@ NLS.production = {
 
 
     /* =====================================================
-       UNHANDLED PROMISE REJECTION
+       CONNECTION OPTIMIZATION
     ===================================================== */
 
-    setupUnhandledRejectionHandler() {
+    enableConnectionOptimization() {
 
 
-        window.addEventListener(
+        const externalDomains = [
 
-            "unhandledrejection",
+            "https://fonts.googleapis.com",
 
-            event => {
+            "https://fonts.gstatic.com",
+
+            "https://cdnjs.cloudflare.com"
+
+        ];
 
 
-                let message =
+        externalDomains.forEach(
 
-                    "Unhandled promise rejection.";
+            domain => {
 
 
                 if (
 
-                    event.reason
+                    document.querySelector(
+
+                        `link[href^="${domain}"]`
+
+                    )
+
+                )
+
+                    return;
+
+
+                const link =
+
+                    document.createElement(
+
+                        "link"
+
+                    );
+
+
+                link.rel =
+
+                    "preconnect";
+
+
+                link.href =
+
+                    domain;
+
+
+                if (
+
+                    domain.includes(
+
+                        "gstatic"
+
+                    )
 
                 ) {
 
 
-                    if (
+                    link.crossOrigin =
 
-                        event.reason.message
+                        "anonymous";
 
-                    ) {
-
-
-                        message =
-
-                            event.reason.message;
-
-                    }
-
-                    else {
+                }
 
 
-                        message =
+                document.head.appendChild(
 
-                            String(
+                    link
 
-                                event.reason
+                );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       PERFORMANCE MONITORING
+    ===================================================== */
+
+    monitorPerformance() {
+
+
+        if (
+
+            !("PerformanceObserver" in window)
+
+        )
+
+            return;
+
+
+        try {
+
+
+            const observer =
+
+                new PerformanceObserver(
+
+                    list => {
+
+
+                        list.getEntries()
+
+                            .forEach(
+
+                                entry => {
+
+
+                                    if (
+
+                                        entry.entryType ===
+
+                                        "largest-contentful-paint"
+
+                                    ) {
+
+
+                                        console.log(
+
+                                            "LCP:",
+
+                                            Math.round(
+
+                                                entry.startTime
+
+                                            ),
+
+                                            "ms"
+
+                                        );
+
+                                    }
+
+
+                                    if (
+
+                                        entry.entryType ===
+
+                                        "layout-shift"
+
+                                        &&
+
+                                        !entry.hadRecentInput
+
+                                    ) {
+
+
+                                        console.log(
+
+                                            "Layout Shift:",
+
+                                            entry.value
+
+                                        );
+
+                                    }
+
+                                }
 
                             );
 
                     }
 
-                }
+                );
 
 
-                this.logError({
+            observer.observe(
+
+                {
 
                     type:
 
-                        "promise",
+                        "largest-contentful-paint",
 
-                    message
+                    buffered:
 
-                });
+                        true
 
-            }
+                }
 
-        );
-
-    },
+            );
 
 
-    /* =====================================================
-       LOG ERROR
-    ===================================================== */
+            observer.observe(
 
-    logError(
+                {
 
-        error
+                    type:
 
-    ) {
+                        "layout-shift",
 
+                    buffered:
 
-        try {
+                        true
 
-
-            const storageKey =
-
-                NLS.config
-
-                    ?.storage
-
-                    ?.errors ||
-
-                "nls-production-errors";
-
-
-            const storedErrors =
-
-                localStorage.getItem(
-
-                    storageKey
-
-                );
-
-
-            let errors = [];
-
-
-            if (
-
-                storedErrors
-
-            ) {
-
-
-                errors =
-
-                    JSON.parse(
-
-                        storedErrors
-
-                    );
-
-            }
-
-
-            errors.push({
-
-                ...error,
-
-                timestamp:
-
-                    new Date()
-
-                        .toISOString(),
-
-                page:
-
-                    window.location.href,
-
-                userAgent:
-
-                    navigator.userAgent
-
-            });
-
-
-            errors =
-
-                errors.slice(
-
-                    -50
-
-                );
-
-
-            localStorage.setItem(
-
-                storageKey,
-
-                JSON.stringify(
-
-                    errors
-
-                )
+                }
 
             );
 
@@ -271,311 +534,25 @@ NLS.production = {
 
         catch (
 
-            storageError
-
-        ) {
-
-
-            console.error(
-
-                "Unable to save production error:",
-
-                storageError
-
-            );
-
-        }
-
-
-        console.error(
-
-            "NLS Production Error:",
-
             error
-
-        );
-
-    },
-
-
-    /* =====================================================
-       CONFIGURATION VALIDATION
-    ===================================================== */
-
-    validateConfiguration() {
-
-
-        if (
-
-            !window.NLS.config
-
-        ) {
-
-
-            console.error(
-
-                "NLS.config is missing."
-
-            );
-
-
-            return false;
-
-        }
-
-
-        if (
-
-            !NLS.config.site
 
         ) {
 
 
             console.warn(
 
-                "NLS.config.site is missing."
-
-            );
-
-        }
-
-
-        if (
-
-            !NLS.config.features
-
-        ) {
-
-
-            console.warn(
-
-                "NLS.config.features is missing."
-
-            );
-
-        }
-
-
-        return true;
-
-    },
-
-
-    /* =====================================================
-       CLEAN OLD ERRORS
-    ===================================================== */
-
-    cleanupOldErrors() {
-
-
-        try {
-
-
-            const storageKey =
-
-                NLS.config
-
-                    ?.storage
-
-                    ?.errors ||
-
-                "nls-production-errors";
-
-
-            const storedErrors =
-
-                localStorage.getItem(
-
-                    storageKey
-
-                );
-
-
-            if (
-
-                !storedErrors
-
-            )
-
-                return;
-
-
-            const errors =
-
-                JSON.parse(
-
-                    storedErrors
-
-                );
-
-
-            const thirtyDaysAgo =
-
-                Date.now() -
-
-                (
-
-                    30 *
-
-                    24 *
-
-                    60 *
-
-                    60 *
-
-                    1000
-
-                );
-
-
-            const recentErrors =
-
-                errors.filter(
-
-                    error => {
-
-
-                        return (
-
-                            new Date(
-
-                                error.timestamp
-
-                            )
-
-                            .getTime() >=
-
-                            thirtyDaysAgo
-
-                        );
-
-                    }
-
-                );
-
-
-            localStorage.setItem(
-
-                storageKey,
-
-                JSON.stringify(
-
-                    recentErrors
-
-                )
-
-            );
-
-        }
-
-        catch (
-
-            error
-
-        ) {
-
-
-            console.error(
-
-                "Unable to clean production errors:",
+                "Performance monitoring unavailable:",
 
                 error
 
             );
 
         }
-
-    },
-
-
-    /* =====================================================
-       GET ERROR LOG
-    ===================================================== */
-
-    getErrors() {
-
-
-        try {
-
-
-            const storageKey =
-
-                NLS.config
-
-                    ?.storage
-
-                    ?.errors ||
-
-                "nls-production-errors";
-
-
-            return JSON.parse(
-
-                localStorage.getItem(
-
-                    storageKey
-
-                ) ||
-
-                "[]"
-
-            );
-
-        }
-
-        catch (
-
-            error
-
-        ) {
-
-
-            console.error(
-
-                error
-
-            );
-
-
-            return [];
-
-        }
-
-    },
-
-
-    /* =====================================================
-       CLEAR ERROR LOG
-    ===================================================== */
-
-    clearErrors() {
-
-
-        const storageKey =
-
-            NLS.config
-
-                ?.storage
-
-                ?.errors ||
-
-            "nls-production-errors";
-
-
-        localStorage.removeItem(
-
-            storageKey
-
-        );
 
     }
 
 };
 
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
 
 document.addEventListener(
 
