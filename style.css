@@ -5350,3 +5350,94 @@ body {
     }
 
 }
+/* =========================================================
+   CONTACT NOTIFICATIONS
+========================================================= */
+
+.contact-notification {
+
+    position: fixed;
+
+    right: 24px;
+
+    bottom: 24px;
+
+    z-index: 99999;
+
+    max-width: 380px;
+
+    padding: 16px 20px;
+
+    border-radius: 12px;
+
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    pointer-events: none;
+
+    color: #ffffff;
+
+    background: #333333;
+
+    box-shadow:
+
+        0 12px 35px
+
+        rgba(0, 0, 0, 0.25);
+
+    transition:
+
+        opacity 0.3s ease,
+
+        transform 0.3s ease;
+
+}
+
+
+.contact-notification.is-visible {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
+
+
+.contact-notification[data-type="success"] {
+
+    background: #1f7a4d;
+
+}
+
+
+.contact-notification[data-type="error"] {
+
+    background: #b42318;
+
+}
+
+
+.contact-notification[data-type="info"] {
+
+    background: #344054;
+
+}
+
+
+@media (max-width: 600px) {
+
+
+    .contact-notification {
+
+        right: 15px;
+
+        bottom: 15px;
+
+        left: 15px;
+
+        max-width: none;
+
+    }
+
+}
