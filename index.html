@@ -1465,224 +1465,209 @@
     CONTACT
 =========================================================== -->
 
-<section id="contact"
-         class="section contact">
+<form
 
-    <div class="container">
+    class="contact-form"
 
-        <div class="section-header">
+    data-contact-form
 
-            <span class="section-tag">
+    action="https://formsubmit.co/YOUR-EMAIL-ADDRESS"
 
-                CONTACT
+    method="POST">
 
-            </span>
 
-            <h2>
+    <!-- FormSubmit Configuration -->
 
-                Let's Connect
+    <input
 
-            </h2>
+        type="hidden"
 
-            <p>
+        name="_subject"
 
-                Available for engineering opportunities,
-                consulting, collaborations and professional
-                networking.
+        value="New Portfolio Contact Message">
 
-            </p>
 
-        </div>
+    <input
 
-        <div class="contact-grid">
+        type="hidden"
 
-            <!-- ==================================================
-                LEFT
-            =================================================== -->
+        name="_captcha"
 
-            <div class="contact-information">
+        value="true">
 
-                <div class="contact-card">
 
-                    <i class="fas fa-phone"></i>
+    <input
 
-                    <div>
+        type="hidden"
 
-                        <h3>
+        name="_template"
 
-                            Phone
+        value="table">
 
-                        </h3>
 
-                        <a data-phone>
+    <input
 
-                            +27 XX XXX XXXX
+        type="hidden"
 
-                        </a>
+        name="_next"
 
-                    </div>
+        value="https://YOUR-DOMAIN.com/#contact">
 
-                </div>
 
-                <div class="contact-card">
+    <!-- Honeypot Spam Protection -->
 
-                    <i class="fas fa-envelope"></i>
+    <input
 
-                    <div>
+        type="text"
 
-                        <h3>
+        name="_honey"
 
-                            Email
+        tabindex="-1"
 
-                        </h3>
+        autocomplete="off"
 
-                        <a data-email>
+        style="display:none">
 
-                            your@email.com
 
-                        </a>
+    <!-- Name -->
 
-                    </div>
+    <div class="form-group">
 
-                </div>
 
-                <div class="contact-card">
+        <label
 
-                    <i class="fab fa-whatsapp"></i>
+            for="contactName">
 
-                    <div>
+            Nhlanhla Lucky Shirilele
 
-                        <h3>
+        </label>
 
-                            WhatsApp
 
-                        </h3>
+        <input
 
-                        <a data-whatsapp
-                           target="_blank">
+            type="text"
 
-                            Chat Now
+            id="contactName"
 
-                        </a>
+            name="name"
 
-                    </div>
+            placeholder="Your full name"
 
-                </div>
+            autocomplete="name"
 
-                <div class="contact-card">
+            minlength="2"
 
-                    <i class="fab fa-linkedin"></i>
-
-                    <div>
-
-                        <h3>
-
-                            LinkedIn
-
-                        </h3>
-
-                        <a data-linkedin
-                           target="_blank">
-
-                            View Profile
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-                <div class="contact-card">
-
-                    <i class="fab fa-facebook"></i>
-
-                    <div>
-
-                        <h3>
-
-                            Facebook
-
-                        </h3>
-
-                        <a data-facebook
-                           target="_blank">
-
-                            Visit Page
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- ==================================================
-                RIGHT
-            =================================================== -->
-
-            <div class="contact-form-card">
-
-                <form id="contactForm">
-
-                    <div class="input-group">
-
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Full Name"
-                            required>
-
-                    </div>
-
-                    <div class="input-group">
-
-                        <input
-                            type="email"
-                            id="email"
-                            placeholder="Email Address"
-                            required>
-
-                    </div>
-
-                    <div class="input-group">
-
-                        <input
-                            type="text"
-                            id="subject"
-                            placeholder="Subject">
-
-                    </div>
-
-                    <div class="input-group">
-
-                        <textarea
-                            id="message"
-                            rows="7"
-                            placeholder="Your Message"
-                            required></textarea>
-
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary">
-
-                        <i class="fas fa-paper-plane"></i>
-
-                        Send Message
-
-                    </button>
-
-                </form>
-
-            </div>
-
-        </div>
+            required>
 
     </div>
 
-</section>
+
+    <!-- Email -->
+
+    <div class="form-group">
+
+
+        <label
+
+            for="contactEmail">
+
+            Email Address
+
+        </label>
+
+
+        <input
+
+            type="email"
+
+            id="contactEmail"
+
+            name="email"
+
+            placeholder="shirilelenl94@email.com"
+
+            autocomplete="email"
+
+            required>
+
+    </div>
+
+
+    <!-- Subject -->
+
+    <div class="form-group">
+
+
+        <label
+
+            for="contactSubject">
+
+            Subject
+
+        </label>
+
+
+        <input
+
+            type="text"
+
+            id="contactSubject"
+
+            name="subject"
+
+            placeholder="How can I help you?">
+
+    </div>
+
+
+    <!-- Message -->
+
+    <div class="form-group">
+
+
+        <label
+
+            for="contactMessage">
+
+            Message
+
+        </label>
+
+
+        <textarea
+
+            id="contactMessage"
+
+            name="message"
+
+            rows="6"
+
+            minlength="10"
+
+            placeholder="Write your message here..."
+
+            required></textarea>
+
+    </div>
+
+
+    <!-- Submit -->
+
+    <button
+
+        type="submit"
+
+        class="btn btn-primary">
+
+
+        <i class="fas fa-paper-plane"></i>
+
+
+        Send Message
+
+    </button>
+
+</form>
 
 <!-- ==========================================================
     QR CODE
