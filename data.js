@@ -1,714 +1,978 @@
-/*=========================================================
-    NLS ENGINEERING PORTFOLIO
-    File: data.js
-    Version: 6.0
-
-    CENTRAL PORTFOLIO CONTENT DATABASE
-
-    This file controls:
-    - Hero typing text
-    - Statistics
-    - Skills
-    - Experience
-    - Education
-    - Technologies
-    - Projects
-    - Certificates
-    - Downloads
-=========================================================*/
-
-
 "use strict";
 
+/* ==========================================================
+   V7 PORTFOLIO
+   data.js
+   PART 1/4
+   PROFILE • STATISTICS • SERVICES
+========================================================== */
 
-/*=========================================================
-    GLOBAL NLS OBJECT
-=========================================================*/
+const PORTFOLIO_DATA = {
 
-window.NLS = window.NLS || {};
+    /*==========================================================
+        PROFILE
+    ==========================================================*/
 
+    profile: {
 
-/*=========================================================
-    PORTFOLIO DATA
-=========================================================*/
+        firstName: "Nhlanhla",
 
-window.NLS.data = {
+        middleName: "Lucky",
 
+        lastName: "Shirilele",
 
-    /*=====================================================
-        HERO SECTION
-    =====================================================*/
+        fullName: "Nhlanhla Lucky Shirilele",
 
-    hero: {
+        initials: "NS",
 
-        subtitle: [
+        title: "Electrical Engineer",
 
-            "Electrical & Electronic Engineer",
+        specialization:
+            "Telecommunications Networks & Physical Security Systems",
 
-            "Telecommunications Engineer",
+        headline:
+            "Professional Engineer delivering reliable telecommunications, networking and physical security solutions.",
 
-            "Telecommunications Networks Specialist",
+        biography: `
+            I am an Electrical Engineer with experience in
+            telecommunications infrastructure, fibre optic
+            networks, microwave systems, surveillance,
+            access control, networking and enterprise
+            technologies. My objective is to deliver
+            innovative engineering solutions that improve
+            reliability, performance and operational
+            efficiency.
+        `,
 
-            "Physical Security Systems Engineer",
+        location: {
 
-            "Network Infrastructure Specialist",
+            city: "Johannesburg",
 
-            "Digital Engineering Professional"
+            province: "Gauteng",
 
-        ]
+            country: "South Africa"
+
+        },
+
+        availability: "Available",
+
+        experienceYears: 3,
+
+        profileImage:
+            "assets/images/profile.jpg",
+
+        coverImage:
+            "assets/images/hero.jpg"
 
     },
 
-
-    /*=====================================================
-        STATISTICS
-    =====================================================*/
+    /*==========================================================
+        QUICK STATISTICS
+    ==========================================================*/
 
     statistics: [
 
         {
 
+            id: 1,
+
+            title: "Years Experience",
+
             value: "3+",
 
-            label: "Years Experience",
-
-            icon: "fa-calendar-check"
+            icon: "fa-briefcase"
 
         },
 
-
         {
 
-            value: "10+",
+            id: 2,
 
-            label: "Engineering Disciplines",
+            title: "Projects",
 
-            icon: "fa-gears"
+            value: "30+",
+
+            icon: "fa-diagram-project"
 
         },
 
+        {
+
+            id: 3,
+
+            title: "Certifications",
+
+            value: "15+",
+
+            icon: "fa-certificate"
+
+        },
 
         {
 
-            value: "5+",
+            id: 4,
 
-            label: "Technology Domains",
+            title: "Technologies",
+
+            value: "40+",
 
             icon: "fa-microchip"
-
-        },
-
-
-        {
-
-            value: "100%",
-
-            label: "Commitment to Excellence",
-
-            icon: "fa-award"
 
         }
 
     ],
 
+    /*==========================================================
+        SERVICES
+    ==========================================================*/
 
-    /*=====================================================
-        PROFESSIONAL SKILLS
-    =====================================================*/
+    services: [
+
+        {
+
+            id: 1,
+
+            title:
+                "Telecommunications",
+
+            icon:
+                "fa-tower-cell",
+
+            description:
+                "Planning, implementation and maintenance of telecommunications infrastructure including fibre optic, microwave and transmission systems."
+
+        },
+
+        {
+
+            id: 2,
+
+            title:
+                "Network Engineering",
+
+            icon:
+                "fa-network-wired",
+
+            description:
+                "LAN, WAN, routing, switching, structured cabling, network optimisation and enterprise connectivity."
+
+        },
+
+        {
+
+            id: 3,
+
+            title:
+                "Physical Security",
+
+            icon:
+                "fa-shield-halved",
+
+            description:
+                "CCTV, access control, alarm monitoring, surveillance systems and integrated security platforms."
+
+        },
+
+        {
+
+            id: 4,
+
+            title:
+                "System Integration",
+
+            icon:
+                "fa-plug-circle-bolt",
+
+            description:
+                "Integration of networking, telecommunications and security systems into a unified enterprise solution."
+
+        },
+
+        {
+
+            id: 5,
+
+            title:
+                "Technical Support",
+
+            icon:
+                "fa-headset",
+
+            description:
+                "Infrastructure support, fault diagnosis, preventive maintenance, troubleshooting and performance optimisation."
+
+        },
+
+        {
+
+            id: 6,
+
+            title:
+                "Engineering Consulting",
+
+            icon:
+                "fa-lightbulb",
+
+            description:
+                "Engineering assessments, technical documentation, solution design and project implementation support."
+
+        }
+
+    ],
+    /*==========================================================
+        TECHNICAL SKILLS
+    ==========================================================*/
 
     skills: [
 
         {
+            id: 1,
 
-            name: "Telecommunications",
+            category: "Telecommunications",
 
             icon: "fa-tower-cell",
 
-            level: 90
+            items: [
 
-        },
-
-
-        {
-
-            name: "Fibre Optic Networks",
-
-            icon: "fa-network-wired",
-
-            level: 88
-
-        },
-
-
-        {
-
-            name: "Microwave Systems",
-
-            icon: "fa-satellite-dish",
-
-            level: 85
-
-        },
-
-
-        {
-
-            name: "Network Infrastructure",
-
-            icon: "fa-server",
-
-            level: 88
-
-        },
-
-
-        {
-
-            name: "Physical Security Systems",
-
-            icon: "fa-shield-halved",
-
-            level: 90
-
-        },
-
-
-        {
-
-            name: "CCTV & Surveillance",
-
-            icon: "fa-video",
-
-            level: 85
-
-        },
-
-
-        {
-
-            name: "Infrastructure Planning",
-
-            icon: "fa-diagram-project",
-
-            level: 82
-
-        },
-
-
-        {
-
-            name: "Technical Documentation",
-
-            icon: "fa-file-lines",
-
-            level: 90
-
-        }
-
-    ],
-
-
-    /*=====================================================
-        PROFESSIONAL EXPERIENCE
-    =====================================================*/
-
-    experience: [
-
-        {
-
-            period: "December 2023 — Present",
-
-            title: "Electrical & Electronic Engineer",
-
-            company: "Access Integration / Access Data",
-
-            description:
-
-                "Professional engineering experience across telecommunications networks, fibre infrastructure, microwave systems, network infrastructure, transport surveillance and physical security systems.",
-
-            technologies: [
-
-                "Fibre Networks",
+                "Fibre Optic Networks",
 
                 "Microwave Systems",
 
-                "ISAM / MSAN",
-
-                "T-Agent",
-
-                "B-Agent",
-
-                "Alarm Surveillance",
-
-                "Planning Tools"
-
-            ]
-
-        },
-
-
-        {
-
-            period: "Professional Development",
-
-            title: "Telecommunications & Network Infrastructure",
-
-            company: "Engineering & Technology Development",
-
-            description:
-
-                "Continuous professional development across modern telecommunications infrastructure, digital systems, network technologies, automation and technology-driven engineering solutions.",
-
-            technologies: [
-
-                "Telecommunications",
-
-                "Networking",
-
-                "Digital Systems",
-
-                "Infrastructure",
-
-                "Automation"
-
-            ]
-
-        }
-
-    ],
-
-
-    /*=====================================================
-        EDUCATION
-    =====================================================*/
-
-    education: [
-
-        {
-
-            period: "2020",
-
-            qualification: "National Senior Certificate",
-
-            institution: "Freedom Park Secondary School",
-
-            description:
-
-                "Successfully completed the National Senior Certificate / Matric qualification."
-
-        },
-
-
-        {
-
-            period: "Professional Development",
-
-            qualification: "Electrical & Electronic Engineering",
-
-            institution: "Engineering Career Development",
-
-            description:
-
-                "Professional development and practical engineering experience focused on telecommunications networks, infrastructure and physical security systems."
-
-        }
-
-    ],
-
-
-    /*=====================================================
-        TECHNOLOGIES
-    =====================================================*/
-
-    technologies: [
-
-        {
-
-            name: "Fibre Optics",
-
-            icon: "fa-network-wired",
-
-            category: "Telecommunications"
-
-        },
-
-
-        {
-
-            name: "Microwave",
-
-            icon: "fa-satellite-dish",
-
-            category: "Telecommunications"
-
-        },
-
-
-        {
-
-            name: "ISAM / MSAN",
-
-            icon: "fa-server",
-
-            category: "Network Infrastructure"
-
-        },
-
-
-        {
-
-            name: "Transport Surveillance",
-
-            icon: "fa-video",
-
-            category: "Physical Security"
-
-        },
-
-
-        {
-
-            name: "Alarm Surveillance",
-
-            icon: "fa-bell",
-
-            category: "Security Systems"
-
-        },
-
-
-        {
-
-            name: "Network Infrastructure",
-
-            icon: "fa-network-wired",
-
-            category: "Networking"
-
-        },
-
-
-        {
-
-            name: "Planning Tools",
-
-            icon: "fa-compass-drafting",
-
-            category: "Engineering"
-
-        },
-
-
-        {
-
-            name: "Digital Engineering",
-
-            icon: "fa-microchip",
-
-            category: "Engineering"
-
-        }
-
-    ],
-
-
-    /*=====================================================
-        PROJECTS
-    =====================================================*/
-
-    projects: [
-
-        {
-
-            title: "Fibre Network Infrastructure",
-
-            category: "Telecommunications",
-
-            image:
-
-                "assets/images/fibre-network.jpg",
-
-            description:
-
-                "Telecommunications infrastructure involving fibre network planning, connectivity and the development of reliable physical network infrastructure.",
-
-            technologies: [
-
-                "Fibre Optics",
-
-                "Network Planning",
-
-                "Infrastructure",
-
-                "Connectivity"
-
-            ]
-
-        },
-
-
-        {
-
-            title: "Microwave Transmission Systems",
-
-            category: "Telecommunications",
-
-            image:
-
-                "assets/images/microwave.jpg",
-
-            description:
-
-                "Microwave transmission systems supporting reliable long-distance telecommunications connectivity and network communication.",
-
-            technologies: [
-
-                "Microwave",
-
-                "Transmission",
-
-                "Radio Systems",
-
-                "Connectivity"
-
-            ]
-
-        },
-
-
-        {
-
-            title: "Network Infrastructure Systems",
-
-            category: "Network",
-
-            image:
-
-                "assets/images/network-infrastructure.jpg",
-
-            description:
-
-                "Network infrastructure systems supporting enterprise connectivity, telecommunications networks and digital communication environments.",
-
-            technologies: [
-
-                "Networking",
+                "Transmission Networks",
 
                 "ISAM",
 
                 "MSAN",
 
-                "Infrastructure"
+                "GPON",
+
+                "DSL",
+
+                "Network Planning"
 
             ]
 
         },
 
+        {
+
+            id: 2,
+
+            category: "Networking",
+
+            icon: "fa-network-wired",
+
+            items: [
+
+                "TCP/IP",
+
+                "LAN",
+
+                "WAN",
+
+                "Routing",
+
+                "Switching",
+
+                "VLAN",
+
+                "VPN",
+
+                "DHCP",
+
+                "DNS"
+
+            ]
+
+        },
 
         {
 
-            title: "Transport Surveillance Systems",
+            id: 3,
 
-            category: "Security",
+            category: "Physical Security",
+
+            icon: "fa-shield-halved",
+
+            items: [
+
+                "CCTV",
+
+                "Access Control",
+
+                "Alarm Systems",
+
+                "Biometrics",
+
+                "Video Surveillance",
+
+                "Perimeter Security"
+
+            ]
+
+        },
+
+        {
+
+            id: 4,
+
+            category: "Cloud & Infrastructure",
+
+            icon: "fa-cloud",
+
+            items: [
+
+                "Microsoft Azure",
+
+                "Amazon AWS",
+
+                "Google Cloud",
+
+                "Oracle Cloud",
+
+                "Virtualization",
+
+                "Windows Server",
+
+                "Linux"
+
+            ]
+
+        },
+
+        {
+
+            id: 5,
+
+            category: "Programming",
+
+            icon: "fa-code",
+
+            items: [
+
+                "JavaScript",
+
+                "Python",
+
+                "HTML5",
+
+                "CSS3",
+
+                "SQL",
+
+                "JSON",
+
+                "Git"
+
+            ]
+
+        },
+
+        {
+
+            id: 6,
+
+            category: "Engineering Tools",
+
+            icon: "fa-screwdriver-wrench",
+
+            items: [
+
+                "AutoCAD",
+
+                "Microsoft Office",
+
+                "Visio",
+
+                "Power BI",
+
+                "ITSM",
+
+                "ServiceNow"
+
+            ]
+
+        }
+
+    ],
+
+    /*==========================================================
+        TECHNOLOGIES
+    ==========================================================*/
+
+    technologies: [
+
+        { name: "HTML5", icon: "fab fa-html5", level: 95 },
+
+        { name: "CSS3", icon: "fab fa-css3-alt", level: 92 },
+
+        { name: "JavaScript", icon: "fab fa-js", level: 90 },
+
+        { name: "Python", icon: "fab fa-python", level: 88 },
+
+        { name: "Git", icon: "fab fa-git-alt", level: 90 },
+
+        { name: "GitHub", icon: "fab fa-github", level: 92 },
+
+        { name: "Linux", icon: "fab fa-linux", level: 80 },
+
+        { name: "Windows", icon: "fab fa-windows", level: 95 },
+
+        { name: "Azure", icon: "fab fa-microsoft", level: 82 },
+
+        { name: "AWS", icon: "fab fa-aws", level: 78 },
+
+        { name: "Google Cloud", icon: "fas fa-cloud", level: 75 },
+
+        { name: "SQL", icon: "fas fa-database", level: 82 },
+
+        { name: "Networking", icon: "fas fa-network-wired", level: 92 },
+
+        { name: "Fibre", icon: "fas fa-ethernet", level: 90 },
+
+        { name: "Microwave", icon: "fas fa-tower-cell", level: 88 },
+
+        { name: "CCTV", icon: "fas fa-video", level: 90 },
+
+        { name: "Access Control", icon: "fas fa-door-open", level: 88 },
+
+        { name: "Cyber Security", icon: "fas fa-user-shield", level: 80 }
+
+    ],
+
+    /*==========================================================
+        EXPERIENCE
+    ==========================================================*/
+
+    experience: [
+
+        {
+
+            id: 1,
+
+            company:
+                "Access Data, Transport Surveillance & Analysis",
+
+            position:
+                "Electrical Engineer",
+
+            period:
+                "December 2023 - Present",
+
+            location:
+                "South Africa",
+
+            responsibilities: [
+
+                "Monitor telecommunications infrastructure.",
+
+                "Support fibre and microwave transmission systems.",
+
+                "Maintain surveillance and access control systems.",
+
+                "Investigate alarms and network faults.",
+
+                "Support system migrations and upgrades.",
+
+                "Prepare engineering reports.",
+
+                "Coordinate maintenance activities.",
+
+                "Support enterprise networking projects."
+
+            ]
+
+        }
+
+    ],
+    /*==========================================================
+        EDUCATION
+    ==========================================================*/
+
+    education: [
+
+        {
+
+            id: 1,
+
+            institution:
+                "University",
+
+            qualification:
+                "Bachelor of Engineering Technology (Electrical Engineering)",
+
+            specialization:
+                "Telecommunications",
+
+            period:
+                "",
+
+            status:
+                "Completed"
+
+        },
+
+        {
+
+            id: 2,
+
+            institution:
+                "Freedom Park Secondary School",
+
+            qualification:
+                "National Senior Certificate",
+
+            period:
+                "2020",
+
+            status:
+                "Completed"
+
+        }
+
+    ],
+
+    /*==========================================================
+        CERTIFICATIONS
+    ==========================================================*/
+
+    certifications: [
+
+        {
+
+            id: 1,
+
+            name:
+                "AWS Cloud Practitioner",
+
+            issuer:
+                "Amazon Web Services",
+
+            year:
+                "",
+
+            credential:
+                "",
+
+            icon:
+                "fab fa-aws"
+
+        },
+
+        {
+
+            id: 2,
+
+            name:
+                "Microsoft Azure Fundamentals",
+
+            issuer:
+                "Microsoft",
+
+            year:
+                "",
+
+            credential:
+                "",
+
+            icon:
+                "fab fa-microsoft"
+
+        },
+
+        {
+
+            id: 3,
+
+            name:
+                "Google Cloud Fundamentals",
+
+            issuer:
+                "Google",
+
+            year:
+                "",
+
+            credential:
+                "",
+
+            icon:
+                "fab fa-google"
+
+        },
+
+        {
+
+            id: 4,
+
+            name:
+                "Oracle Cloud Infrastructure",
+
+            issuer:
+                "Oracle",
+
+            year:
+                "",
+
+            credential:
+                "",
+
+            icon:
+                "fas fa-database"
+
+        }
+
+    ],
+
+    /*==========================================================
+        PROJECTS
+    ==========================================================*/
+
+    projects: [
+
+        {
+
+            id: 1,
+
+            title:
+                "Professional Portfolio V7",
+
+            category:
+                "Web Development",
 
             image:
-
-                "assets/images/transport-surveillance.jpg",
+                "assets/images/projects/portfolio.jpg",
 
             description:
-
-                "Transport surveillance and monitoring systems designed to support operational visibility, monitoring and infrastructure security.",
+                "Progressive Web Application portfolio with AI assistant, QR generator, analytics dashboard and responsive design.",
 
             technologies: [
 
-                "Surveillance",
+                "HTML5",
 
-                "Monitoring",
+                "CSS3",
 
-                "Security",
+                "JavaScript",
 
-                "Transport Systems"
+                "PWA"
 
-            ]
+            ],
+
+            github:
+                "",
+
+            demo:
+                "",
+
+            featured:
+                true
 
         },
 
+        {
+
+            id: 2,
+
+            title:
+                "Budget Tracker",
+
+            category:
+                "Python",
+
+            image:
+                "assets/images/projects/budget-tracker.jpg",
+
+            description:
+                "Complete personal finance system featuring dashboards, charts, authentication, reports and data export.",
+
+            technologies: [
+
+                "Python",
+
+                "Flask",
+
+                "SQLite",
+
+                "Chart.js"
+
+            ],
+
+            github:
+                "",
+
+            demo:
+                "",
+
+            featured:
+                true
+
+        },
 
         {
 
-            title: "Physical Security Infrastructure",
+            id: 3,
 
-            category: "Security",
+            title:
+                "Telecommunications Monitoring Dashboard",
+
+            category:
+                "Engineering",
 
             image:
-
-                "assets/images/physical-security.jpg",
+                "assets/images/projects/network.jpg",
 
             description:
+                "Infrastructure monitoring dashboard for fibre, microwave and surveillance systems.",
 
-                "Integrated physical security systems involving surveillance, alarm monitoring and supporting security infrastructure.",
+            technologies: [
+
+                "Networking",
+
+                "Telecommunications",
+
+                "Monitoring"
+
+            ],
+
+            github:
+                "",
+
+            demo:
+                "",
+
+            featured:
+                false
+
+        },
+
+        {
+
+            id: 4,
+
+            title:
+                "Physical Security Management",
+
+            category:
+                "Security",
+
+            image:
+                "assets/images/projects/security.jpg",
+
+            description:
+                "Integrated CCTV, access control and alarm monitoring solution.",
 
             technologies: [
 
                 "CCTV",
 
-                "Alarm Systems",
+                "Access Control",
 
-                "Surveillance",
+                "Surveillance"
 
-                "Security Infrastructure"
+            ],
 
-            ]
+            github:
+                "",
+
+            demo:
+                "",
+
+            featured:
+                false
 
         },
 
-
         {
 
-            title: "Engineering Planning & Documentation",
+            id: 5,
 
-            category: "Engineering",
+            title:
+                "Network Infrastructure Upgrade",
+
+            category:
+                "Networking",
 
             image:
-
-                "assets/images/engineering-planning.jpg",
+                "assets/images/projects/network-upgrade.jpg",
 
             description:
-
-                "Engineering planning, technical documentation and infrastructure analysis supporting the design and implementation of technical systems.",
+                "Enterprise network design, migration and optimization project.",
 
             technologies: [
 
-                "Engineering",
+                "LAN",
 
-                "Planning",
+                "WAN",
 
-                "Documentation",
+                "Routing",
 
-                "Technical Analysis"
+                "Switching"
 
-            ]
+            ],
 
+            github:
+                "",
+
+            demo:
+                "",
+
+            featured:
+                false
+
+        },
+
+    ],
+
+        /*==========================================================
+        GALLERY
+    ==========================================================*/
+
+    gallery: [
+
+        {
+            id: 1,
+            title: "Telecommunications Infrastructure",
+            image: "assets/images/gallery/gallery-1.jpg",
+            category: "Telecommunications"
+        },
+
+        {
+            id: 2,
+            title: "Network Operations",
+            image: "assets/images/gallery/gallery-2.jpg",
+            category: "Networking"
+        },
+
+        {
+            id: 3,
+            title: "Physical Security Systems",
+            image: "assets/images/gallery/gallery-3.jpg",
+            category: "Security"
+        },
+
+        {
+            id: 4,
+            title: "Engineering Projects",
+            image: "assets/images/gallery/gallery-4.jpg",
+            category: "Engineering"
         }
 
     ],
 
-
-    /*=====================================================
-        CERTIFICATES
-    =====================================================*/
-
-    certificates: [
-
-        {
-
-            title: "Engineering Certificate",
-
-            image:
-
-                "assets/certificates/certificate-1.jpg",
-
-            file:
-
-                "assets/certificates/certificate-1.pdf"
-
-        },
-
-
-        {
-
-            title: "Telecommunications Certificate",
-
-            image:
-
-                "assets/certificates/certificate-2.jpg",
-
-            file:
-
-                "assets/certificates/certificate-2.pdf"
-
-        },
-
-
-        {
-
-            title: "Network Infrastructure Certificate",
-
-            image:
-
-                "assets/certificates/certificate-3.jpg",
-
-            file:
-
-                "assets/certificates/certificate-3.pdf"
-
-        },
-
-
-        {
-
-            title: "Professional Development Certificate",
-
-            image:
-
-                "assets/certificates/certificate-4.jpg",
-
-            file:
-
-                "assets/certificates/certificate-4.pdf"
-
-        }
-
-    ],
-
-
-    /*=====================================================
-        DOWNLOAD CENTER
-    =====================================================*/
+    /*==========================================================
+        DOWNLOADS
+    ==========================================================*/
 
     downloads: [
 
         {
 
-            name: "Curriculum Vitae",
+            id: 1,
 
-            file:
+            title: "Curriculum Vitae",
 
-                "assets/files/CV.pdf",
+            description: "Latest professional CV",
 
-            icon:
+            icon: "fas fa-file-pdf",
 
-                "fa-file-pdf"
-
-        },
-
-
-        {
-
-            name: "Engineering Portfolio",
-
-            file:
-
-                "assets/files/Portfolio.pdf",
-
-            icon:
-
-                "fa-file-pdf"
+            file: "assets/documents/CV.pdf"
 
         },
 
+        {
+
+            id: 2,
+
+            title: "Engineering Portfolio",
+
+            description: "Professional portfolio",
+
+            icon: "fas fa-folder-open",
+
+            file: "assets/documents/Portfolio.pdf"
+
+        },
 
         {
 
-            name: "Digital Contact Card",
+            id: 3,
 
-            file:
+            title: "Certificates",
 
-                "vcard.vcf",
+            description: "Professional certificates",
 
-            icon:
+            icon: "fas fa-certificate",
 
-                "fa-address-card"
+            file: "assets/documents/Certificates.pdf"
+
+        }
+
+    ],
+
+    /*==========================================================
+        CONTACT
+    ==========================================================*/
+
+    contact: {
+
+        phone: APP_CONFIG.contact.phone,
+
+        whatsapp: APP_CONFIG.contact.whatsapp,
+
+        email: APP_CONFIG.contact.email,
+
+        website: APP_CONFIG.contact.website,
+
+        address: APP_CONFIG.contact.address,
+
+        map: "",
+
+        availability: "Available for opportunities"
+
+    },
+
+    /*==========================================================
+        SOCIAL LINKS
+    ==========================================================*/
+
+    social: {
+
+        linkedin: APP_CONFIG.social.linkedin,
+
+        github: APP_CONFIG.social.github,
+
+        facebook: APP_CONFIG.social.facebook,
+
+        instagram: APP_CONFIG.social.instagram,
+
+        twitter: APP_CONFIG.social.twitter,
+
+        youtube: APP_CONFIG.social.youtube
+
+    },
+
+    /*==========================================================
+        TESTIMONIALS
+    ==========================================================*/
+
+    testimonials: [
+
+        {
+
+            id: 1,
+
+            name: "Coming Soon",
+
+            position: "Professional Reference",
+
+            company: "",
+
+            image: "assets/images/testimonials/default.png",
+
+            rating: 5,
+
+            message:
+                "Professional testimonials will appear here."
 
         }
 
@@ -716,15 +980,79 @@ window.NLS.data = {
 
 };
 
+/*==========================================================
+    HELPER FUNCTIONS
+==========================================================*/
 
-/*=========================================================
-    DATA LOAD CONFIRMATION
-=========================================================*/
+const Data = Object.freeze({
 
-console.log(
+    getProfile() {
 
-    "NLS Portfolio Data Loaded Successfully",
+        return PORTFOLIO_DATA.profile;
 
-    window.NLS.data
+    },
 
-);
+    getProjects() {
+
+        return PORTFOLIO_DATA.projects;
+
+    },
+
+    getFeaturedProjects() {
+
+        return PORTFOLIO_DATA.projects.filter(
+
+            project => project.featured
+
+        );
+
+    },
+
+    getSkills() {
+
+        return PORTFOLIO_DATA.skills;
+
+    },
+
+    getTechnologies() {
+
+        return PORTFOLIO_DATA.technologies;
+
+    },
+
+    getServices() {
+
+        return PORTFOLIO_DATA.services;
+
+    },
+
+    getExperience() {
+
+        return PORTFOLIO_DATA.experience;
+
+    },
+
+    getCertificates() {
+
+        return PORTFOLIO_DATA.certifications;
+
+    },
+
+    getGallery() {
+
+        return PORTFOLIO_DATA.gallery;
+
+    },
+
+    getDownloads() {
+
+        return PORTFOLIO_DATA.downloads;
+
+    }
+
+});
+
+/*==========================================================
+    END OF data.js
+    Version: 7.0.0
+==========================================================*/
