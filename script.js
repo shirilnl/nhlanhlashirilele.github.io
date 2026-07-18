@@ -1,993 +1,840 @@
-/*=========================================================
-    NLS ENGINEERING PORTFOLIO
-    File: script.js
-    Version: 6.0
-
-    COMPLETE PORTFOLIO ENGINE
-
-    Includes:
-    - Dynamic data rendering
-    - Project search
-    - Project filtering
-    - Project result counter
-    - Project image fallback
-    - Certificate preview
-    - Certificate download
-    - Download center
-    - Contact system
-    - QR code
-    - vCard
-    - Contact form
-    - Theme system
-    - Mobile navigation
-    - Typing effect
-    - Scroll progress
-    - Back to top
-    - Active navigation
-    - Counters
-    - Skill bars
-    - Reveal animations
-    - Lightbox
-    - Lazy loading
-    - PWA
-=========================================================*/
-
+/* =========================================================
+   NLS ENGINEERING PORTFOLIO
+   script.js
+   Final Integrated UI Controller
+========================================================= */
 
 "use strict";
 
 
-/*=========================================================
-    GLOBAL APP
-=========================================================*/
+/* =========================================================
+   GLOBAL NLS NAMESPACE
+========================================================= */
 
-const App = {
+window.NLS = window.NLS || {};
 
-    config:
+const NLS = window.NLS;
 
-        window.NLS?.config || {},
 
-    data:
+/* =========================================================
+   APPLICATION STATE
+========================================================= */
 
-        window.NLS?.data || {},
+NLS.state = NLS.state || {
 
-    state: {
+    theme: "light",
 
-        loaded: false,
+    mobileMenuOpen: false,
 
-        theme: "light",
+    projectFilter: "all",
 
-        menuOpen: false,
+    projectSearch: "",
 
-        projectFilter: "all",
-
-        projectSearch: "",
-
-        projects: [],
-
-        certificates: []
-
-    }
+    initialized: false
 
 };
 
 
-window.App = App;
+/* =========================================================
+   SAFE DATA ACCESS
+========================================================= */
+
+const portfolioData =
+
+    NLS.data || {};
 
 
-/*=========================================================
-    DOM READY
-=========================================================*/
+/* =========================================================
+   DOM READY
+========================================================= */
 
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    initializeApplication
+    () => {
+
+        initializeTheme();
+
+        initializeNavigation();
+
+        initializeSmoothScrolling();
+
+        initializeHeader();
+
+        initializeScrollProgress();
+
+        initializeBackToTop();
+
+        initializeTypingEffect();
+
+        initializeProjectSystem();
+
+        initializeCertificateSystem();
+
+        initializeGallery();
+
+        initializeContactSystem();
+
+        initializeQRCode();
+
+        initializeDownloadCenter();
+
+        initializeRevealAnimations();
+
+        initializeLazyLoading();
+
+        initializeCurrentYear();
+
+        initializeKeyboardControls();
+
+        NLS.state.initialized = true;
+
+        console.log(
+
+            "NLS Portfolio UI initialized successfully."
+
+        );
+
+    }
 
 );
 
 
-/*=========================================================
-    APPLICATION INITIALIZATION
-=========================================================*/
+/* =========================================================
+   THEME SYSTEM
+========================================================= */
 
-function initializeApplication() {
+function initializeTheme() {
 
+    const savedTheme =
 
-    App.state.projects =
+        localStorage.getItem(
 
-        Array.isArray(
+            "nls-theme"
 
-            App.data.projects
+        );
 
-        )
 
-            ? App.data.projects
+    const preferredTheme =
 
-            : [];
+        savedTheme ||
 
+        (
 
-    App.state.certificates =
+            window.matchMedia &&
 
-        Array.isArray(
+            window.matchMedia(
 
-            App.data.certificates
+                "(prefers-color-scheme: dark)"
 
-        )
+            ).matches
 
-            ? App.data.certificates
+                ? "dark"
 
-            : [];
+                : "light"
 
+        );
 
-    loadTheme();
 
+    NLS.state.theme =
 
-    initializeNavigation();
+        preferredTheme;
 
 
-    initializeBackToTop();
+    document.documentElement
 
+        .setAttribute(
 
-    initializeProgressBar();
+            "data-theme",
 
+            preferredTheme
 
-    initializeTyping();
+        );
 
 
-    initializeSmoothScroll();
+    const themeButtons =
 
+        document.querySelectorAll(
 
-    initializeActiveNavigation();
+            "[data-theme-toggle], #theme-toggle, .theme-toggle"
 
+        );
 
-    initializeHeaderScroll();
 
+    themeButtons.forEach(
 
-    initializeThemeToggle();
+        button => {
 
 
-    initializeContact();
+            button.addEventListener(
 
+                "click",
 
-    initializeQR();
+                toggleTheme
 
+            );
 
-    initializeVCard();
-
-
-    initializeContactForm();
-
-
-    initializeLightbox();
-
-
-    initializeProjectSystem();
-
-
-    initializeCertificateSystem();
-
-
-    initializeDownloadCenter();
-
-
-    renderStatistics();
-
-
-    renderSkills();
-
-
-    renderExperience();
-
-
-    renderEducation();
-
-
-    renderTechnologies();
-
-
-    initializeRevealAnimations();
-
-
-    initializeCounters();
-
-
-    initializeSkillBars();
-
-
-    initializeLazyImages();
-
-
-    initializeCurrentYear();
-
-
-    initializeGlobalKeyboardShortcuts();
-
-
-    initializePWA();
-
-
-    if (
-
-        typeof AI !== "undefined" &&
-
-        typeof AI.initialize === "function"
-
-    ) {
-
-        AI.initialize();
-
-    }
-
-
-    if (
-
-        typeof Admin !== "undefined" &&
-
-        typeof Admin.initialize === "function"
-
-    ) {
-
-        Admin.initialize();
-
-    }
-
-
-    App.state.loaded = true;
-
-
-    console.log(
-
-        "NLS Engineering Portfolio Loaded Successfully"
+        }
 
     );
 
 }
 
 
-/*=========================================================
-    STATISTICS
-=========================================================*/
+function toggleTheme() {
 
-function renderStatistics() {
+    const newTheme =
+
+        NLS.state.theme === "dark"
+
+            ? "light"
+
+            : "dark";
 
 
-    const container =
+    NLS.state.theme =
 
-        document.getElementById(
+        newTheme;
 
-            "statisticsGrid"
+
+    document.documentElement
+
+        .setAttribute(
+
+            "data-theme",
+
+            newTheme
 
         );
 
 
-    if (!container)
+    localStorage.setItem(
 
-        return;
+        "nls-theme",
 
+        newTheme
 
-    const statistics =
-
-        Array.isArray(
-
-            App.data.statistics
-
-        )
-
-            ? App.data.statistics
-
-            : [];
-
-
-    container.innerHTML = "";
-
-
-    statistics.forEach(stat => {
-
-
-        const card =
-
-            document.createElement(
-
-                "div"
-
-            );
-
-
-        card.className =
-
-            "stat-card";
-
-
-        card.innerHTML = `
-
-            <i class="fas ${
-
-                escapeHTML(
-
-                    stat.icon ||
-
-                    "fa-chart-line"
-
-                )
-
-            }"></i>
-
-
-            <strong
-
-                class="counter"
-
-                data-target="${
-
-                    extractNumber(
-
-                        stat.value
-
-                    )
-
-                }"
-
-                data-suffix="${
-
-                    extractSuffix(
-
-                        stat.value
-
-                    )
-
-                }">
-
-                0
-
-            </strong>
-
-
-            <span>
-
-                ${
-
-                    escapeHTML(
-
-                        stat.label ||
-
-                        ""
-
-                    )
-
-                }
-
-            </span>
-
-        `;
-
-
-        container.appendChild(
-
-            card
-
-        );
-
-    });
+    );
 
 }
 
 
-/*=========================================================
-    SKILLS
-=========================================================*/
+/* =========================================================
+   MOBILE NAVIGATION
+========================================================= */
 
-function renderSkills() {
+function initializeNavigation() {
 
+    const menuButton =
 
-    const container =
+        document.querySelector(
 
-        document.getElementById(
-
-            "skillsGrid"
+            ".menu-btn, .menu-toggle, [data-menu-toggle]"
 
         );
 
 
-    if (!container)
+    const navigation =
+
+        document.querySelector(
+
+            ".navbar, .nav-menu, [data-navigation]"
+
+        );
+
+
+    if (!menuButton || !navigation)
 
         return;
 
 
-    const skills =
+    menuButton.addEventListener(
 
-        Array.isArray(
+        "click",
 
-            App.data.skills
-
-        )
-
-            ? App.data.skills
-
-            : [];
+        () => {
 
 
-    container.innerHTML = "";
+            NLS.state.mobileMenuOpen =
+
+                !NLS.state.mobileMenuOpen;
 
 
-    skills.forEach(skill => {
+            navigation.classList.toggle(
 
+                "active",
 
-        const card =
-
-            document.createElement(
-
-                "div"
+                NLS.state.mobileMenuOpen
 
             );
 
 
-        card.className =
+            menuButton.classList.toggle(
 
-            "skill-card";
+                "active",
 
+                NLS.state.mobileMenuOpen
 
-        card.innerHTML = `
-
-            <div class="skill-header">
-
-                <div class="skill-name">
-
-                    <i class="fas ${
-
-                        escapeHTML(
-
-                            skill.icon ||
-
-                            "fa-star"
-
-                        )
-
-                    }"></i>
+            );
 
 
-                    <span>
+            document.body.classList.toggle(
 
-                        ${
+                "menu-open",
 
-                            escapeHTML(
+                NLS.state.mobileMenuOpen
 
-                                skill.name ||
+            );
 
-                                ""
+        }
 
-                            )
-
-                        }
-
-                    </span>
-
-                </div>
+    );
 
 
-                <span class="skill-percentage">
+    navigation
 
-                    ${
+        .querySelectorAll(
 
-                        Number(
+            "a"
 
-                            skill.level ||
+        )
 
-                            0
+        .forEach(
 
-                        )
-
-                    }%
-
-                </span>
-
-            </div>
+            link => {
 
 
-            <div class="skill-bar">
+                link.addEventListener(
 
-                <div
+                    "click",
 
-                    class="skill-progress"
-
-                    data-progress="${
-
-                        Number(
-
-                            skill.level ||
-
-                            0
-
-                        )
-
-                    }">
-
-                </div>
-
-            </div>
-
-        `;
+                    () => {
 
 
-        container.appendChild(
+                        navigation.classList.remove(
 
-            card
+                            "active"
+
+                        );
+
+
+                        menuButton.classList.remove(
+
+                            "active"
+
+                        );
+
+
+                        document.body.classList.remove(
+
+                            "menu-open"
+
+                        );
+
+
+                        NLS.state.mobileMenuOpen =
+
+                            false;
+
+                    }
+
+                );
+
+            }
 
         );
-
-    });
 
 }
 
 
-/*=========================================================
-    EXPERIENCE
-=========================================================*/
+/* =========================================================
+   SMOOTH SCROLLING
+========================================================= */
 
-function renderExperience() {
+function initializeSmoothScrolling() {
+
+    document
+
+        .querySelectorAll(
+
+            'a[href^="#"]'
+
+        )
+
+        .forEach(
+
+            link => {
 
 
-    const container =
+                link.addEventListener(
 
-        document.getElementById(
+                    "click",
 
-            "experienceTimeline"
+                    event => {
+
+
+                        const targetID =
+
+                            link.getAttribute(
+
+                                "href"
+
+                            );
+
+
+                        if (
+
+                            !targetID ||
+
+                            targetID === "#"
+
+                        )
+
+                            return;
+
+
+                        const target =
+
+                            document.querySelector(
+
+                                targetID
+
+                            );
+
+
+                        if (!target)
+
+                            return;
+
+
+                        event.preventDefault();
+
+
+                        target.scrollIntoView({
+
+                            behavior: "smooth",
+
+                            block: "start"
+
+                        });
+
+                    }
+
+                );
+
+            }
+
+        );
+
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+function initializeHeader() {
+
+    const header =
+
+        document.querySelector(
+
+            "header"
 
         );
 
 
-    if (!container)
+    if (!header)
 
         return;
 
 
-    const experience =
+    const updateHeader =
 
-        Array.isArray(
-
-            App.data.experience
-
-        )
-
-            ? App.data.experience
-
-            : [];
+        () => {
 
 
-    container.innerHTML = "";
+            header.classList.toggle(
 
+                "scrolled",
 
-    experience.forEach(item => {
-
-
-        const article =
-
-            document.createElement(
-
-                "article"
+                window.scrollY > 40
 
             );
 
+        };
 
-        article.className =
 
-            "timeline-item";
+    updateHeader();
 
 
-        const technologies =
+    window.addEventListener(
 
-            Array.isArray(
+        "scroll",
 
-                item.technologies
+        updateHeader,
 
-            )
+        {
 
-                ? item.technologies
+            passive: true
 
-                : [];
+        }
 
-
-        article.innerHTML = `
-
-            <div class="timeline-marker">
-
-                <i class="fas fa-briefcase"></i>
-
-            </div>
-
-
-            <div class="timeline-content">
-
-                <span class="timeline-period">
-
-                    ${
-
-                        escapeHTML(
-
-                            item.period ||
-
-                            ""
-
-                        )
-
-                    }
-
-                </span>
-
-
-                <h3>
-
-                    ${
-
-                        escapeHTML(
-
-                            item.title ||
-
-                            ""
-
-                        )
-
-                    }
-
-                </h3>
-
-
-                <h4>
-
-                    ${
-
-                        escapeHTML(
-
-                            item.company ||
-
-                            ""
-
-                        )
-
-                    }
-
-                </h4>
-
-
-                <p>
-
-                    ${
-
-                        escapeHTML(
-
-                            item.description ||
-
-                            ""
-
-                        )
-
-                    }
-
-                </p>
-
-
-                <div class="technology-tags">
-
-                    ${
-
-                        technologies
-
-                            .map(
-
-                                technology => `
-
-                                    <span>
-
-                                        ${
-
-                                            escapeHTML(
-
-                                                technology
-
-                                            )
-
-                                        }
-
-                                    </span>
-
-                                `
-
-                            )
-
-                            .join("")
-
-                    }
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        container.appendChild(
-
-            article
-
-        );
-
-    });
+    );
 
 }
 
 
-/*=========================================================
-    EDUCATION
-=========================================================*/
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
 
-function renderEducation() {
+function initializeScrollProgress() {
 
+    const progressBar =
 
-    const container =
+        document.querySelector(
 
-        document.getElementById(
-
-            "educationGrid"
+            "#progress-bar, .scroll-progress-bar"
 
         );
 
 
-    if (!container)
+    if (!progressBar)
 
         return;
 
 
-    const education =
+    window.addEventListener(
 
-        Array.isArray(
+        "scroll",
 
-            App.data.education
+        () => {
 
-        )
 
-            ? App.data.education
+            const documentHeight =
 
-            : [];
+                document.documentElement
 
+                    .scrollHeight
 
-    container.innerHTML = "";
+                -
 
+                window.innerHeight;
 
-    education.forEach(item => {
 
+            const progress =
 
-        const card =
+                documentHeight > 0
 
-            document.createElement(
+                    ? (
 
-                "article"
+                        window.scrollY /
 
-            );
+                        documentHeight
 
+                    ) *
 
-        card.className =
+                    100
 
-            "education-card";
+                    : 0;
 
 
-        card.innerHTML = `
+            progressBar.style.width =
 
-            <div class="education-icon">
+                `${progress}%`;
 
-                <i class="fas fa-graduation-cap"></i>
+        },
 
-            </div>
+        {
 
+            passive: true
 
-            <span class="education-period">
+        }
 
-                ${
-
-                    escapeHTML(
-
-                        item.period ||
-
-                        ""
-
-                    )
-
-                }
-
-            </span>
-
-
-            <h3>
-
-                ${
-
-                    escapeHTML(
-
-                        item.qualification ||
-
-                        ""
-
-                    )
-
-                }
-
-            </h3>
-
-
-            <h4>
-
-                ${
-
-                    escapeHTML(
-
-                        item.institution ||
-
-                        ""
-
-                    )
-
-                }
-
-            </h4>
-
-
-            <p>
-
-                ${
-
-                    escapeHTML(
-
-                        item.description ||
-
-                        ""
-
-                    )
-
-                }
-
-            </p>
-
-        `;
-
-
-        container.appendChild(
-
-            card
-
-        );
-
-    });
+    );
 
 }
 
 
-/*=========================================================
-    TECHNOLOGIES
-=========================================================*/
+/* =========================================================
+   BACK TO TOP
+========================================================= */
 
-function renderTechnologies() {
+function initializeBackToTop() {
 
+    const button =
 
-    const container =
+        document.querySelector(
 
-        document.getElementById(
-
-            "technologyGrid"
+            "#backToTop, .back-to-top"
 
         );
 
 
-    if (!container)
+    if (!button)
 
         return;
 
 
-    const technologies =
+    window.addEventListener(
 
-        Array.isArray(
+        "scroll",
 
-            App.data.technologies
-
-        )
-
-            ? App.data.technologies
-
-            : [];
+        () => {
 
 
-    container.innerHTML = "";
+            button.classList.toggle(
 
+                "visible",
 
-    technologies.forEach(technology => {
-
-
-        const card =
-
-            document.createElement(
-
-                "div"
+                window.scrollY > 500
 
             );
 
 
-        card.className =
+            button.classList.toggle(
 
-            "technology-card";
+                "show",
 
+                window.scrollY > 500
 
-        card.innerHTML = `
+            );
 
-            <i class="fas ${
+        },
 
-                escapeHTML(
+        {
 
-                    technology.icon ||
+            passive: true
 
-                    "fa-microchip"
+        }
 
-                )
-
-            }"></i>
-
-
-            <h3>
-
-                ${
-
-                    escapeHTML(
-
-                        technology.name ||
-
-                        ""
-
-                    )
-
-                }
-
-            </h3>
+    );
 
 
-            <span>
+    button.addEventListener(
 
-                ${
+        "click",
 
-                    escapeHTML(
-
-                        technology.category ||
-
-                        ""
-
-                    )
-
-                }
-
-            </span>
-
-        `;
+        () => {
 
 
-        container.appendChild(
+            window.scrollTo({
 
-            card
+                top: 0,
 
-        );
+                behavior: "smooth"
 
-    });
+            });
+
+        }
+
+    );
 
 }
 
 
-/*=========================================================
-    PROJECT SYSTEM
-=========================================================*/
+/* =========================================================
+   TYPING EFFECT
+========================================================= */
+
+function initializeTypingEffect() {
+
+    const element =
+
+        document.querySelector(
+
+            ".typing-text, [data-typing]"
+
+        );
+
+
+    const words =
+
+        portfolioData.hero?.subtitle ||
+
+        portfolioData.hero?.titles;
+
+
+    if (
+
+        !element ||
+
+        !Array.isArray(words) ||
+
+        words.length === 0
+
+    )
+
+        return;
+
+
+    let wordIndex = 0;
+
+    let characterIndex = 0;
+
+    let deleting = false;
+
+
+    function type() {
+
+
+        const word =
+
+            String(
+
+                words[wordIndex]
+
+            );
+
+
+        if (!deleting) {
+
+
+            characterIndex++;
+
+
+            element.textContent =
+
+                word.substring(
+
+                    0,
+
+                    characterIndex
+
+                );
+
+
+            if (
+
+                characterIndex >=
+
+                word.length
+
+            ) {
+
+
+                deleting = true;
+
+
+                setTimeout(
+
+                    type,
+
+                    1600
+
+                );
+
+
+                return;
+
+            }
+
+        }
+
+        else {
+
+
+            characterIndex--;
+
+
+            element.textContent =
+
+                word.substring(
+
+                    0,
+
+                    characterIndex
+
+                );
+
+
+            if (
+
+                characterIndex <= 0
+
+            ) {
+
+
+                deleting = false;
+
+
+                wordIndex =
+
+                    (
+
+                        wordIndex + 1
+
+                    )
+
+                    %
+
+                    words.length;
+
+            }
+
+        }
+
+
+        setTimeout(
+
+            type,
+
+            deleting
+
+                ? 45
+
+                : 85
+
+        );
+
+    }
+
+
+    type();
+
+}
+
+
+/* =========================================================
+   PROJECT SYSTEM
+========================================================= */
 
 function initializeProjectSystem() {
+
+    const projects =
+
+        Array.isArray(
+
+            portfolioData.projects
+
+        )
+
+            ? portfolioData.projects
+
+            : [];
+
+
+    const container =
+
+        document.querySelector(
+
+            "#projectsGrid, .projects-grid"
+
+        );
+
+
+    if (!container)
+
+        return;
 
 
     const searchInput =
 
         document.querySelector(
 
-            "#projectSearch"
+            "#projectSearch, [data-project-search]"
 
         );
 
@@ -996,7 +843,7 @@ function initializeProjectSystem() {
 
         document.querySelectorAll(
 
-            ".filter-btn"
+            ".filter-btn, [data-project-filter]"
 
         );
 
@@ -1011,16 +858,22 @@ function initializeProjectSystem() {
             event => {
 
 
-                App.state.projectSearch =
+                NLS.state.projectSearch =
 
                     event.target.value
 
-                        .trim()
+                        .toLowerCase()
 
-                        .toLowerCase();
+                        .trim();
 
 
-                renderProjects();
+                renderProjects(
+
+                    projects,
+
+                    container
+
+                );
 
             }
 
@@ -1029,106 +882,103 @@ function initializeProjectSystem() {
     }
 
 
-    filterButtons.forEach(button => {
+    filterButtons.forEach(
+
+        button => {
 
 
-        button.addEventListener(
+            button.addEventListener(
 
-            "click",
+                "click",
 
-            () => {
-
-
-                App.state.projectFilter =
-
-                    (
-
-                        button.dataset.filter ||
-
-                        "all"
-
-                    )
-
-                    .toLowerCase();
+                () => {
 
 
-                filterButtons.forEach(
+                    NLS.state.projectFilter =
 
-                    item =>
+                        (
 
-                        item.classList.remove(
+                            button.dataset.filter ||
 
-                            "active"
+                            button.dataset.projectFilter ||
+
+                            "all"
 
                         )
 
-                );
+                        .toLowerCase();
 
 
-                button.classList.add(
+                    filterButtons.forEach(
 
-                    "active"
+                        item =>
 
-                );
+                            item.classList.remove(
 
+                                "active"
 
-                renderProjects();
+                            )
 
-            }
-
-        );
-
-    });
+                    );
 
 
-    renderProjects();
+                    button.classList.add(
+
+                        "active"
+
+                    );
+
+
+                    renderProjects(
+
+                        projects,
+
+                        container
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    renderProjects(
+
+        projects,
+
+        container
+
+    );
 
 }
 
 
-/*=========================================================
-    RENDER PROJECTS
-=========================================================*/
+function renderProjects(
 
-function renderProjects() {
+    projects,
 
+    container
 
-    const container =
-
-        document.getElementById(
-
-            "projectsGrid"
-
-        );
-
-
-    if (!container)
-
-        return;
-
-
-    const resultCount =
-
-        document.querySelector(
-
-            "#projectResultCount"
-
-        );
+) {
 
 
     const filter =
 
-        App.state.projectFilter;
+        NLS.state.projectFilter;
 
 
     const search =
 
-        App.state.projectSearch;
+        NLS.state.projectSearch;
 
 
     const filteredProjects =
 
-        App.state.projects.filter(
+        projects.filter(
 
             project => {
 
@@ -1146,50 +996,38 @@ function renderProjects() {
                     .toLowerCase();
 
 
-                const title =
+                const searchableText =
 
-                    String(
+                    [
 
-                        project.title ||
+                        project.title,
 
-                        ""
+                        project.description,
 
-                    )
+                        project.category,
+
+                        ...(
+
+                            Array.isArray(
+
+                                project.technologies
+
+                            )
+
+                                ? project.technologies
+
+                                : []
+
+                        )
+
+                    ]
+
+                    .join(" ")
 
                     .toLowerCase();
 
 
-                const description =
-
-                    String(
-
-                        project.description ||
-
-                        ""
-
-                    )
-
-                    .toLowerCase();
-
-
-                const technologies =
-
-                    Array.isArray(
-
-                        project.technologies
-
-                    )
-
-                        ? project.technologies
-
-                            .join(" ")
-
-                            .toLowerCase()
-
-                        : "";
-
-
-                const matchesFilter =
+                const matchesCategory =
 
                     filter === "all" ||
 
@@ -1200,19 +1038,7 @@ function renderProjects() {
 
                     !search ||
 
-                    title.includes(
-
-                        search
-
-                    ) ||
-
-                    description.includes(
-
-                        search
-
-                    ) ||
-
-                    technologies.includes(
+                    searchableText.includes(
 
                         search
 
@@ -1221,7 +1047,7 @@ function renderProjects() {
 
                 return (
 
-                    matchesFilter &&
+                    matchesCategory &&
 
                     matchesSearch
 
@@ -1232,13 +1058,19 @@ function renderProjects() {
         );
 
 
-    container.innerHTML = "";
+    const countElement =
+
+        document.querySelector(
+
+            "#projectResultCount, [data-project-count]"
+
+        );
 
 
-    if (resultCount) {
+    if (countElement) {
 
 
-        resultCount.textContent =
+        countElement.textContent =
 
             `${
 
@@ -1252,12 +1084,19 @@ function renderProjects() {
 
                     : "s"
 
-            } found`;
+            }`;
 
     }
 
 
-    if (!filteredProjects.length) {
+    container.innerHTML = "";
+
+
+    if (
+
+        filteredProjects.length === 0
+
+    ) {
 
 
         container.innerHTML = `
@@ -1266,15 +1105,11 @@ function renderProjects() {
 
                 <i class="fas fa-folder-open"></i>
 
-                <h3>
-
-                    No Projects Found
-
-                </h3>
+                <h3>No Projects Found</h3>
 
                 <p>
 
-                    Try a different search term
+                    Try another search term
 
                     or category.
 
@@ -1309,11 +1144,11 @@ function renderProjects() {
                 "project-card";
 
 
-            card.dataset.category =
+            const image =
 
-                project.category ||
+                project.image ||
 
-                "";
+                "assets/images/project-placeholder.jpg";
 
 
             const technologies =
@@ -1329,57 +1164,34 @@ function renderProjects() {
                     : [];
 
 
-            const image =
-
-                project.image ||
-
-                "assets/images/project-placeholder.jpg";
-
-
             card.innerHTML = `
 
                 <div class="project-image">
 
                     <img
 
-                        src="${
+                        src="${escapeHTML(image)}"
 
-                            escapeHTML(
+                        alt="${escapeHTML(
 
-                                image
+                            project.title ||
 
-                            )
+                            "Project"
 
-                        }"
-
-                        alt="${
-
-                            escapeHTML(
-
-                                project.title ||
-
-                                "Project image"
-
-                            )
-
-                        }"
+                        )}"
 
                         loading="lazy">
 
 
                     <span class="project-category">
 
-                        ${
+                        ${escapeHTML(
 
-                            escapeHTML(
+                            project.category ||
 
-                                project.category ||
+                            ""
 
-                                ""
-
-                            )
-
-                        }
+                        )}
 
                     </span>
 
@@ -1390,34 +1202,26 @@ function renderProjects() {
 
                     <h3>
 
-                        ${
+                        ${escapeHTML(
 
-                            escapeHTML(
+                            project.title ||
 
-                                project.title ||
+                            ""
 
-                                ""
-
-                            )
-
-                        }
+                        )}
 
                     </h3>
 
 
                     <p>
 
-                        ${
+                        ${escapeHTML(
 
-                            escapeHTML(
+                            project.description ||
 
-                                project.description ||
+                            ""
 
-                                ""
-
-                            )
-
-                        }
+                        )}
 
                     </p>
 
@@ -1434,15 +1238,11 @@ function renderProjects() {
 
                                         <span>
 
-                                            ${
+                                            ${escapeHTML(
 
-                                                escapeHTML(
+                                                technology
 
-                                                    technology
-
-                                                )
-
-                                            }
+                                            )}
 
                                         </span>
 
@@ -1470,38 +1270,34 @@ function renderProjects() {
                 );
 
 
-            if (imageElement) {
+            imageElement?.addEventListener(
+
+                "error",
+
+                () => {
 
 
-                imageElement.addEventListener(
+                    if (
 
-                    "error",
+                        imageElement.dataset.fallback
 
-                    () => {
+                    )
 
-
-                        imageElement.src =
-
-                            "assets/images/project-placeholder.jpg";
+                        return;
 
 
-                        imageElement.classList.add(
+                    imageElement.dataset.fallback =
 
-                            "image-fallback"
+                        "true";
 
-                        );
 
-                    },
+                    imageElement.src =
 
-                    {
+                        "assets/images/project-placeholder.jpg";
 
-                        once: true
+                }
 
-                    }
-
-                );
-
-            }
+            );
 
 
             container.appendChild(
@@ -1514,85 +1310,33 @@ function renderProjects() {
 
     );
 
-
-    initializeProjectImageLightbox();
-
 }
 
 
-/*=========================================================
-    PROJECT LIGHTBOX
-=========================================================*/
-
-function initializeProjectImageLightbox() {
-
-
-    document
-
-        .querySelectorAll(
-
-            ".project-image img"
-
-        )
-
-        .forEach(
-
-            image => {
-
-
-                image.addEventListener(
-
-                    "click",
-
-                    () => {
-
-
-                        openImageLightbox(
-
-                            image.src,
-
-                            image.alt
-
-                        );
-
-                    }
-
-                );
-
-            }
-
-        );
-
-}
-
-
-/*=========================================================
-    CERTIFICATE SYSTEM
-=========================================================*/
+/* =========================================================
+   CERTIFICATE SYSTEM
+========================================================= */
 
 function initializeCertificateSystem() {
 
+    const certificates =
 
-    renderCertificates();
+        Array.isArray(
 
+            portfolioData.certificates
 
-    initializeCertificateModal();
+        )
 
-}
+            ? portfolioData.certificates
 
-
-/*=========================================================
-    RENDER CERTIFICATES
-=========================================================*/
-
-function renderCertificates() {
+            : [];
 
 
     const container =
 
-        document.getElementById(
+        document.querySelector(
 
-            "certificateGrid"
+            "#certificateGrid, .certificate-grid"
 
         );
 
@@ -1605,7 +1349,7 @@ function renderCertificates() {
     container.innerHTML = "";
 
 
-    App.state.certificates.forEach(
+    certificates.forEach(
 
         (certificate, index) => {
 
@@ -1624,40 +1368,27 @@ function renderCertificates() {
                 "certificate-card";
 
 
-            const image =
-
-                certificate.image ||
-
-                "assets/images/certificate-placeholder.jpg";
-
-
             card.innerHTML = `
 
                 <div class="certificate-image">
 
                     <img
 
-                        src="${
+                        src="${escapeHTML(
 
-                            escapeHTML(
+                            certificate.image ||
 
-                                image
+                            ""
 
-                            )
+                        )}"
 
-                        }"
+                        alt="${escapeHTML(
 
-                        alt="${
+                            certificate.title ||
 
-                            escapeHTML(
+                            "Certificate"
 
-                                certificate.title ||
-
-                                "Certificate"
-
-                            )
-
-                        }"
+                        )}"
 
                         loading="lazy">
 
@@ -1668,13 +1399,7 @@ function renderCertificates() {
 
                         class="certificate-preview"
 
-                        data-certificate-index="${
-
-                            index
-
-                        }"
-
-                        aria-label="Preview certificate">
+                        data-certificate-index="${index}">
 
                         <i class="fas fa-expand"></i>
 
@@ -1687,17 +1412,13 @@ function renderCertificates() {
 
                     <h3>
 
-                        ${
+                        ${escapeHTML(
 
-                            escapeHTML(
+                            certificate.title ||
 
-                                certificate.title ||
+                            "Certificate"
 
-                                "Certificate"
-
-                            )
-
-                        }
+                        )}
 
                     </h3>
 
@@ -1708,13 +1429,9 @@ function renderCertificates() {
 
                             type="button"
 
-                            class="btn btn-secondary certificate-view"
+                            class="btn btn-secondary"
 
-                            data-certificate-index="${
-
-                                index
-
-                            }">
+                            data-certificate-view="${index}">
 
                             <i class="fas fa-eye"></i>
 
@@ -1725,23 +1442,15 @@ function renderCertificates() {
 
                         <a
 
+                            href="${escapeHTML(
+
+                                certificate.file ||
+
+                                "#"
+
+                            )}"
+
                             class="btn btn-primary"
-
-                            href="${
-
-                                escapeHTML(
-
-                                    certificate.file ||
-
-                                    "#"
-
-                                )
-
-                            }"
-
-                            target="_blank"
-
-                            rel="noopener noreferrer"
 
                             download>
 
@@ -1769,13 +1478,13 @@ function renderCertificates() {
     );
 
 
-    document
+    container
 
         .querySelectorAll(
 
-            ".certificate-preview, " +
+            "[data-certificate-index], " +
 
-            ".certificate-view"
+            "[data-certificate-view]"
 
         )
 
@@ -1797,18 +1506,18 @@ function renderCertificates() {
 
                                 button.dataset
 
-                                    .certificateIndex
+                                    .certificateIndex ||
+
+                                button.dataset
+
+                                    .certificateView
 
                             );
 
 
                         const certificate =
 
-                            App.state
-
-                                .certificates
-
-                                [index];
+                            certificates[index];
 
 
                         if (!certificate)
@@ -1816,7 +1525,7 @@ function renderCertificates() {
                             return;
 
 
-                        openCertificatePreview(
+                        openCertificateModal(
 
                             certificate
 
@@ -1833,11 +1542,15 @@ function renderCertificates() {
 }
 
 
-/*=========================================================
-    CERTIFICATE MODAL
-=========================================================*/
+/* =========================================================
+   CERTIFICATE MODAL
+========================================================= */
 
-function initializeCertificateModal() {
+function openCertificateModal(
+
+    certificate
+
+) {
 
 
     let modal =
@@ -1882,9 +1595,7 @@ function initializeCertificateModal() {
 
                     type="button"
 
-                    class="certificate-modal-close"
-
-                    aria-label="Close certificate">
+                    class="certificate-modal-close">
 
                     <i class="fas fa-times"></i>
 
@@ -1893,33 +1604,19 @@ function initializeCertificateModal() {
 
                 <img
 
-                    id="certificateModalImage"
-
-                    src=""
+                    class="certificate-modal-image"
 
                     alt="Certificate preview">
 
 
-                <h3
-
-                    id="certificateModalTitle">
-
-                </h3>
+                <h3 class="certificate-modal-title"></h3>
 
 
                 <a
 
-                    id="certificateModalDownload"
+                    class="btn btn-primary certificate-modal-download"
 
-                    href="#"
-
-                    target="_blank"
-
-                    rel="noopener noreferrer"
-
-                    download
-
-                    class="btn btn-primary">
+                    download>
 
                     <i class="fas fa-download"></i>
 
@@ -1938,136 +1635,92 @@ function initializeCertificateModal() {
 
         );
 
-    }
+
+        modal
+
+            .querySelector(
+
+                ".certificate-modal-close"
+
+            )
+
+            .addEventListener(
+
+                "click",
+
+                () =>
+
+                    closeCertificateModal(
+
+                        modal
+
+                    )
+
+            );
 
 
-    const closeButton =
+        modal
 
-        modal.querySelector(
+            .querySelector(
 
-            ".certificate-modal-close"
+                ".certificate-modal-overlay"
 
-        );
+            )
 
+            .addEventListener(
 
-    const overlay =
+                "click",
 
-        modal.querySelector(
+                () =>
 
-            ".certificate-modal-overlay"
+                    closeCertificateModal(
 
-        );
+                        modal
 
+                    )
 
-    closeButton?.addEventListener(
-
-        "click",
-
-        closeCertificatePreview
-
-    );
-
-
-    overlay?.addEventListener(
-
-        "click",
-
-        closeCertificatePreview
-
-    );
-
-}
-
-
-function openCertificatePreview(
-
-    certificate
-
-) {
-
-
-    const modal =
-
-        document.getElementById(
-
-            "certificateModal"
-
-        );
-
-
-    const image =
-
-        document.getElementById(
-
-            "certificateModalImage"
-
-        );
-
-
-    const title =
-
-        document.getElementById(
-
-            "certificateModalTitle"
-
-        );
-
-
-    const download =
-
-        document.getElementById(
-
-            "certificateModalDownload"
-
-        );
-
-
-    if (!modal)
-
-        return;
-
-
-    if (image) {
-
-
-        image.src =
-
-            certificate.image ||
-
-            "";
-
-
-        image.alt =
-
-            certificate.title ||
-
-            "Certificate";
+            );
 
     }
 
 
-    if (title) {
+    modal
+
+        .querySelector(
+
+            ".certificate-modal-image"
+
+        )
+
+        .src =
+
+        certificate.image || "";
 
 
-        title.textContent =
+    modal
 
-            certificate.title ||
+        .querySelector(
 
-            "Certificate";
+            ".certificate-modal-title"
 
-    }
+        )
+
+        .textContent =
+
+        certificate.title || "Certificate";
 
 
-    if (download) {
+    modal
 
+        .querySelector(
 
-        download.href =
+            ".certificate-modal-download"
 
-            certificate.file ||
+        )
 
-            "#";
+        .href =
 
-    }
+        certificate.file || "#";
 
 
     modal.classList.add(
@@ -2086,21 +1739,11 @@ function openCertificatePreview(
 }
 
 
-function closeCertificatePreview() {
+function closeCertificateModal(
 
+    modal
 
-    const modal =
-
-        document.getElementById(
-
-            "certificateModal"
-
-        );
-
-
-    if (!modal)
-
-        return;
+) {
 
 
     modal.classList.remove(
@@ -2119,118 +1762,46 @@ function closeCertificatePreview() {
 }
 
 
-/*=========================================================
-    DOWNLOAD CENTER
-=========================================================*/
+/* =========================================================
+   GALLERY
+========================================================= */
 
-function initializeDownloadCenter() {
+function initializeGallery() {
 
+    const images =
 
-    const container =
+        document.querySelectorAll(
 
-        document.getElementById(
+            ".gallery img, " +
 
-            "downloadsGrid"
+            ".gallery-item img, " +
+
+            "[data-lightbox]"
 
         );
 
 
-    if (!container)
+    images.forEach(
 
-        return;
-
-
-    const downloads =
-
-        Array.isArray(
-
-            App.data.downloads
-
-        )
-
-            ? App.data.downloads
-
-            : [];
+        image => {
 
 
-    container.innerHTML = "";
+            image.addEventListener(
+
+                "click",
+
+                () => {
 
 
-    downloads.forEach(
+                    openImageLightbox(
 
-        download => {
+                        image.src,
 
+                        image.alt
 
-            const card =
+                    );
 
-                document.createElement(
-
-                    "a"
-
-                );
-
-
-            card.className =
-
-                "download-card";
-
-
-            card.href =
-
-                download.file ||
-
-                "#";
-
-
-            card.download =
-
-                "";
-
-
-            card.innerHTML = `
-
-                <i class="fas ${
-
-                    escapeHTML(
-
-                        download.icon ||
-
-                        "fa-file"
-
-                    )
-
-                }"></i>
-
-
-                <span>
-
-                    ${
-
-                        escapeHTML(
-
-                            download.name ||
-
-                            "Download"
-
-                        )
-
-                    }
-
-                </span>
-
-
-                <small>
-
-                    <i class="fas fa-download"></i>
-
-                </small>
-
-            `;
-
-
-            container.appendChild(
-
-                card
+                }
 
             );
 
@@ -2241,16 +1812,199 @@ function initializeDownloadCenter() {
 }
 
 
-/*=========================================================
-    CONTACT
-=========================================================*/
+function openImageLightbox(
 
-function initializeContact() {
+    source,
 
+    alt = ""
+
+) {
+
+
+    let lightbox =
+
+        document.getElementById(
+
+            "imageLightbox"
+
+        );
+
+
+    if (!lightbox) {
+
+
+        lightbox =
+
+            document.createElement(
+
+                "div"
+
+            );
+
+
+        lightbox.id =
+
+            "imageLightbox";
+
+
+        lightbox.className =
+
+            "image-lightbox";
+
+
+        lightbox.innerHTML = `
+
+            <div class="image-lightbox-overlay"></div>
+
+
+            <div class="image-lightbox-content">
+
+                <button
+
+                    type="button"
+
+                    class="image-lightbox-close">
+
+                    <i class="fas fa-times"></i>
+
+                </button>
+
+
+                <img
+
+                    class="image-lightbox-image"
+
+                    alt="Image preview">
+
+            </div>
+
+        `;
+
+
+        document.body.appendChild(
+
+            lightbox
+
+        );
+
+
+        lightbox
+
+            .querySelector(
+
+                ".image-lightbox-close"
+
+            )
+
+            .addEventListener(
+
+                "click",
+
+                () =>
+
+                    closeImageLightbox(
+
+                        lightbox
+
+                    )
+
+            );
+
+
+        lightbox
+
+            .querySelector(
+
+                ".image-lightbox-overlay"
+
+            )
+
+            .addEventListener(
+
+                "click",
+
+                () =>
+
+                    closeImageLightbox(
+
+                        lightbox
+
+                    )
+
+            );
+
+    }
+
+
+    const image =
+
+        lightbox.querySelector(
+
+            ".image-lightbox-image"
+
+        );
+
+
+    image.src =
+
+        source;
+
+
+    image.alt =
+
+        alt;
+
+
+    lightbox.classList.add(
+
+        "active"
+
+    );
+
+
+    document.body.classList.add(
+
+        "modal-open"
+
+    );
+
+}
+
+
+function closeImageLightbox(
+
+    lightbox
+
+) {
+
+
+    lightbox.classList.remove(
+
+        "active"
+
+    );
+
+
+    document.body.classList.remove(
+
+        "modal-open"
+
+    );
+
+}
+
+
+/* =========================================================
+   CONTACT SYSTEM
+========================================================= */
+
+function initializeContactSystem() {
 
     const contact =
 
-        App.config.contact;
+        NLS.config?.contact ||
+
+        portfolioData.contact;
 
 
     if (!contact)
@@ -2273,11 +2027,7 @@ function initializeContact() {
 
                 element.href =
 
-                    `tel:${
-
-                        contact.phone
-
-                    }`;
+                    `tel:${contact.phone}`;
 
             }
 
@@ -2299,11 +2049,7 @@ function initializeContact() {
 
                 element.href =
 
-                    `mailto:${
-
-                        contact.email
-
-                    }`;
+                    `mailto:${contact.email}`;
 
             }
 
@@ -2325,21 +2071,11 @@ function initializeContact() {
 
                 element.href =
 
-                    `https://wa.me/${
-
-                        contact.whatsapp
-
-                    }`;
-
+                    `https://wa.me/${contact.whatsapp}`;
 
                 element.target =
 
                     "_blank";
-
-
-                element.rel =
-
-                    "noopener noreferrer";
 
             }
 
@@ -2363,47 +2099,9 @@ function initializeContact() {
 
                     contact.linkedin;
 
-
                 element.target =
 
                     "_blank";
-
-
-                element.rel =
-
-                    "noopener noreferrer";
-
-            }
-
-        );
-
-
-    document
-
-        .querySelectorAll(
-
-            "[data-facebook]"
-
-        )
-
-        .forEach(
-
-            element => {
-
-
-                element.href =
-
-                    contact.facebook;
-
-
-                element.target =
-
-                    "_blank";
-
-
-                element.rel =
-
-                    "noopener noreferrer";
 
             }
 
@@ -2412,18 +2110,17 @@ function initializeContact() {
 }
 
 
-/*=========================================================
-    QR CODE
-=========================================================*/
+/* =========================================================
+   QR CODE
+========================================================= */
 
-function initializeQR() {
-
+function initializeQRCode() {
 
     const container =
 
-        document.getElementById(
+        document.querySelector(
 
-            "qrCode"
+            "#qrCode, [data-qr-code]"
 
         );
 
@@ -2441,9 +2138,9 @@ function initializeQR() {
         return;
 
 
-    const url =
+    const qrURL =
 
-        App.config.qr?.portfolioURL ||
+        NLS.config?.qr?.portfolioURL ||
 
         window.location.href;
 
@@ -2457,7 +2154,7 @@ function initializeQR() {
 
         {
 
-            text: url,
+            text: qrURL,
 
             width: 220,
 
@@ -2474,461 +2171,109 @@ function initializeQR() {
 }
 
 
-/*=========================================================
-    VCARD
-=========================================================*/
+/* =========================================================
+   DOWNLOAD CENTER
+========================================================= */
 
-function initializeVCard() {
+function initializeDownloadCenter() {
 
+    const downloads =
 
-    const contact =
+        Array.isArray(
 
-        App.config.contact;
-
-
-    const profile =
-
-        App.config.profile;
-
-
-    if (
-
-        !contact ||
-
-        !profile
-
-    )
-
-        return;
-
-
-    const website =
-
-        App.config.qr?.portfolioURL ||
-
-        window.location.href;
-
-
-    const vCard = [
-
-        "BEGIN:VCARD",
-
-        "VERSION:3.0",
-
-        `FN:${
-
-            escapeVCard(
-
-                profile.fullName
-
-            )
-
-        }`,
-
-        `TITLE:${
-
-            escapeVCard(
-
-                profile.title
-
-            )
-
-        }`,
-
-        `TEL;TYPE=CELL:${
-
-            escapeVCard(
-
-                contact.phone
-
-            )
-
-        }`,
-
-        `EMAIL:${
-
-            escapeVCard(
-
-                contact.email
-
-            )
-
-        }`,
-
-        `URL:${
-
-            escapeVCard(
-
-                website
-
-            )
-
-        }`,
-
-        "END:VCARD"
-
-    ].join(
-
-        "\r\n"
-
-    );
-
-
-    const blob =
-
-        new Blob(
-
-            [vCard],
-
-            {
-
-                type:
-
-                    "text/vcard"
-
-            }
-
-        );
-
-
-    const url =
-
-        URL.createObjectURL(
-
-            blob
-
-        );
-
-
-    document
-
-        .querySelectorAll(
-
-            'a[href="vcard.vcf"]'
+            portfolioData.downloads
 
         )
 
-        .forEach(
+            ? portfolioData.downloads
 
-            link => {
+            : [];
 
 
-                link.href =
-
-                    url;
-
-
-                link.download =
-
-                    "Nhlanhla_Lucky_Shirilele.vcf";
-
-            }
-
-        );
-
-}
-
-
-/*=========================================================
-    CONTACT FORM
-=========================================================*/
-
-function initializeContactForm() {
-
-
-    const form =
-
-        document.getElementById(
-
-            "contactForm"
-
-        );
-
-
-    if (!form)
-
-        return;
-
-
-    form.addEventListener(
-
-        "submit",
-
-        event => {
-
-
-            event.preventDefault();
-
-
-            const name =
-
-                document.getElementById(
-
-                    "name"
-
-                )?.value.trim() ||
-
-                "";
-
-
-            const email =
-
-                document.getElementById(
-
-                    "email"
-
-                )?.value.trim() ||
-
-                "";
-
-
-            const subject =
-
-                document.getElementById(
-
-                    "subject"
-
-                )?.value.trim() ||
-
-                "";
-
-
-            const message =
-
-                document.getElementById(
-
-                    "message"
-
-                )?.value.trim() ||
-
-                "";
-
-
-            const destination =
-
-                App.config.contact?.email;
-
-
-            if (!destination)
-
-                return;
-
-
-            const body =
-
-`Name: ${
-
-    name
-
-}
-
-
-Email: ${
-
-    email
-
-}
-
-
-Message:
-
-
-${
-
-    message
-
-}`;
-
-
-            window.location.href =
-
-                `mailto:${
-
-                    destination
-
-                }` +
-
-                `?subject=${
-
-                    encodeURIComponent(
-
-                        subject ||
-
-                        "Portfolio Enquiry"
-
-                    )
-
-                }` +
-
-                `&body=${
-
-                    encodeURIComponent(
-
-                        body
-
-                    )
-
-                }`;
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    THEME SYSTEM
-=========================================================*/
-
-function initializeThemeToggle() {
-
-
-    const toggle =
-
-        document.getElementById(
-
-            "theme-toggle"
-
-        );
-
-
-    if (!toggle)
-
-        return;
-
-
-    toggle.addEventListener(
-
-        "click",
-
-        toggleTheme
-
-    );
-
-}
-
-
-function loadTheme() {
-
-
-    const saved =
-
-        localStorage.getItem(
-
-            "theme"
-
-        ) ||
-
-        "light";
-
-
-    App.state.theme =
-
-        saved;
-
-
-    document.documentElement
-
-        .setAttribute(
-
-            "data-theme",
-
-            saved
-
-        );
-
-}
-
-
-function toggleTheme() {
-
-
-    const newTheme =
-
-        App.state.theme ===
-
-        "light"
-
-            ? "dark"
-
-            : "light";
-
-
-    App.state.theme =
-
-        newTheme;
-
-
-    document.documentElement
-
-        .setAttribute(
-
-            "data-theme",
-
-            newTheme
-
-        );
-
-
-    localStorage.setItem(
-
-        "theme",
-
-        newTheme
-
-    );
-
-}
-
-
-/*=========================================================
-    MOBILE NAVIGATION
-=========================================================*/
-
-function initializeNavigation() {
-
-
-    const menuButton =
+    const container =
 
         document.querySelector(
 
-            ".menu-btn"
+            "#downloadsGrid, .downloads-grid"
 
         );
 
 
-    const navbar =
-
-        document.querySelector(
-
-            ".navbar"
-
-        );
-
-
-    if (!menuButton)
+    if (!container)
 
         return;
 
 
-    menuButton.addEventListener(
-
-        "click",
-
-        () => {
+    container.innerHTML = "";
 
 
-            App.state.menuOpen =
+    downloads.forEach(
 
-                !App.state.menuOpen;
+        download => {
 
 
-            navbar?.classList.toggle(
+            const link =
 
-                "active",
+                document.createElement(
 
-                App.state.menuOpen
+                    "a"
+
+                );
+
+
+            link.className =
+
+                "download-card";
+
+
+            link.href =
+
+                download.file ||
+
+                "#";
+
+
+            link.setAttribute(
+
+                "download",
+
+                ""
+
+            );
+
+
+            link.innerHTML = `
+
+                <i class="fas ${escapeHTML(
+
+                    download.icon ||
+
+                    "fa-file"
+
+                )}"></i>
+
+
+                <span>
+
+                    ${escapeHTML(
+
+                        download.name ||
+
+                        "Download"
+
+                    )}
+
+                </span>
+
+
+                <i class="fas fa-download"></i>
+
+            `;
+
+
+            container.appendChild(
+
+                link
 
             );
 
@@ -2939,656 +2284,36 @@ function initializeNavigation() {
 }
 
 
-/*=========================================================
-    SMOOTH SCROLL
-=========================================================*/
-
-function initializeSmoothScroll() {
-
-
-    document
-
-        .querySelectorAll(
-
-            'a[href^="#"]'
-
-        )
-
-        .forEach(
-
-            link => {
-
-
-                link.addEventListener(
-
-                    "click",
-
-                    event => {
-
-
-                        const selector =
-
-                            link.getAttribute(
-
-                                "href"
-
-                            );
-
-
-                        if (
-
-                            !selector ||
-
-                            selector ===
-
-                            "#"
-
-                        )
-
-                            return;
-
-
-                        const target =
-
-                            document.querySelector(
-
-                                selector
-
-                            );
-
-
-                        if (!target)
-
-                            return;
-
-
-                        event.preventDefault();
-
-
-                        target.scrollIntoView({
-
-                            behavior:
-
-                                "smooth"
-
-                        });
-
-
-                        const navbar =
-
-                            document.querySelector(
-
-                                ".navbar"
-
-                            );
-
-
-                        navbar?.classList.remove(
-
-                            "active"
-
-                        );
-
-
-                        App.state.menuOpen =
-
-                            false;
-
-                    }
-
-                );
-
-            }
-
-        );
-
-}
-
-
-/*=========================================================
-    SCROLL PROGRESS
-=========================================================*/
-
-function initializeProgressBar() {
-
-
-    const bar =
-
-        document.getElementById(
-
-            "progress-bar"
-
-        );
-
-
-    if (!bar)
-
-        return;
-
-
-    window.addEventListener(
-
-        "scroll",
-
-        () => {
-
-
-            const height =
-
-                document.documentElement
-
-                    .scrollHeight
-
-                -
-
-                window.innerHeight;
-
-
-            const progress =
-
-                height > 0
-
-                    ? (
-
-                        window.scrollY /
-
-                        height
-
-                    ) *
-
-                    100
-
-                    : 0;
-
-
-            bar.style.width =
-
-                `${
-
-                    progress
-
-                }%`;
-
-        },
-
-        {
-
-            passive:
-
-                true
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    BACK TO TOP
-=========================================================*/
-
-function initializeBackToTop() {
-
-
-    const button =
-
-        document.getElementById(
-
-            "backToTop"
-
-        );
-
-
-    if (!button)
-
-        return;
-
-
-    window.addEventListener(
-
-        "scroll",
-
-        () => {
-
-
-            button.classList.toggle(
-
-                "show",
-
-                window.scrollY >
-
-                500
-
-            );
-
-        },
-
-        {
-
-            passive:
-
-                true
-
-        }
-
-    );
-
-
-    button.addEventListener(
-
-        "click",
-
-        () => {
-
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior:
-
-                    "smooth"
-
-            });
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    TYPING EFFECT
-=========================================================*/
-
-function initializeTyping() {
-
-
-    const element =
-
-        document.querySelector(
-
-            ".typing-text"
-
-        );
-
-
-    const words =
-
-        App.data.hero?.subtitle;
-
-
-    if (
-
-        !element ||
-
-        !Array.isArray(
-
-            words
-
-        ) ||
-
-        !words.length
-
-    )
-
-        return;
-
-
-    let wordIndex =
-
-        0;
-
-
-    let letterIndex =
-
-        0;
-
-
-    let deleting =
-
-        false;
-
-
-    function type() {
-
-
-        const word =
-
-            words[
-
-                wordIndex
-
-            ];
-
-
-        if (!deleting) {
-
-
-            element.textContent =
-
-                word.substring(
-
-                    0,
-
-                    letterIndex++
-
-                );
-
-
-            if (
-
-                letterIndex >
-
-                word.length
-
-            ) {
-
-
-                deleting =
-
-                    true;
-
-
-                setTimeout(
-
-                    type,
-
-                    1500
-
-                );
-
-
-                return;
-
-            }
-
-        }
-
-        else {
-
-
-            element.textContent =
-
-                word.substring(
-
-                    0,
-
-                    letterIndex--
-
-                );
-
-
-            if (
-
-                letterIndex < 0
-
-            ) {
-
-
-                deleting =
-
-                    false;
-
-
-                wordIndex =
-
-                    (
-
-                        wordIndex +
-
-                        1
-
-                    )
-
-                    %
-
-                    words.length;
-
-            }
-
-        }
-
-
-        setTimeout(
-
-            type,
-
-            deleting
-
-                ? 45
-
-                : 90
-
-        );
-
-    }
-
-
-    type();
-
-}
-
-
-/*=========================================================
-    COUNTERS
-=========================================================*/
-
-function initializeCounters() {
-
-
-    const counters =
-
-        document.querySelectorAll(
-
-            ".counter"
-
-        );
-
-
-    counters.forEach(
-
-        counter => {
-
-
-            const target =
-
-                Number(
-
-                    counter.dataset.target
-
-                );
-
-
-            const suffix =
-
-                counter.dataset.suffix ||
-
-                "";
-
-
-            if (
-
-                Number.isNaN(
-
-                    target
-
-                )
-
-            )
-
-                return;
-
-
-            let current =
-
-                0;
-
-
-            const interval =
-
-                setInterval(
-
-                    () => {
-
-
-                        current +=
-
-                            Math.ceil(
-
-                                target /
-
-                                40
-
-                            );
-
-
-                        if (
-
-                            current >=
-
-                            target
-
-                        ) {
-
-
-                            current =
-
-                                target;
-
-
-                            clearInterval(
-
-                                interval
-
-                            );
-
-                        }
-
-
-                        counter.textContent =
-
-                            `${
-
-                                current
-
-                            }${
-
-                                suffix
-
-                            }`;
-
-                    },
-
-                    35
-
-                );
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    SKILL BARS
-=========================================================*/
-
-function initializeSkillBars() {
-
-
-    const bars =
-
-        document.querySelectorAll(
-
-            ".skill-progress"
-
-        );
-
-
-    bars.forEach(
-
-        bar => {
-
-
-            const value =
-
-                bar.dataset.progress;
-
-
-            if (value) {
-
-
-                requestAnimationFrame(
-
-                    () => {
-
-
-                        bar.style.width =
-
-                            `${
-
-                                value
-
-                            }%`;
-
-                    }
-
-                );
-
-            }
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    REVEAL ANIMATIONS
-=========================================================*/
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
 
 function initializeRevealAnimations() {
-
 
     const elements =
 
         document.querySelectorAll(
 
-            ".stat-card, " +
+            ".reveal, " +
 
-            ".skill-card, " +
-
-            ".timeline-item, " +
-
-            ".education-card, " +
-
-            ".technology-card, " +
+            ".fade-in, " +
 
             ".project-card, " +
 
             ".certificate-card, " +
 
-            ".download-card"
+            ".skill-card, " +
+
+            ".stat-card, " +
+
+            ".technology-card"
 
         );
 
 
     if (
 
-        !(
-
-            "IntersectionObserver"
-
-            in
-
-            window
-
-        )
+        !("IntersectionObserver" in window)
 
     ) {
 
@@ -3598,6 +2323,8 @@ function initializeRevealAnimations() {
             element =>
 
                 element.classList.add(
+
+                    "visible",
 
                     "animate"
 
@@ -3630,13 +2357,13 @@ function initializeRevealAnimations() {
                         ) {
 
 
-                            entry.target
+                            entry.target.classList.add(
 
-                                .classList.add(
+                                "visible",
 
-                                    "animate"
+                                "animate"
 
-                                );
+                            );
 
 
                             observer.unobserve(
@@ -3655,9 +2382,7 @@ function initializeRevealAnimations() {
 
             {
 
-                threshold:
-
-                    0.15
+                threshold: 0.12
 
             }
 
@@ -3679,435 +2404,19 @@ function initializeRevealAnimations() {
 }
 
 
-/*=========================================================
-    ACTIVE NAVIGATION
-=========================================================*/
+/* =========================================================
+   LAZY LOADING
+========================================================= */
 
-function initializeActiveNavigation() {
-
-
-    const sections =
-
-        document.querySelectorAll(
-
-            "section[id]"
-
-        );
-
-
-    const links =
-
-        document.querySelectorAll(
-
-            ".navbar a"
-
-        );
-
+function initializeLazyLoading() {
 
     if (
 
-        !sections.length ||
-
-        !links.length
+        !("IntersectionObserver" in window)
 
     )
 
         return;
-
-
-    window.addEventListener(
-
-        "scroll",
-
-        () => {
-
-
-            let current =
-
-                "";
-
-
-            sections.forEach(
-
-                section => {
-
-
-                    if (
-
-                        window.scrollY >=
-
-                        section.offsetTop -
-
-                        180
-
-                    ) {
-
-
-                        current =
-
-                            section.id;
-
-                    }
-
-                }
-
-            );
-
-
-            links.forEach(
-
-                link => {
-
-
-                    link.classList.toggle(
-
-                        "active",
-
-                        link.getAttribute(
-
-                            "href"
-
-                        )
-
-                        ===
-
-                        `#${
-
-                            current
-
-                        }`
-
-                    );
-
-                }
-
-            );
-
-        },
-
-        {
-
-            passive:
-
-                true
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    HEADER SCROLL
-=========================================================*/
-
-function initializeHeaderScroll() {
-
-
-    const header =
-
-        document.querySelector(
-
-            "header"
-
-        );
-
-
-    if (!header)
-
-        return;
-
-
-    window.addEventListener(
-
-        "scroll",
-
-        () => {
-
-
-            header.classList.toggle(
-
-                "scrolled",
-
-                window.scrollY >
-
-                20
-
-            );
-
-        },
-
-        {
-
-            passive:
-
-                true
-
-        }
-
-    );
-
-}
-
-
-/*=========================================================
-    GENERAL LIGHTBOX
-=========================================================*/
-
-function initializeLightbox() {
-
-
-    let lightbox =
-
-        document.getElementById(
-
-            "lightbox"
-
-        );
-
-
-    if (!lightbox) {
-
-
-        lightbox =
-
-            document.createElement(
-
-                "div"
-
-            );
-
-
-        lightbox.id =
-
-            "lightbox";
-
-
-        lightbox.className =
-
-            "lightbox";
-
-
-        lightbox.innerHTML = `
-
-            <div class="lightbox-overlay"></div>
-
-
-            <div class="lightbox-content">
-
-                <button
-
-                    type="button"
-
-                    class="lightbox-close"
-
-                    aria-label="Close image">
-
-                    <i class="fas fa-times"></i>
-
-                </button>
-
-
-                <img
-
-                    id="lightboxImage"
-
-                    src=""
-
-                    alt="Image preview">
-
-            </div>
-
-        `;
-
-
-        document.body.appendChild(
-
-            lightbox
-
-        );
-
-    }
-
-
-    const closeButton =
-
-        lightbox.querySelector(
-
-            ".lightbox-close"
-
-        );
-
-
-    const overlay =
-
-        lightbox.querySelector(
-
-            ".lightbox-overlay"
-
-        );
-
-
-    closeButton?.addEventListener(
-
-        "click",
-
-        closeImageLightbox
-
-    );
-
-
-    overlay?.addEventListener(
-
-        "click",
-
-        closeImageLightbox
-
-    );
-
-
-    document
-
-        .querySelectorAll(
-
-            ".gallery-item img"
-
-        )
-
-        .forEach(
-
-            image => {
-
-
-                image.addEventListener(
-
-                    "click",
-
-                    () => {
-
-
-                        openImageLightbox(
-
-                            image.src,
-
-                            image.alt
-
-                        );
-
-                    }
-
-                );
-
-            }
-
-        );
-
-}
-
-
-function openImageLightbox(
-
-    src,
-
-    alt = ""
-
-) {
-
-
-    const lightbox =
-
-        document.getElementById(
-
-            "lightbox"
-
-        );
-
-
-    const image =
-
-        document.getElementById(
-
-            "lightboxImage"
-
-        );
-
-
-    if (
-
-        !lightbox ||
-
-        !image
-
-    )
-
-        return;
-
-
-    image.src =
-
-        src;
-
-
-    image.alt =
-
-        alt;
-
-
-    lightbox.classList.add(
-
-        "active"
-
-    );
-
-
-    document.body.classList.add(
-
-        "modal-open"
-
-    );
-
-}
-
-
-function closeImageLightbox() {
-
-
-    const lightbox =
-
-        document.getElementById(
-
-            "lightbox"
-
-        );
-
-
-    if (!lightbox)
-
-        return;
-
-
-    lightbox.classList.remove(
-
-        "active"
-
-    );
-
-
-    document.body.classList.remove(
-
-        "modal-open"
-
-    );
-
-}
-
-
-/*=========================================================
-    LAZY LOADING
-=========================================================*/
-
-function initializeLazyImages() {
 
 
     const images =
@@ -4117,23 +2426,6 @@ function initializeLazyImages() {
             "img[data-src]"
 
         );
-
-
-    if (
-
-        !(
-
-            "IntersectionObserver"
-
-            in
-
-            window
-
-        )
-
-    )
-
-        return;
 
 
     const observer =
@@ -4204,18 +2496,17 @@ function initializeLazyImages() {
 }
 
 
-/*=========================================================
-    CURRENT YEAR
-=========================================================*/
+/* =========================================================
+   CURRENT YEAR
+========================================================= */
 
 function initializeCurrentYear() {
-
 
     document
 
         .querySelectorAll(
 
-            ".current-year"
+            ".current-year, #currentYear"
 
         )
 
@@ -4237,12 +2528,11 @@ function initializeCurrentYear() {
 }
 
 
-/*=========================================================
-    KEYBOARD SHORTCUTS
-=========================================================*/
+/* =========================================================
+   KEYBOARD CONTROLS
+========================================================= */
 
-function initializeGlobalKeyboardShortcuts() {
-
+function initializeKeyboardControls() {
 
     document.addEventListener(
 
@@ -4253,19 +2543,46 @@ function initializeGlobalKeyboardShortcuts() {
 
             if (
 
-                event.key ===
+                event.key !==
 
                 "Escape"
 
-            ) {
+            )
+
+                return;
 
 
-                closeImageLightbox();
+            document
+
+                .querySelectorAll(
+
+                    ".certificate-modal.active, " +
+
+                    ".image-lightbox.active"
+
+                )
+
+                .forEach(
+
+                    modal => {
 
 
-                closeCertificatePreview();
+                        modal.classList.remove(
 
-            }
+                            "active"
+
+                        );
+
+                    }
+
+                );
+
+
+            document.body.classList.remove(
+
+                "modal-open"
+
+            );
 
         }
 
@@ -4274,124 +2591,9 @@ function initializeGlobalKeyboardShortcuts() {
 }
 
 
-/*=========================================================
-    PWA
-=========================================================*/
-
-function initializePWA() {
-
-
-    if (
-
-        !(
-
-            "serviceWorker"
-
-            in
-
-            navigator
-
-        )
-
-    )
-
-        return;
-
-
-    navigator.serviceWorker
-
-        .register(
-
-            "service-worker.js"
-
-        )
-
-        .catch(
-
-            error => {
-
-
-                console.error(
-
-                    "Service Worker Error:",
-
-                    error
-
-                );
-
-            }
-
-        );
-
-}
-
-
-/*=========================================================
-    NUMBER HELPERS
-=========================================================*/
-
-function extractNumber(
-
-    value
-
-) {
-
-
-    const match =
-
-        String(
-
-            value
-
-        )
-
-        .match(
-
-            /\d+/
-
-        );
-
-
-    return match
-
-        ? Number(
-
-            match[0]
-
-        )
-
-        : 0;
-
-}
-
-
-function extractSuffix(
-
-    value
-
-) {
-
-
-    return String(
-
-        value
-
-    )
-
-    .replace(
-
-        /\d+/,
-
-        ""
-
-    );
-
-}
-
-
-/*=========================================================
-    HTML ESCAPE
-=========================================================*/
+/* =========================================================
+   SECURITY: HTML ESCAPING
+========================================================= */
 
 function escapeHTML(
 
@@ -4449,61 +2651,9 @@ function escapeHTML(
 }
 
 
-/*=========================================================
-    VCARD ESCAPE
-=========================================================*/
-
-function escapeVCard(
-
-    value
-
-) {
-
-
-    return String(
-
-        value ?? ""
-
-    )
-
-    .replace(
-
-        /\\/g,
-
-        "\\\\"
-
-    )
-
-    .replace(
-
-        /\n/g,
-
-        "\\n"
-
-    )
-
-    .replace(
-
-        /;/g,
-
-        "\\;"
-
-    )
-
-    .replace(
-
-        /,/g,
-
-        "\\,"
-
-    );
-
-}
-
-
-/*=========================================================
-    GLOBAL ERROR HANDLING
-=========================================================*/
+/* =========================================================
+   GLOBAL ERROR PROTECTION
+========================================================= */
 
 window.addEventListener(
 
@@ -4514,7 +2664,9 @@ window.addEventListener(
 
         console.error(
 
-            "Portfolio Error:",
+            "NLS Portfolio Error:",
+
+            event.error ||
 
             event.message
 
@@ -4534,7 +2686,7 @@ window.addEventListener(
 
         console.error(
 
-            "Portfolio Promise Error:",
+            "NLS Promise Error:",
 
             event.reason
 
