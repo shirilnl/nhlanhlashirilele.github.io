@@ -1,16 +1,11 @@
 /* =========================================================
    NLS ENGINEERING PORTFOLIO
    analytics.js
-   Milestone 4 — Part 5
-   Privacy-Conscious Visitor Analytics
+   Analytics & Monitoring System
 ========================================================= */
 
 "use strict";
 
-
-/* =========================================================
-   GLOBAL NAMESPACE
-========================================================= */
 
 window.NLS = window.NLS || {};
 
@@ -22,14 +17,26 @@ NLS.analytics = {
        CONFIGURATION
     ===================================================== */
 
-    storageKey:
-
-        "nls-portfolio-analytics",
+    config: {
 
 
-    sessionKey:
+        enabled: true,
 
-        "nls-analytics-session",
+
+        debug: false,
+
+
+        storageKey:
+
+            "nls_analytics_events",
+
+
+        maxStoredEvents:
+
+            100
+
+
+    },
 
 
     /* =====================================================
@@ -39,30 +46,42 @@ NLS.analytics = {
     init() {
 
 
-        this.initializeStorage();
+        if (
+
+            !this.config.enabled
+
+        )
+
+            return;
 
 
         this.trackPageView();
 
 
-        this.trackSections();
-
-
-        this.trackInteractions();
+        this.trackSectionViews();
 
 
         this.trackDownloads();
 
 
-        this.trackAI();
+        this.trackContactActions();
 
 
-        this.setupAnalyticsDashboard();
+        this.trackProjectInteractions();
 
 
-        console.log(
+        this.trackContactForm();
 
-            "NLS Analytics System initialized successfully."
+
+        this.trackErrors();
+
+
+        this.trackPerformance();
+
+
+        this.debug(
+
+            "Analytics initialized successfully."
 
         );
 
@@ -70,180 +89,61 @@ NLS.analytics = {
 
 
     /* =====================================================
-       INITIALIZE STORAGE
+       EVENT TRACKING
     ===================================================== */
 
-    initializeStorage() {
+    track(
 
+        eventName,
 
-        const existing =
-
-            localStorage.getItem(
-
-                this.storageKey
-
-            );
-
-
-        if (
-
-            !existing
-
-        ) {
-
-
-            localStorage.setItem(
-
-                this.storageKey,
-
-                JSON.stringify({
-
-                    pageViews: 0,
-
-                    sectionViews: {},
-
-                    projectClicks: {},
-
-                    certificateViews: {},
-
-                    certificateDownloads: {},
-
-                    contactClicks: {},
-
-                    qrDownloads: 0,
-
-                    aiInteractions: 0,
-
-                    themeChanges: 0,
-
-                    sessions: 0,
-
-                    lastVisit: null,
-
-                    firstVisit: new Date()
-
-                        .toISOString()
-
-                })
-
-            );
-
-        }
-
-
-        if (
-
-            !sessionStorage.getItem(
-
-                this.sessionKey
-
-            )
-
-        ) {
-
-
-            sessionStorage.setItem(
-
-                this.sessionKey,
-
-                "true"
-
-            );
-
-
-            this.update(
-
-                data => {
-
-
-                    data.sessions++;
-
-                }
-
-            );
-
-        }
-
-    },
-
-
-    /* =====================================================
-       GET ANALYTICS
-    ===================================================== */
-
-    getData() {
-
-
-        try {
-
-
-            return JSON.parse(
-
-                localStorage.getItem(
-
-                    this.storageKey
-
-                )
-
-            );
-
-        }
-
-        catch (
-
-            error
-
-        ) {
-
-
-            console.error(
-
-                "Analytics data error:",
-
-                error
-
-            );
-
-
-            return {};
-
-        }
-
-    },
-
-
-    /* =====================================================
-       UPDATE DATA
-    ===================================================== */
-
-    update(
-
-        callback
+        data = {}
 
     ) {
 
 
-        const data =
-
-            this.getData();
+        const event = {
 
 
-        callback(
+            event:
 
-            data
+                eventName,
+
+
+            data:
+
+
+                data,
+
+
+            timestamp:
+
+                new Date()
+
+                    .toISOString(),
+
+
+            page:
+
+                window.location.pathname,
+
+
+            userAgent:
+
+                navigator.userAgent
+
+        };
+
+
+        this.storeEvent(
+
+            event
 
         );
 
 
-        localStorage.setItem(
+        this.debug(
 
-            this.storageKey,
-
-            JSON.stringify(
-
-                data
-
-            )
+            event
 
         );
 
@@ -257,19 +157,20 @@ NLS.analytics = {
     trackPageView() {
 
 
-        this.update(
+        this.track(
 
-            data => {
+            "page_view",
+
+            {
+
+                title:
+
+                    document.title,
 
 
-                data.pageViews++;
+                url:
 
-
-                data.lastVisit =
-
-                    new Date()
-
-                        .toISOString();
+                    window.location.href
 
             }
 
@@ -279,10 +180,10 @@ NLS.analytics = {
 
 
     /* =====================================================
-       SECTION TRACKING
+       SECTION VISIBILITY
     ===================================================== */
 
-    trackSections() {
+    trackSectionViews() {
 
 
         const sections =
@@ -301,6 +202,11 @@ NLS.analytics = {
         )
 
             return;
+
+
+        const viewedSections =
+
+            new Set();
 
 
         const observer =
@@ -329,35 +235,37 @@ NLS.analytics = {
                                 entry.target.id;
 
 
-                            this.update(
+                            if (
 
-                                data => {
+                                viewedSections.has(
 
+                                    id
 
-                                    if (
+                                )
 
-                                        !data.sectionViews[id]
+                            )
 
-                                    ) {
-
-
-                                        data.sectionViews[id] =
-
-                                            0;
-
-                                    }
+                                return;
 
 
-                                    data.sectionViews[id]++;
+                            viewedSections.add(
 
-                                }
+                                id
 
                             );
 
 
-                            observer.unobserve(
+                            this.track(
 
-                                entry.target
+                                "section_view",
+
+                                {
+
+                                    section:
+
+                                        id
+
+                                }
 
                             );
 
@@ -371,7 +279,7 @@ NLS.analytics = {
 
                     threshold:
 
-                        0.4
+                        0.35
 
                 }
 
@@ -397,397 +305,107 @@ NLS.analytics = {
 
 
     /* =====================================================
-       GENERAL INTERACTIONS
-    ===================================================== */
-
-    trackInteractions() {
-
-
-        document
-
-            .addEventListener(
-
-                "click",
-
-                event => {
-
-
-                    const project =
-
-                        event.target.closest(
-
-                            "[data-project-id], .project-card"
-
-                        );
-
-
-                    if (
-
-                        project
-
-                    ) {
-
-
-                        const id =
-
-                            project.dataset
-
-                                .projectId ||
-
-                            project
-
-                                .querySelector(
-
-                                    "h3"
-
-                                )
-
-                                ?.textContent ||
-
-                            "unknown";
-
-
-                        this.update(
-
-                            data => {
-
-
-                                if (
-
-                                    !data.projectClicks[id]
-
-                                ) {
-
-
-                                    data.projectClicks[id] =
-
-                                        0;
-
-                                }
-
-
-                                data.projectClicks[id]++;
-
-                            }
-
-                        );
-
-                    }
-
-
-                    const certificate =
-
-                        event.target.closest(
-
-                            "[data-certificate-id], .certificate-card"
-
-                        );
-
-
-                    if (
-
-                        certificate
-
-                    ) {
-
-
-                        const id =
-
-                            certificate.dataset
-
-                                .certificateId ||
-
-                            certificate
-
-                                .querySelector(
-
-                                    "h3"
-
-                                )
-
-                                ?.textContent ||
-
-                            "unknown";
-
-
-                        this.update(
-
-                            data => {
-
-
-                                if (
-
-                                    !data.certificateViews[id]
-
-                                ) {
-
-
-                                    data.certificateViews[id] =
-
-                                        0;
-
-                                }
-
-
-                                data.certificateViews[id]++;
-
-                            }
-
-                        );
-
-                    }
-
-
-                    const contact =
-
-                        event.target.closest(
-
-                            "[data-contact-phone], [data-contact-email], [data-contact-whatsapp], [data-contact-linkedin]"
-
-                        );
-
-
-                    if (
-
-                        contact
-
-                    ) {
-
-
-                        const type =
-
-                            contact.dataset
-
-                                .contactPhone
-
-                                !== undefined
-
-                                ? "phone"
-
-                                :
-
-                            contact.dataset
-
-                                .contactEmail
-
-                                !== undefined
-
-                                ? "email"
-
-                                :
-
-                            contact.dataset
-
-                                .contactWhatsapp
-
-                                !== undefined
-
-                                ? "whatsapp"
-
-                                :
-
-                                "linkedin";
-
-
-                        this.update(
-
-                            data => {
-
-
-                                if (
-
-                                    !data.contactClicks[type]
-
-                                ) {
-
-
-                                    data.contactClicks[type] =
-
-                                        0;
-
-                                }
-
-
-                                data.contactClicks[type]++;
-
-                            }
-
-                        );
-
-                    }
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
        DOWNLOAD TRACKING
     ===================================================== */
 
     trackDownloads() {
 
 
-        document
+        document.addEventListener(
 
-            .addEventListener(
+            "click",
 
-                "click",
-
-                event => {
+            event => {
 
 
-                    const qrButton =
+                const link =
 
-                        event.target.closest(
+                    event.target.closest(
 
-                            "[data-download-qr]"
+                        "a"
 
-                        );
-
-
-                    if (
-
-                        qrButton
-
-                    ) {
+                    );
 
 
-                        this.update(
+                if (
 
-                            data => {
+                    !link
+
+                )
+
+                    return;
 
 
-                                data.qrDownloads++;
+                const href =
 
-                            }
+                    link.getAttribute(
 
-                        );
+                        "href"
+
+                    );
+
+
+                if (
+
+                    !href
+
+                )
+
+                    return;
+
+
+                const lowerHref =
+
+                    href.toLowerCase();
+
+
+                const isDownload =
+
+                    link.hasAttribute(
+
+                        "download"
+
+                    )
+
+                    ||
+
+                    lowerHref.endsWith(
+
+                        ".pdf"
+
+                    )
+
+                    ||
+
+                    lowerHref.endsWith(
+
+                        ".vcf"
+
+                    );
+
+
+                if (
+
+                    !isDownload
+
+                )
+
+                    return;
+
+
+                this.track(
+
+                    "download",
+
+                    {
+
+                        file:
+
+                            href
 
                     }
 
-
-                    const certificateDownload =
-
-                        event.target.closest(
-
-                            "[data-download-certificate], [data-download-vcard]"
-
-                        );
-
-
-                    if (
-
-                        certificateDownload
-
-                    ) {
-
-
-                        const id =
-
-                            certificateDownload.dataset
-
-                                .certificateId ||
-
-                            "certificate";
-
-
-                        this.update(
-
-                            data => {
-
-
-                                if (
-
-                                    !data.certificateDownloads[id]
-
-                                ) {
-
-
-                                    data.certificateDownloads[id] =
-
-                                        0;
-
-                                }
-
-
-                                data.certificateDownloads[id]++;
-
-                            }
-
-                        );
-
-                    }
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       AI TRACKING
-    ===================================================== */
-
-    trackAI() {
-
-
-        document
-
-            .addEventListener(
-
-                "submit",
-
-                event => {
-
-
-                    if (
-
-                        event.target.matches(
-
-                            "[data-ai-form]"
-
-                        )
-
-                    ) {
-
-
-                        this.update(
-
-                            data => {
-
-
-                                data.aiInteractions++;
-
-                            }
-
-                        );
-
-                    }
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       TRACK THEME CHANGES
-    ===================================================== */
-
-    trackThemeChange() {
-
-
-        this.update(
-
-            data => {
-
-
-                data.themeChanges++;
+                );
 
             }
 
@@ -797,627 +415,541 @@ NLS.analytics = {
 
 
     /* =====================================================
-       DASHBOARD ACCESS
+       CONTACT ACTIONS
     ===================================================== */
 
-    setupAnalyticsDashboard() {
+    trackContactActions() {
 
 
-        document
+        document.addEventListener(
 
-            .addEventListener(
+            "click",
 
-                "click",
+            event => {
 
-                event => {
 
+                const link =
 
-                    const button =
+                    event.target.closest(
 
-                        event.target.closest(
-
-                            "[data-analytics-dashboard]"
-
-                        );
-
-
-                    if (!button)
-
-                        return;
-
-
-                    this.showDashboard();
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       SHOW DASHBOARD
-    ===================================================== */
-
-    showDashboard() {
-
-
-        const data =
-
-            this.getData();
-
-
-        const modal =
-
-            document.createElement(
-
-                "div"
-
-            );
-
-
-        modal.className =
-
-            "analytics-modal";
-
-
-        modal.innerHTML = `
-
-            <div class="analytics-dashboard">
-
-
-                <div class="analytics-header">
-
-                    <div>
-
-                        <span>
-
-                            PORTFOLIO ANALYTICS
-
-                        </span>
-
-
-                        <h2>
-
-                            Visitor Insights
-
-                        </h2>
-
-                    </div>
-
-
-                    <button
-
-                        type="button"
-
-                        data-analytics-close>
-
-                        <i class="fas fa-times"></i>
-
-                    </button>
-
-                </div>
-
-
-                <div class="analytics-grid">
-
-
-                    <div class="analytics-card">
-
-                        <strong>
-
-                            ${data.pageViews || 0}
-
-                        </strong>
-
-
-                        <span>
-
-                            Page Views
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="analytics-card">
-
-                        <strong>
-
-                            ${data.sessions || 0}
-
-                        </strong>
-
-
-                        <span>
-
-                            Sessions
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="analytics-card">
-
-                        <strong>
-
-                            ${data.qrDownloads || 0}
-
-                        </strong>
-
-
-                        <span>
-
-                            QR Downloads
-
-                        </span>
-
-                    </div>
-
-
-                    <div class="analytics-card">
-
-                        <strong>
-
-                            ${data.aiInteractions || 0}
-
-                        </strong>
-
-
-                        <span>
-
-                            AI Interactions
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <section>
-
-                    <h3>
-
-                        Section Views
-
-                    </h3>
-
-
-                    ${this.renderObject(
-
-                        data.sectionViews
-
-                    )}
-
-                </section>
-
-
-                <section>
-
-                    <h3>
-
-                        Project Clicks
-
-                    </h3>
-
-
-                    ${this.renderObject(
-
-                        data.projectClicks
-
-                    )}
-
-                </section>
-
-
-                <section>
-
-                    <h3>
-
-                        Contact Interactions
-
-                    </h3>
-
-
-                    ${this.renderObject(
-
-                        data.contactClicks
-
-                    )}
-
-                </section>
-
-
-                <section>
-
-                    <h3>
-
-                        Certificate Downloads
-
-                    </h3>
-
-
-                    ${this.renderObject(
-
-                        data.certificateDownloads
-
-                    )}
-
-                </section>
-
-
-                <div class="analytics-actions">
-
-
-                    <button
-
-                        type="button"
-
-                        class="btn btn-secondary"
-
-                        data-export-analytics>
-
-                        <i class="fas fa-download"></i>
-
-                        Export Analytics
-
-                    </button>
-
-
-                    <button
-
-                        type="button"
-
-                        class="btn btn-danger"
-
-                        data-clear-analytics>
-
-                        <i class="fas fa-trash"></i>
-
-                        Clear Analytics
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        `;
-
-
-        document.body.appendChild(
-
-            modal
-
-        );
-
-
-        modal
-
-            .querySelector(
-
-                "[data-analytics-close]"
-
-            )
-
-            .addEventListener(
-
-                "click",
-
-                () => {
-
-
-                    modal.remove();
-
-                }
-
-            );
-
-
-        modal
-
-            .querySelector(
-
-                "[data-clear-analytics]"
-
-            )
-
-            .addEventListener(
-
-                "click",
-
-                () => {
-
-
-                    if (
-
-                        !confirm(
-
-                            "Clear all analytics data?"
-
-                        )
-
-                    )
-
-                        return;
-
-
-                    localStorage.removeItem(
-
-                        this.storageKey
+                        "a"
 
                     );
 
 
-                    window.location.reload();
+                if (
+
+                    !link
+
+                )
+
+                    return;
+
+
+                const href =
+
+                    link.getAttribute(
+
+                        "href"
+
+                    )
+
+                    || "";
+
+
+                if (
+
+                    href.startsWith(
+
+                        "mailto:"
+
+                    )
+
+                ) {
+
+
+                    this.track(
+
+                        "email_click",
+
+                        {
+
+                            destination:
+
+                                href
+
+                        }
+
+                    );
 
                 }
 
-            );
+
+                if (
+
+                    href.startsWith(
+
+                        "tel:"
+
+                    )
+
+                ) {
 
 
-        modal
+                    this.track(
 
-            .querySelector(
+                        "phone_click",
 
-                "[data-export-analytics]"
+                        {
 
-            )
+                            destination:
 
-            .addEventListener(
+                                href
 
-                "click",
+                        }
 
-                () => {
-
-
-                    this.exportData();
+                    );
 
                 }
 
-            );
+
+                if (
+
+                    href.includes(
+
+                        "wa.me"
+
+                    )
+
+                    ||
+
+                    href.includes(
+
+                        "whatsapp"
+
+                    )
+
+                ) {
+
+
+                    this.track(
+
+                        "whatsapp_click",
+
+                        {
+
+                            destination:
+
+                                href
+
+                        }
+
+                    );
+
+                }
+
+            }
+
+        );
 
     },
 
 
     /* =====================================================
-       RENDER OBJECT
+       PROJECT INTERACTIONS
     ===================================================== */
 
-    renderObject(
-
-        object = {}
-
-    ) {
+    trackProjectInteractions() {
 
 
-        const entries =
+        document.addEventListener(
 
-            Object.entries(
+            "click",
 
-                object
+            event => {
+
+
+                const project =
+
+                    event.target.closest(
+
+                        ".project-card"
+
+                    );
+
+
+                if (
+
+                    !project
+
+                )
+
+                    return;
+
+
+                const title =
+
+                    project.querySelector(
+
+                        "h3"
+
+                    );
+
+
+                this.track(
+
+                    "project_interaction",
+
+                    {
+
+                        project:
+
+                            title
+
+                                ? title.textContent.trim()
+
+                                : "Unknown Project"
+
+                    }
+
+                );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       CONTACT FORM
+    ===================================================== */
+
+    trackContactForm() {
+
+
+        const forms =
+
+            document.querySelectorAll(
+
+                "[data-contact-form]"
 
             );
 
 
-        if (
+        forms.forEach(
 
-            !entries.length
+            form => {
+
+
+                form.addEventListener(
+
+                    "submit",
+
+                    () => {
+
+
+                        this.track(
+
+                            "contact_form_submit",
+
+                            {
+
+                                form:
+
+                                    "main_contact_form"
+
+                            }
+
+                        );
+
+                    }
+
+                );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       JAVASCRIPT ERRORS
+    ===================================================== */
+
+    trackErrors() {
+
+
+        window.addEventListener(
+
+            "error",
+
+            event => {
+
+
+                this.track(
+
+                    "javascript_error",
+
+                    {
+
+                        message:
+
+                            event.message,
+
+
+                        source:
+
+                            event.filename,
+
+
+                        line:
+
+                            event.lineno
+
+                    }
+
+                );
+
+            }
+
+        );
+
+
+        window.addEventListener(
+
+            "unhandledrejection",
+
+            event => {
+
+
+                this.track(
+
+                    "promise_error",
+
+                    {
+
+                        reason:
+
+                            String(
+
+                                event.reason
+
+                            )
+
+                    }
+
+                );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       PERFORMANCE
+    ===================================================== */
+
+    trackPerformance() {
+
+
+        window.addEventListener(
+
+            "load",
+
+            () => {
+
+
+                setTimeout(
+
+                    () => {
+
+
+                        const navigation =
+
+                            performance.getEntriesByType(
+
+                                "navigation"
+
+                            )[0];
+
+
+                        if (
+
+                            !navigation
+
+                        )
+
+                            return;
+
+
+                        this.track(
+
+                            "performance",
+
+                            {
+
+                                loadTime:
+
+                                    Math.round(
+
+                                        navigation.loadEventEnd
+
+                                        -
+
+                                        navigation.startTime
+
+                                    ),
+
+
+                                domInteractive:
+
+                                    Math.round(
+
+                                        navigation.domInteractive
+
+                                        -
+
+                                        navigation.startTime
+
+                                    )
+
+                            }
+
+                        );
+
+                    },
+
+                    1000
+
+                );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       LOCAL EVENT STORAGE
+    ===================================================== */
+
+    storeEvent(
+
+        event
+
+    ) {
+
+
+        try {
+
+
+            const stored =
+
+                JSON.parse(
+
+                    localStorage.getItem(
+
+                        this.config.storageKey
+
+                    )
+
+                    ||
+
+                    "[]"
+
+                );
+
+
+            stored.push(
+
+                event
+
+            );
+
+
+            while (
+
+                stored.length >
+
+                this.config.maxStoredEvents
+
+            ) {
+
+
+                stored.shift();
+
+            }
+
+
+            localStorage.setItem(
+
+                this.config.storageKey,
+
+                JSON.stringify(
+
+                    stored
+
+                )
+
+            );
+
+        }
+
+        catch (
+
+            error
 
         ) {
 
 
-            return `
+            this.debug(
 
-                <p class="analytics-empty">
+                "Analytics storage unavailable."
 
-                    No data collected yet.
-
-                </p>
-
-            `;
+            );
 
         }
 
-
-        return `
-
-            <div class="analytics-list">
-
-                ${entries
-
-                    .map(
-
-                        ([key, value]) => `
-
-                            <div
-
-                                class="analytics-row">
-
-                                <span>
-
-                                    ${this.escapeHTML(
-
-                                        key
-
-                                    )}
-
-                                </span>
-
-
-                                <strong>
-
-                                    ${value}
-
-                                </strong>
-
-                            </div>
-
-                        `
-
-                    )
-
-                    .join(
-
-                        ""
-
-                    )}
-
-            </div>
-
-        `;
-
     },
 
 
     /* =====================================================
-       EXPORT DATA
+       DEBUG
     ===================================================== */
 
-    exportData() {
+    debug(
 
-
-        const data =
-
-            this.getData();
-
-
-        const blob =
-
-            new Blob(
-
-                [
-
-                    JSON.stringify(
-
-                        data,
-
-                        null,
-
-                        4
-
-                    )
-
-                ],
-
-                {
-
-                    type:
-
-                        "application/json"
-
-                }
-
-            );
-
-
-        const url =
-
-            URL.createObjectURL(
-
-                blob
-
-            );
-
-
-        const link =
-
-            document.createElement(
-
-                "a"
-
-            );
-
-
-        link.href =
-
-            url;
-
-
-        link.download =
-
-            "nls-portfolio-analytics.json";
-
-
-        link.click();
-
-
-        URL.revokeObjectURL(
-
-            url
-
-        );
-
-    },
-
-
-    /* =====================================================
-       ESCAPE HTML
-    ===================================================== */
-
-    escapeHTML(
-
-        value
+        message
 
     ) {
 
 
-        return String(
+        if (
 
-            value ?? ""
+            this.config.debug
 
-        )
+        ) {
 
-        .replace(
 
-            /&/g,
+            console.log(
 
-            "&amp;"
+                "[NLS Analytics]",
 
-        )
+                message
 
-        .replace(
+            );
 
-            /</g,
-
-            "&lt;"
-
-        )
-
-        .replace(
-
-            />/g,
-
-            "&gt;"
-
-        )
-
-        .replace(
-
-            /"/g,
-
-            "&quot;"
-
-        )
-
-        .replace(
-
-            /'/g,
-
-            "&#039;"
-
-        );
+        }
 
     }
 
 };
 
-
-/* =========================================================
-   INITIALIZE
-========================================================= */
 
 document.addEventListener(
 
