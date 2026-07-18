@@ -94,61 +94,88 @@ NLS.analytics = {
 
     track(
 
-        eventName,
+    eventName,
 
-        data = {}
+    data = {}
+
+) {
+
+
+    const event = {
+
+
+        event:
+
+            eventName,
+
+
+        data:
+
+            data,
+
+
+        timestamp:
+
+            new Date()
+
+                .toISOString(),
+
+
+        page:
+
+            window.location.pathname
+
+    };
+
+
+    /*
+       STORE EVENT LOCALLY
+    */
+
+    this.storeEvent(
+
+        event
+
+    );
+
+
+    /*
+       SEND EVENT TO GOOGLE ANALYTICS
+    */
+
+    if (
+
+        typeof window.gtag ===
+
+        "function"
 
     ) {
 
 
-        const event = {
+        window.gtag(
 
+            "event",
 
-            event:
+            eventName,
 
-                eventName,
-
-
-            data:
-
-
-                data,
-
-
-            timestamp:
-
-                new Date()
-
-                    .toISOString(),
-
-
-            page:
-
-                window.location.pathname,
-
-
-            userAgent:
-
-                navigator.userAgent
-
-        };
-
-
-        this.storeEvent(
-
-            event
+            data
 
         );
 
+    }
 
-        this.debug(
 
-            event
+    /*
+       DEBUG LOG
+    */
 
-        );
+    this.debug(
 
-    },
+        event
 
+    );
+
+},
 
     /* =====================================================
        PAGE VIEW
