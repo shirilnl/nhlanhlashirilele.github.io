@@ -108,32 +108,41 @@ window.NLS.app = {
         APPLY PROFILE INFORMATION
     ======================================================*/
 
-    loadProfile() {
+    /*======================================================
+    APPLY PROFILE INFORMATION
+======================================================*/
 
-        const profile = this.config.profile;
+loadProfile() {
 
-        document.title =
+    const site = this.config.site;
 
-            profile.fullName;
+    if (!site) {
 
-        this.safeText(
+        console.error("Site configuration is missing.");
 
-            "#profileName",
+        return;
 
-            profile.fullName
+    }
 
-        );
+    document.title = site.name;
 
-        this.safeText(
+    this.safeText(
 
-            "#heroName",
+        "#profileName",
 
-            profile.fullName
+        site.name
 
-        );
+    );
 
-    },
+    this.safeText(
 
+        "#heroName",
+
+        site.name
+
+    );
+
+}
     /*======================================================
         REGISTER MODULES
     ======================================================*/
