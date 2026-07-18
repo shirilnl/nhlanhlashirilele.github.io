@@ -5441,3 +5441,133 @@ body {
     }
 
 }
+
+/* =========================================================
+   PERFORMANCE OPTIMIZATION
+========================================================= */
+
+
+/* IMAGE RENDERING */
+
+img {
+
+    max-width: 100%;
+
+    height: auto;
+
+    display: block;
+
+}
+
+
+/* LAZY IMAGE TRANSITION */
+
+img[loading="lazy"] {
+
+    opacity: 0;
+
+    transition:
+
+        opacity
+
+        0.5s
+
+        ease;
+
+}
+
+
+img[loading="lazy"].image-loaded {
+
+    opacity: 1;
+
+}
+
+
+/* REDUCE MOTION */
+
+@media (
+
+    prefers-reduced-motion: reduce
+
+) {
+
+
+    *,
+
+    *::before,
+
+    *::after {
+
+
+        animation-duration:
+
+            0.01ms
+
+            !important;
+
+
+        animation-iteration-count:
+
+            1
+
+            !important;
+
+
+        transition-duration:
+
+            0.01ms
+
+            !important;
+
+
+        scroll-behavior:
+
+            auto
+
+            !important;
+
+    }
+
+}
+
+
+/* CONTENT VISIBILITY */
+
+.gallery-item,
+
+.project-card,
+
+.certificate-card {
+
+    content-visibility: auto;
+
+    contain-intrinsic-size: 400px;
+
+}
+
+
+/* GPU ACCELERATION */
+
+.project-card,
+
+.gallery-item,
+
+.certificate-card,
+
+.skill-card {
+
+    transform: translateZ(0);
+
+}
+
+
+/* PREVENT HORIZONTAL OVERFLOW */
+
+html,
+
+body {
+
+    overflow-x: hidden;
+
+}
