@@ -54,19 +54,19 @@ NLS.config = {
 
         email:
 
-            "",
+            "shirilelenl94@gmail.com",
 
         phone:
 
-            "",
+            "0710059058",
 
         whatsapp:
 
-            "",
+            "0710059058",
 
         linkedin:
 
-            ""
+            "www.linkedin.com/in/nhlanhla-lucky-shirilele-424560ba"
 
     },
 
