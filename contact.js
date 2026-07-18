@@ -1,396 +1,42 @@
 /* =========================================================
    NLS ENGINEERING PORTFOLIO
    contact.js
-   Milestone 4 — Part 1
-   Professional Contact Functionality
+   Milestone 5 — Part 2
+   Production Contact Form System
 ========================================================= */
 
 "use strict";
 
 
 /* =========================================================
-   GLOBAL CONTACT MODULE
+   GLOBAL NAMESPACE
 ========================================================= */
 
 window.NLS = window.NLS || {};
+
 
 NLS.contact = {
 
 
     /* =====================================================
-       INITIALIZATION
+       INITIALIZE
     ===================================================== */
 
     init() {
 
-        this.setupContactLinks();
-
-        this.setupCopyButtons();
 
         this.setupContactForm();
 
-        this.setupValidation();
+
+        this.setupContactLinks();
+
+
+        this.setupCopyButtons();
+
 
         console.log(
 
             "NLS Contact System initialized successfully."
-
-        );
-
-    },
-
-
-    /* =====================================================
-       CONTACT LINKS
-    ===================================================== */
-
-    setupContactLinks() {
-
-
-        const config =
-
-            window.NLS?.config ||
-
-            {};
-
-
-        const contact =
-
-            config.contact ||
-
-            {};
-
-
-        const phone =
-
-            contact.phone ||
-
-            "";
-
-
-        const email =
-
-            contact.email ||
-
-            "";
-
-
-        const whatsapp =
-
-            contact.whatsapp ||
-
-            "";
-
-
-        const linkedin =
-
-            contact.linkedin ||
-
-            "";
-
-
-        document
-
-            .querySelectorAll(
-
-                "[data-contact-phone]"
-
-            )
-
-            .forEach(
-
-                element => {
-
-
-                    if (!phone)
-
-                        return;
-
-
-                    element.href =
-
-                        `tel:${phone}`;
-
-                }
-
-            );
-
-
-        document
-
-            .querySelectorAll(
-
-                "[data-contact-email]"
-
-            )
-
-            .forEach(
-
-                element => {
-
-
-                    if (!email)
-
-                        return;
-
-
-                    element.href =
-
-                        `mailto:${email}`;
-
-                }
-
-            );
-
-
-        document
-
-            .querySelectorAll(
-
-                "[data-contact-whatsapp]"
-
-            )
-
-            .forEach(
-
-                element => {
-
-
-                    if (!whatsapp)
-
-                        return;
-
-
-                    const cleanNumber =
-
-                        String(
-
-                            whatsapp
-
-                        )
-
-                        .replace(
-
-                            /[^0-9]/g,
-
-                            ""
-
-                        );
-
-
-                    element.href =
-
-                        `https://wa.me/${cleanNumber}`;
-
-
-                    element.target =
-
-                        "_blank";
-
-
-                    element.rel =
-
-                        "noopener noreferrer";
-
-                }
-
-            );
-
-
-        document
-
-            .querySelectorAll(
-
-                "[data-contact-linkedin]"
-
-            )
-
-            .forEach(
-
-                element => {
-
-
-                    if (!linkedin)
-
-                        return;
-
-
-                    element.href =
-
-                        linkedin;
-
-
-                    element.target =
-
-                        "_blank";
-
-
-                    element.rel =
-
-                        "noopener noreferrer";
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       COPY TO CLIPBOARD
-    ===================================================== */
-
-    setupCopyButtons() {
-
-
-        document
-
-            .querySelectorAll(
-
-                "[data-copy]"
-
-            )
-
-            .forEach(
-
-                button => {
-
-
-                    button.addEventListener(
-
-                        "click",
-
-                        async () => {
-
-
-                            const value =
-
-                                button.dataset.copy;
-
-
-                            if (!value)
-
-                                return;
-
-
-                            try {
-
-
-                                await navigator
-
-                                    .clipboard
-
-                                    .writeText(
-
-                                        value
-
-                                    );
-
-
-                                this.showNotification(
-
-                                    "Copied to clipboard.",
-
-                                    "success"
-
-                                );
-
-
-                                this.updateCopyButton(
-
-                                    button
-
-                                );
-
-
-                            }
-
-                            catch (error) {
-
-
-                                console.error(
-
-                                    "Clipboard error:",
-
-                                    error
-
-                                );
-
-
-                                this.showNotification(
-
-                                    "Unable to copy.",
-
-                                    "error"
-
-                                );
-
-                            }
-
-                        }
-
-                    );
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       COPY BUTTON FEEDBACK
-    ===================================================== */
-
-    updateCopyButton(
-
-        button
-
-    ) {
-
-
-        const originalHTML =
-
-            button.innerHTML;
-
-
-        button.innerHTML =
-
-            `
-
-                <i class="fas fa-check"></i>
-
-                Copied
-
-            `;
-
-
-        button.classList.add(
-
-            "copied"
-
-        );
-
-
-        setTimeout(
-
-            () => {
-
-
-                button.innerHTML =
-
-                    originalHTML;
-
-
-                button.classList.remove(
-
-                    "copied"
-
-                );
-
-            },
-
-            2000
 
         );
 
@@ -408,7 +54,7 @@ NLS.contact = {
 
             document.querySelector(
 
-                "#contactForm"
+                "[data-contact-form]"
 
             );
 
@@ -425,23 +71,9 @@ NLS.contact = {
             event => {
 
 
-                event.preventDefault();
+                this.handleFormSubmit(
 
-
-                if (
-
-                    !this.validateForm(
-
-                        form
-
-                    )
-
-                )
-
-                    return;
-
-
-                this.submitForm(
+                    event,
 
                     form
 
@@ -455,385 +87,58 @@ NLS.contact = {
 
 
     /* =====================================================
-       FORM VALIDATION
+       SUBMIT FORM
     ===================================================== */
 
-    setupValidation() {
+    handleFormSubmit(
 
-
-        const form =
-
-            document.querySelector(
-
-                "#contactForm"
-
-            );
-
-
-        if (!form)
-
-            return;
-
+        event,
 
         form
 
-            .querySelectorAll(
+    ) {
 
-                "input, textarea, select"
+
+        event.preventDefault();
+
+
+        if (
+
+            !this.validateForm(
+
+                form
 
             )
 
-            .forEach(
-
-                field => {
-
-
-                    field.addEventListener(
-
-                        "blur",
-
-                        () => {
-
-
-                            this.validateField(
-
-                                field
-
-                            );
-
-                        }
-
-                    );
-
-
-                    field.addEventListener(
-
-                        "input",
-
-                        () => {
-
-
-                            this.clearFieldError(
-
-                                field
-
-                            );
-
-                        }
-
-                    );
-
-                }
-
-            );
-
-    },
-
-
-    /* =====================================================
-       VALIDATE COMPLETE FORM
-    ===================================================== */
-
-    validateForm(
-
-        form
-
-    ) {
-
-
-        let valid =
-
-            true;
-
-
-        const fields =
-
-            form.querySelectorAll(
-
-                "input, textarea, select"
-
-            );
-
-
-        fields.forEach(
-
-            field => {
-
-
-                if (
-
-                    !this.validateField(
-
-                        field
-
-                    )
-
-                ) {
-
-
-                    valid =
-
-                        false;
-
-                }
-
-            }
-
-        );
-
-
-        if (!valid) {
-
-
-            this.showNotification(
-
-                "Please complete the required fields.",
-
-                "error"
-
-            );
-
-        }
-
-
-        return valid;
-
-    },
-
-
-    /* =====================================================
-       VALIDATE FIELD
-    ===================================================== */
-
-    validateField(
-
-        field
-
-    ) {
-
-
-        const value =
-
-            field.value.trim();
-
-
-        const required =
-
-            field.hasAttribute(
-
-                "required"
-
-            );
-
-
-        if (
-
-            required &&
-
-            !value
-
         ) {
 
 
-            this.showFieldError(
-
-                field,
-
-                "This field is required."
-
-            );
-
-
-            return false;
+            return;
 
         }
-
-
-        if (
-
-            field.type ===
-
-            "email" &&
-
-            value
-
-        ) {
-
-
-            const emailPattern =
-
-                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-            if (
-
-                !emailPattern.test(
-
-                    value
-
-                )
-
-            ) {
-
-
-                this.showFieldError(
-
-                    field,
-
-                    "Please enter a valid email address."
-
-                );
-
-
-                return false;
-
-            }
-
-        }
-
-
-        this.clearFieldError(
-
-            field
-
-        );
-
-
-        return true;
-
-    },
-
-
-    /* =====================================================
-       SHOW FIELD ERROR
-    ===================================================== */
-
-    showFieldError(
-
-        field,
-
-        message
-
-    ) {
-
-
-        field.classList.add(
-
-            "error"
-
-        );
-
-
-        let error =
-
-            field.parentElement
-
-                ?.querySelector(
-
-                    ".field-error"
-
-                );
-
-
-        if (!error) {
-
-
-            error =
-
-                document.createElement(
-
-                    "small"
-
-                );
-
-
-            error.className =
-
-                "field-error";
-
-
-            field.parentElement
-
-                ?.appendChild(
-
-                    error
-
-                );
-
-        }
-
-
-        error.textContent =
-
-            message;
-
-    },
-
-
-    /* =====================================================
-       CLEAR FIELD ERROR
-    ===================================================== */
-
-    clearFieldError(
-
-        field
-
-    ) {
-
-
-        field.classList.remove(
-
-            "error"
-
-        );
-
-
-        const error =
-
-            field.parentElement
-
-                ?.querySelector(
-
-                    ".field-error"
-
-                );
-
-
-        if (error)
-
-            error.remove();
-
-    },
-
-
-    /* =====================================================
-       FORM SUBMISSION
-    ===================================================== */
-
-    async submitForm(
-
-        form
-
-    ) {
 
 
         const submitButton =
 
             form.querySelector(
 
-                '[type="submit"]'
+                "[type='submit']"
 
             );
 
 
-        const originalHTML =
+        const originalText =
 
             submitButton
 
                 ?.innerHTML;
 
 
-        if (submitButton) {
+        if (
+
+            submitButton
+
+        ) {
 
 
             submitButton.disabled =
@@ -841,15 +146,13 @@ NLS.contact = {
                 true;
 
 
-            submitButton.innerHTML =
+            submitButton.innerHTML = `
 
-                `
+                <i class="fas fa-spinner fa-spin"></i>
 
-                    <i class="fas fa-spinner fa-spin"></i>
+                Sending...
 
-                    Sending...
-
-                `;
+            `;
 
         }
 
@@ -863,111 +166,636 @@ NLS.contact = {
             );
 
 
-        const data =
+        const action =
 
-            Object.fromEntries(
+            form.getAttribute(
 
-                formData.entries()
-
-            );
-
-
-        try {
-
-
-            /* =========================================
-               CURRENT DEMO MODE
-
-               This is intentionally local until a
-               real form backend is connected.
-            ========================================= */
-
-
-            await new Promise(
-
-                resolve =>
-
-                    setTimeout(
-
-                        resolve,
-
-                        1000
-
-                    )
+                "action"
 
             );
 
 
-            console.log(
+        if (
 
-                "Contact form submission:",
+            !action
 
-                data
-
-            );
+        ) {
 
 
             this.showNotification(
 
-                "Thank you. Your message has been prepared successfully.",
-
-                "success"
-
-            );
-
-
-            form.reset();
-
-
-        }
-
-        catch (error) {
-
-
-            console.error(
-
-                "Contact form error:",
-
-                error
-
-            );
-
-
-            this.showNotification(
-
-                "Something went wrong. Please try again.",
+                "Contact form is not configured correctly.",
 
                 "error"
 
             );
 
+
+            this.restoreButton(
+
+                submitButton,
+
+                originalText
+
+            );
+
+
+            return;
+
         }
 
 
-        finally {
+        fetch(
 
+            action,
 
-            if (submitButton) {
+            {
 
+                method:
 
-                submitButton.disabled =
+                    "POST",
 
-                    false;
+                body:
 
+                    formData,
 
-                submitButton.innerHTML =
+                headers: {
 
-                    originalHTML;
+                    Accept:
+
+                        "application/json"
+
+                }
 
             }
 
-        }
+        )
+
+        .then(
+
+            response => {
+
+
+                if (
+
+                    !response.ok
+
+                ) {
+
+
+                    throw new Error(
+
+                        "Contact form request failed."
+
+                    );
+
+                }
+
+
+                return response.json()
+
+                    .catch(
+
+                        () =>
+
+                            ({})
+
+                    );
+
+            }
+
+        )
+
+        .then(
+
+            () => {
+
+
+                this.showNotification(
+
+                    "Thank you. Your message has been sent successfully.",
+
+                    "success"
+
+                );
+
+
+                form.reset();
+
+
+                this.trackContactSubmission();
+
+            }
+
+        )
+
+        .catch(
+
+            error => {
+
+
+                console.error(
+
+                    "Contact form error:",
+
+                    error
+
+                );
+
+
+                this.showNotification(
+
+                    "Unable to send your message right now. Please try again or contact me directly.",
+
+                    "error"
+
+                );
+
+            }
+
+        )
+
+        .finally(
+
+            () => {
+
+
+                this.restoreButton(
+
+                    submitButton,
+
+                    originalText
+
+                );
+
+            }
+
+        );
 
     },
 
 
     /* =====================================================
-       NOTIFICATION SYSTEM
+       VALIDATE FORM
+    ===================================================== */
+
+    validateForm(
+
+        form
+
+    ) {
+
+
+        const name =
+
+            form.querySelector(
+
+                "[name='name']"
+
+            );
+
+
+        const email =
+
+            form.querySelector(
+
+                "[name='email']"
+
+            );
+
+
+        const message =
+
+            form.querySelector(
+
+                "[name='message']"
+
+            );
+
+
+        const honeypot =
+
+            form.querySelector(
+
+                "[name='_honey']"
+
+            );
+
+
+        /* ================================================
+           HONEYPOT SPAM CHECK
+        ================================================ */
+
+        if (
+
+            honeypot &&
+
+            honeypot.value.trim()
+
+        ) {
+
+
+            return false;
+
+        }
+
+
+        /* ================================================
+           NAME
+        ================================================ */
+
+        if (
+
+            !name ||
+
+            name.value.trim().length < 2
+
+        ) {
+
+
+            this.showNotification(
+
+                "Please enter your name.",
+
+                "error"
+
+            );
+
+
+            name?.focus();
+
+
+            return false;
+
+        }
+
+
+        /* ================================================
+           EMAIL
+        ================================================ */
+
+        if (
+
+            !email ||
+
+            !this.isValidEmail(
+
+                email.value.trim()
+
+            )
+
+        ) {
+
+
+            this.showNotification(
+
+                "Please enter a valid email address.",
+
+                "error"
+
+            );
+
+
+            email?.focus();
+
+
+            return false;
+
+        }
+
+
+        /* ================================================
+           MESSAGE
+        ================================================ */
+
+        if (
+
+            !message ||
+
+            message.value.trim().length < 10
+
+        ) {
+
+
+            this.showNotification(
+
+                "Please enter a message of at least 10 characters.",
+
+                "error"
+
+            );
+
+
+            message?.focus();
+
+
+            return false;
+
+        }
+
+
+        return true;
+
+    },
+
+
+    /* =====================================================
+       EMAIL VALIDATION
+    ===================================================== */
+
+    isValidEmail(
+
+        email
+
+    ) {
+
+
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+            .test(
+
+                email
+
+            );
+
+    },
+
+
+    /* =====================================================
+       RESTORE BUTTON
+    ===================================================== */
+
+    restoreButton(
+
+        button,
+
+        originalText
+
+    ) {
+
+
+        if (
+
+            !button
+
+        )
+
+            return;
+
+
+        button.disabled =
+
+            false;
+
+
+        button.innerHTML =
+
+            originalText ||
+
+            "Send Message";
+
+    },
+
+
+    /* =====================================================
+       CONTACT LINKS
+    ===================================================== */
+
+    setupContactLinks() {
+
+
+        document.addEventListener(
+
+            "click",
+
+            event => {
+
+
+                const link =
+
+                    event.target.closest(
+
+                        "[data-contact-action]"
+
+                    );
+
+
+                if (
+
+                    !link
+
+                )
+
+                    return;
+
+
+                const action =
+
+                    link.dataset
+
+                        .contactAction;
+
+
+                if (
+
+                    window.NLS.analytics
+
+                ) {
+
+
+                    NLS.analytics.update(
+
+                        data => {
+
+
+                            if (
+
+                                !data.contactClicks
+
+                            ) {
+
+
+                                data.contactClicks =
+
+                                    {};
+
+                            }
+
+
+                            if (
+
+                                !data.contactClicks[action]
+
+                            ) {
+
+
+                                data.contactClicks[action] =
+
+                                    0;
+
+                            }
+
+
+                            data.contactClicks[action]++;
+
+                        }
+
+                    );
+
+                }
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       COPY BUTTONS
+    ===================================================== */
+
+    setupCopyButtons() {
+
+
+        document.addEventListener(
+
+            "click",
+
+            event => {
+
+
+                const button =
+
+                    event.target.closest(
+
+                        "[data-copy]"
+
+                    );
+
+
+                if (
+
+                    !button
+
+                )
+
+                    return;
+
+
+                const value =
+
+                    button.dataset
+
+                        .copy;
+
+
+                if (
+
+                    !value
+
+                )
+
+                    return;
+
+
+                navigator
+
+                    .clipboard
+
+                    .writeText(
+
+                        value
+
+                    )
+
+                    .then(
+
+                        () => {
+
+
+                            this.showNotification(
+
+                                "Copied successfully.",
+
+                                "success"
+
+                            );
+
+                        }
+
+                    )
+
+                    .catch(
+
+                        () => {
+
+
+                            this.showNotification(
+
+                                "Unable to copy the information.",
+
+                                "error"
+
+                            );
+
+                        }
+
+                    );
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       TRACK FORM SUBMISSION
+    ===================================================== */
+
+    trackContactSubmission() {
+
+
+        if (
+
+            !window.NLS.analytics
+
+        )
+
+            return;
+
+
+        NLS.analytics.update(
+
+            data => {
+
+
+                if (
+
+                    !data.contactFormSubmissions
+
+                ) {
+
+
+                    data.contactFormSubmissions =
+
+                        0;
+
+                }
+
+
+                data.contactFormSubmissions++;
+
+            }
+
+        );
+
+    },
+
+
+    /* =====================================================
+       NOTIFICATION
     ===================================================== */
 
     showNotification(
@@ -979,19 +807,23 @@ NLS.contact = {
     ) {
 
 
-        let container =
+        let notification =
 
             document.querySelector(
 
-                "#contactNotifications"
+                "[data-contact-notification]"
 
             );
 
 
-        if (!container) {
+        if (
+
+            !notification
+
+        ) {
 
 
-            container =
+            notification =
 
                 document.createElement(
 
@@ -1000,184 +832,71 @@ NLS.contact = {
                 );
 
 
-            container.id =
+            notification.dataset
 
-                "contactNotifications";
+                .contactNotification =
+
+                "true";
 
 
-            container.className =
+            notification.className =
 
-                "contact-notifications";
+                "contact-notification";
 
 
             document.body.appendChild(
 
-                container
+                notification
 
             );
 
         }
 
 
-        const notification =
+        notification.textContent =
 
-            document.createElement(
+            message;
 
-                "div"
+
+        notification.dataset
+
+            .type =
+
+            type;
+
+
+        notification.classList.add(
+
+            "is-visible"
+
+        );
+
+
+        clearTimeout(
+
+            this.notificationTimeout
+
+        );
+
+
+        this.notificationTimeout =
+
+            setTimeout(
+
+                () => {
+
+
+                    notification.classList.remove(
+
+                        "is-visible"
+
+                    );
+
+                },
+
+                5000
 
             );
-
-
-        notification.className =
-
-                `contact-notification ${type}`;
-
-
-        notification.innerHTML =
-
-            `
-
-                <span>
-
-                    ${this.escapeHTML(
-
-                        message
-
-                    )}
-
-                </span>
-
-
-                <button
-
-                    type="button"
-
-                    aria-label="Close notification">
-
-                    <i class="fas fa-times"></i>
-
-                </button>
-
-            `;
-
-
-        container.appendChild(
-
-            notification
-
-        );
-
-
-        const closeButton =
-
-            notification.querySelector(
-
-                "button"
-
-            );
-
-
-        closeButton.addEventListener(
-
-            "click",
-
-            () => {
-
-
-                notification.remove();
-
-            }
-
-        );
-
-
-        setTimeout(
-
-            () => {
-
-
-                notification.classList.add(
-
-                    "hide"
-
-                );
-
-
-                setTimeout(
-
-                    () =>
-
-                        notification.remove(),
-
-                    300
-
-                );
-
-            },
-
-            5000
-
-        );
-
-    },
-
-
-    /* =====================================================
-       SAFE HTML ESCAPING
-    ===================================================== */
-
-    escapeHTML(
-
-        value
-
-    ) {
-
-
-        return String(
-
-            value ?? ""
-
-        )
-
-        .replace(
-
-            /&/g,
-
-            "&amp;"
-
-        )
-
-        .replace(
-
-            /</g,
-
-            "&lt;"
-
-        )
-
-        .replace(
-
-            />/g,
-
-            "&gt;"
-
-        )
-
-        .replace(
-
-            /"/g,
-
-            "&quot;"
-
-        )
-
-        .replace(
-
-            /'/g,
-
-            "&#039;"
-
-        );
 
     }
 
@@ -1185,7 +904,7 @@ NLS.contact = {
 
 
 /* =========================================================
-   INITIALIZE CONTACT SYSTEM
+   INITIALIZE
 ========================================================= */
 
 document.addEventListener(
