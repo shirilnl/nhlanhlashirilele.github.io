@@ -216,14 +216,6 @@ const PortfolioApp = {
    APPLICATION STARTUP
 ========================================================== */
 
-document.addEventListener(
-
-    EVENTS.READY,
-
-    () => PortfolioApp.init()
-
-);
-
 /* ==========================================================
    V7 PORTFOLIO
    app.js
@@ -781,18 +773,6 @@ PortfolioApp.renderExperience = function () {
    INITIAL RENDER
 ========================================================== */
 
-PortfolioApp.renderContent = function () {
-
-    this.renderServices();
-
-    this.renderSkills();
-
-    this.renderTechnologies();
-
-    this.renderExperience();
-
-};
-
 /* ==========================================================
    V7 PORTFOLIO
    app.js
@@ -1339,7 +1319,6 @@ PortfolioApp.initializeConnectionMonitor = function () {
     });
 
 };
-```
 
 /* ==========================================================
    V7 PORTFOLIO
