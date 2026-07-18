@@ -1,222 +1,319 @@
-/*=========================================================
-    Portfolio Service Worker
-    Version 2.0.0
-    Author: Nhlanhla Lucky Shirilele
-=========================================================*/
+/* =========================================================
+   NLS ENGINEERING PORTFOLIO
+   service-worker.js
+   Production Cache System
+========================================================= */
 
-const CACHE_NAME = "portfolio-v2.0.0";
+"use strict";
 
-const STATIC_FILES = [
+
+const CACHE_NAME =
+
+    "nls-portfolio-v5";
+
+
+const STATIC_CACHE = [
 
     "./",
 
     "./index.html",
+
     "./style.css",
+
+    "./config.js",
+
+    "./data.js",
+
+    "./utils.js",
+
+    "./app.js",
+
     "./script.js",
+
+    "./qr.js",
+
+    "./admin.js",
+
+    "./ai.js",
+
+    "./analytics.js",
+
+    "./production.js",
+
+    "./seo.js",
+
     "./manifest.json",
 
-    "./images/profile.jpg",
-    "./images/about.jpg",
-    "./images/hero-bg.jpg",
-    "./images/project1.jpg",
-    "./images/project2.jpg",
-    "./images/project3.jpg",
-    "./images/logo.png",
-    "./images/qr-code.png",
+    "./assets/icons/favicon.png",
 
-    "./icon/icon-192.png",
-    "./icon/icon-512.png"
+    "./assets/icons/icon-192.png",
+
+    "./assets/icons/icon-512.png"
 
 ];
 
-/*=========================================================
-    INSTALL
-=========================================================*/
 
-self.addEventListener("install", event => {
 
-    console.log("Installing Service Worker...");
+/* =========================================================
+   INSTALL
+========================================================= */
 
-    event.waitUntil(
+self.addEventListener(
 
-        (async () => {
+    "install",
 
-            const cache = await caches.open(CACHE_NAME);
+    event => {
 
-            for (const file of STATIC_FILES) {
 
-                try {
+        event.waitUntil(
 
-                    await cache.add(file);
+            caches.open(
 
-                    console.log("Cached:", file);
+                CACHE_NAME
 
-                } catch (error) {
+            )
 
-                    console.warn("Skipped:", file);
+            .then(
+
+                cache => {
+
+
+                    return cache.addAll(
+
+                        STATIC_CACHE
+
+                    );
 
                 }
 
-            }
+            )
 
-        })()
+            .then(
 
-    );
+                () => {
 
-    self.skipWaiting();
 
-});
+                    return self.skipWaiting();
 
-/*=========================================================
-    ACTIVATE
-=========================================================*/
+                }
 
-self.addEventListener("activate", event => {
-
-    console.log("Activating Service Worker...");
-
-    event.waitUntil(
-
-        caches.keys().then(keys => {
-
-            return Promise.all(
-
-                keys.map(key => {
-
-                    if (key !== CACHE_NAME) {
-
-                        console.log("Deleting old cache:", key);
-
-                        return caches.delete(key);
-
-                    }
-
-                })
-
-            );
-
-        })
-
-    );
-
-    self.clients.claim();
-
-});
-
-/*=========================================================
-    FETCH
-=========================================================*/
-
-self.addEventListener("fetch", event => {
-
-    if (event.request.method !== "GET") return;
-
-    const request = event.request;
-
-    const url = new URL(request.url);
-
-    /*=========================
-        HTML
-    =========================*/
-
-    if (request.headers.get("accept")?.includes("text/html")) {
-
-        event.respondWith(
-
-            fetch(request)
-
-                .then(response => {
-
-                    if (!response || response.status !== 200) {
-
-                        return caches.match("./index.html");
-
-                    }
-
-                    const responseClone = response.clone();
-
-                    caches.open(CACHE_NAME)
-
-                        .then(cache => cache.put(request, responseClone));
-
-                    return response;
-
-                })
-
-                .catch(() => caches.match("./index.html"))
+            )
 
         );
 
-        return;
+    }
+
+);
+
+
+
+/* =========================================================
+   ACTIVATE
+========================================================= */
+
+self.addEventListener(
+
+    "activate",
+
+    event => {
+
+
+        event.waitUntil(
+
+            caches.keys()
+
+                .then(
+
+                    cacheNames => {
+
+
+                        return Promise.all(
+
+                            cacheNames
+
+                                .filter(
+
+                                    cacheName =>
+
+                                        cacheName !==
+
+                                        CACHE_NAME
+
+                                )
+
+                                .map(
+
+                                    cacheName =>
+
+                                        caches.delete(
+
+                                            cacheName
+
+                                        )
+
+                                )
+
+                        );
+
+                    }
+
+                )
+
+                .then(
+
+                    () => {
+
+
+                        return self.clients.claim();
+
+                    }
+
+                )
+
+        );
 
     }
 
-    /*=========================
-        CACHE FIRST
-    =========================*/
+);
 
-    event.respondWith(
 
-        caches.match(request)
 
-            .then(cachedResponse => {
+/* =========================================================
+   FETCH
+========================================================= */
 
-                if (cachedResponse) {
+self.addEventListener(
 
-                    return cachedResponse;
+    "fetch",
 
-                }
+    event => {
 
-                return fetch(request)
 
-                    .then(networkResponse => {
+        const request =
 
-                        if (
+            event.request;
 
-                            !networkResponse ||
 
-                            networkResponse.status !== 200 ||
+        if (
 
-                            networkResponse.type !== "basic"
+            request.method !==
 
-                        ) {
+            "GET"
 
-                            return networkResponse;
+        )
+
+            return;
+
+
+
+        event.respondWith(
+
+            fetch(
+
+                request
+
+            )
+
+            .then(
+
+                response => {
+
+
+                    if (
+
+                        !response
+
+                        ||
+
+                        response.status !==
+
+                        200
+
+                        ||
+
+                        response.type ===
+
+                        "opaque"
+
+                    ) {
+
+
+                        return response;
+
+                    }
+
+
+                    const responseClone =
+
+                        response.clone();
+
+
+                    caches.open(
+
+                        CACHE_NAME
+
+                    )
+
+                    .then(
+
+                        cache => {
+
+
+                            cache.put(
+
+                                request,
+
+                                responseClone
+
+                            );
 
                         }
 
-                        const clone = networkResponse.clone();
+                    );
 
-                        caches.open(CACHE_NAME)
 
-                            .then(cache => {
+                    return response;
 
-                                cache.put(request, clone);
+                }
 
-                            });
+            )
 
-                        return networkResponse;
+            .catch(
 
-                    });
+                () => {
 
-            })
 
-    );
+                    return caches.match(
 
-});
+                        request
 
-/*=========================================================
-    MESSAGE
-=========================================================*/
+                    )
 
-self.addEventListener("message", event => {
+                    .then(
 
-    if (event.data === "SKIP_WAITING") {
+                        cachedResponse => {
 
-        self.skipWaiting();
+
+                            return cachedResponse
+
+                                ||
+
+                                caches.match(
+
+                                    "./index.html"
+
+                                );
+
+                        }
+
+                    );
+
+                }
+
+            )
+
+        );
 
     }
 
-});
-
-console.log("Portfolio Service Worker Loaded");
+);
